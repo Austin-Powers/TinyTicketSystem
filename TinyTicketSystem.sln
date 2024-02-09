@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34322.80
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyTicketSystem", "TinyTicketSystem.csproj", "{20840D3C-7E98-4B44-A809-8DC27B484DDB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{20840D3C-7E98-4B44-A809-8DC27B484DDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20840D3C-7E98-4B44-A809-8DC27B484DDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20840D3C-7E98-4B44-A809-8DC27B484DDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20840D3C-7E98-4B44-A809-8DC27B484DDB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6A860C76-5D88-494B-B840-F2C2396FEBC4}
+	EndGlobalSection
+EndGlobal
