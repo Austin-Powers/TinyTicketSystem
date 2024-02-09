@@ -26,12 +26,12 @@ namespace TinyTicketSystem.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string WorkingDirectory {
+        public string TicketDirectory {
             get {
-                return ((string)(this["WorkingDirectory"]));
+                return ((string)(this["TicketDirectory"]));
             }
             set {
-                this["WorkingDirectory"] = value;
+                this["TicketDirectory"] = value;
             }
         }
     }

@@ -37,7 +37,7 @@
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newTicketToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setWorkingDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setTicketDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -118,7 +118,7 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newTicketToolStripMenuItem,
-            this.setWorkingDirectoryToolStripMenuItem});
+            this.setTicketDirectoryToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -126,16 +126,16 @@
             // newTicketToolStripMenuItem
             // 
             this.newTicketToolStripMenuItem.Name = "newTicketToolStripMenuItem";
-            this.newTicketToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.newTicketToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newTicketToolStripMenuItem.Text = "New Ticket";
             this.newTicketToolStripMenuItem.Click += new System.EventHandler(this.newTicketToolStripMenuItem_Click);
             // 
-            // setWorkingDirectoryToolStripMenuItem
+            // setTicketDirectoryToolStripMenuItem
             // 
-            this.setWorkingDirectoryToolStripMenuItem.Name = "setWorkingDirectoryToolStripMenuItem";
-            this.setWorkingDirectoryToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.setWorkingDirectoryToolStripMenuItem.Text = "Set Working Directory";
-            this.setWorkingDirectoryToolStripMenuItem.Click += new System.EventHandler(this.setWorkingDirectoryToolStripMenuItem_Click);
+            this.setTicketDirectoryToolStripMenuItem.Name = "setTicketDirectoryToolStripMenuItem";
+            this.setTicketDirectoryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.setTicketDirectoryToolStripMenuItem.Text = "Set Ticket Directory";
+            this.setTicketDirectoryToolStripMenuItem.Click += new System.EventHandler(this.setTicketDirectoryToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -185,7 +185,7 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn lastChangedColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn statusColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn tagsColumn;
-        private System.Windows.Forms.ToolStripMenuItem setWorkingDirectoryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem setTicketDirectoryToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
     }

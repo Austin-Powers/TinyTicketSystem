@@ -12,16 +12,16 @@ namespace TinyTicketSystem
 	/// </summary>
 	public class Model
 	{
-		private string _workingDirectory;
+		private string _TicketDirectory;
 
 		private readonly List<Ticket> _ticketList = new List<Ticket>();
 
 		public List<Ticket> TicketList {  get { return _ticketList; } }
 
-		public Model(string workingDirectory)
+		public Model(string TicketDirectory)
 		{
-			_workingDirectory = workingDirectory;
-			if (!Directory.Exists(_workingDirectory))
+			_TicketDirectory = TicketDirectory;
+			if (!Directory.Exists(_TicketDirectory))
 			{
 				throw new Exception("Directory does not exist");
 			}

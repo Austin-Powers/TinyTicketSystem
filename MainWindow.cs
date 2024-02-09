@@ -30,12 +30,12 @@ namespace TinyTicketSystem
             }
         }
 
-        private void setWorkingDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
+        private void setTicketDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
 			var dialog = new FolderBrowserDialog();
 			if (dialog.ShowDialog() == DialogResult.OK)
 			{
-				Properties.Settings.Default.WorkingDirectory = dialog.SelectedPath;
+				Properties.Settings.Default.TicketDirectory = dialog.SelectedPath;
 				Properties.Settings.Default.Save();
 				CreateModel();
             }
@@ -54,17 +54,17 @@ namespace TinyTicketSystem
 		{
 			try
 			{
-                _model = new Model(Properties.Settings.Default.WorkingDirectory);
+                _model = new Model(Properties.Settings.Default.TicketDirectory);
 				UpdateTable();
                 newTicketToolStripMenuItem.Enabled = true;
-				toolStripStatusLabel.Text = "Loaded tickets from " + Properties.Settings.Default.WorkingDirectory;
+				toolStripStatusLabel.Text = "Loaded tickets from " + Properties.Settings.Default.TicketDirectory;
             }
             catch (Exception)
 			{
 				_model = null;
 				dataGridView.Rows.Clear();
                 newTicketToolStripMenuItem.Enabled = false;
-				toolStripStatusLabel.Text = "Loading tickets from \"" + Properties.Settings.Default.WorkingDirectory + "\" failed";
+				toolStripStatusLabel.Text = "Loading tickets from \"" + Properties.Settings.Default.TicketDirectory + "\" failed";
             }
         }
 
