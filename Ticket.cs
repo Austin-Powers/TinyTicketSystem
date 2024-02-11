@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,9 @@ namespace TinyTicketSystem
 		/// <summary>
 		/// The identifier to tell tickets apart.
 		/// </summary>
-		public UInt32 ID { get; }
+		public uint ID { get; }
+
+		private readonly string _path;
 
 		private string _title;
 
@@ -23,18 +26,75 @@ namespace TinyTicketSystem
 		/// </summary>
 		public string Title { get { return _title ?? ""; } set { _title = value; } }
 
-		private string _details;
+		private DateTime _lastChanged;
 
 		/// <summary>
-		/// The details of the ticket.
+		/// The timestamp of the last change to the ticket.
 		/// </summary>
-		public string Details { get { return _details ?? ""; } set { _details = value; } }
+		public DateTime LastChanged { get { return _lastChanged; } }
 
-		private readonly List<UInt32> _idsOfTicketsBlockingThisOne = new List<UInt32>();
+		private bool _status;
 
-		public Ticket(UInt32 id) {  ID = id; }
+		/// <summary>
+		/// The status of the ticket, Open or Closed.
+		/// </summary>
+		public string Status { get { return _status ? "open" : "closed"; } set { _status = value.ToLower().Equals("open"); } }
 
-		public int CompareTo(Ticket other)
+		private readonly List<string> _tags = new List<string>();
+
+		/// <summary>
+		/// Returns the list of all tags of this ticket, tags can be used to group tickets.
+		/// </summary>
+		public List<string> Tags { get { return _tags; } }
+
+		private readonly List<uint> _idsOfTicketsBlockingThisTicket = new List<uint>();
+
+		/// <summary>
+		/// Returns the list of identifiers of all tickets blocking this ticket.
+		/// </summary>
+		public List<uint> IDsOfTicketsBlockingThisTicket { get { return _idsOfTicketsBlockingThisTicket; } }
+
+        private string _details;
+
+        /// <summary>
+        /// The details of the ticket.
+        /// </summary>
+        public string Details { get { return _details ?? ""; } set { _details = value; } }
+
+        /// <summary>
+        /// Initializes a new ticket object, with the given ID loading it from the ticket directory if the corresponding file exists.
+        /// </summary>
+        /// <param name="ticketDirectory">The ticket directory currently used by the model.</param>
+        /// <param name="id">The id of this ticket.</param>
+        public Ticket(string ticketDirectory, uint id)
+		{
+			ID = id;
+			var subDirNumber = 100;
+			while (subDirNumber < ID)
+			{
+				subDirNumber += 100;
+			}
+			_path = Path.Combine(ticketDirectory, subDirNumber.ToString(), ID.ToString() + ".md");
+			if (File.Exists(_path))
+			{
+				_lastChanged = File.GetLastWriteTime(_path);
+				throw new NotImplementedException();
+            }
+            else
+			{
+                _lastChanged = DateTime.Now;
+            }
+        }
+
+		/// <summary>
+		/// Save changes to this ticket to the file, if there are any.
+		/// </summary>
+		public void SaveChanges()
+		{
+            throw new NotImplementedException();
+        }
+
+        public int CompareTo(Ticket other)
 		{
 			if (other == null)
 			{

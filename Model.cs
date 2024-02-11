@@ -12,7 +12,7 @@ namespace TinyTicketSystem
 	/// </summary>
 	public class Model
 	{
-		private string _TicketDirectory;
+		private string _ticketDirectory;
 
 		private readonly List<Ticket> _ticketList = new List<Ticket>();
 
@@ -20,8 +20,8 @@ namespace TinyTicketSystem
 
 		public Model(string TicketDirectory)
 		{
-			_TicketDirectory = TicketDirectory;
-			if (!Directory.Exists(_TicketDirectory))
+			_ticketDirectory = TicketDirectory;
+			if (!Directory.Exists(_ticketDirectory))
 			{
 				throw new Exception("Directory does not exist");
 			}
@@ -40,7 +40,7 @@ namespace TinyTicketSystem
 				}
 				break;
 			}
-			_ticketList.Add(new Ticket(newID));
+			_ticketList.Add(new Ticket(_ticketDirectory, newID));
 		}
 	}
 }
