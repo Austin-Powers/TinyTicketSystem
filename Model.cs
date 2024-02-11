@@ -12,7 +12,9 @@ namespace TinyTicketSystem
 	/// </summary>
 	public class Model
 	{
-		private string _ticketDirectory;
+		private readonly string _ticketDirectory;
+
+		private uint _nextId = 0U;
 
 		private readonly List<Ticket> _ticketList = new List<Ticket>();
 
@@ -25,22 +27,88 @@ namespace TinyTicketSystem
 			{
 				throw new Exception("Directory does not exist");
 			}
+
+			var indexFilepath = Path.Combine(_ticketDirectory, "index.md");
+			if(File.Exists(indexFilepath))
+			{
+				FileStream fs = null;
+				StreamReader sr = null;
+				try
+				{
+					fs = new FileStream(indexFilepath, FileMode.Open);
+					sr = new StreamReader(fs);
+
+					while (sr.Peek() != -1)
+					{
+						var line = sr.ReadLine();
+						var offset = line.IndexOf('[');
+						var length = line.IndexOf(']') - offset;
+						AddTicket(uint.Parse(line.Substring(offset, length)));
+					}
+				}
+				catch (Exception e)
+				{
+					throw e;
+				}
+				finally
+				{
+					sr?.Close();
+					fs?.Close();
+				}
+			}
 		}
 
+		/// <summary>
+		/// Adds a new empty ticket using the next available id.
+		/// </summary>
+		/// <remarks>
+		/// This method may discover tickets that already exist in the folder,
+		/// those tickets will be added to the model.
+		/// </remarks>
 		public void AddEmptyTicket()
 		{
-			_ticketList.Sort();
-			UInt32 newID = 0;
-			foreach (var ticket in _ticketList)
+			var newTicket = AddTicket(NextUnusedID());
+			while (!newTicket.Empty())
 			{
-				if (newID == ticket.ID)
-				{
-					++newID;
-					continue;
-				}
-				break;
-			}
-			_ticketList.Add(new Ticket(_ticketDirectory, newID));
+                newTicket = AddTicket(NextUnusedID());
+            }
 		}
-	}
+
+		private uint NextUnusedID()
+		{
+            if (_ticketList.Count == (_nextId + 1U))
+            {
+                // average case where the ids are continuous
+                ++_nextId;
+            }
+            else if (_ticketList.Count == 0U)
+			{
+				// edge case if the ticket list is empty
+                _nextId = 0U;
+			}
+            else
+			{
+				// edge case where deletion caused a hole in the ids
+				_ticketList.Sort();
+				_nextId = 0U;
+				foreach (var ticket in _ticketList)
+				{
+					if (ticket.ID == _nextId)
+					{
+						++_nextId;
+						continue;
+					}
+					break;
+				}
+            }
+            return _nextId;
+		}
+
+		private Ticket AddTicket(uint id)
+		{
+			var ticket = new Ticket(_ticketDirectory, id);
+            _ticketList.Add(ticket);
+			return ticket;
+        }
+    }
 }

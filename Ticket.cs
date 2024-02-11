@@ -98,9 +98,18 @@ namespace TinyTicketSystem
         }
 
 		/// <summary>
-		/// Save changes to this ticket to the file, if there are any.
+		/// Checks if the ticket does not contain any information.
 		/// </summary>
-		public void SaveChanges()
+		/// <returns>True if the ticket is empty, false otherwise.</returns>
+		public bool Empty()
+		{
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Save changes to this ticket to the file, if there are any.
+        /// </summary>
+        public void SaveChanges()
 		{
             throw new NotImplementedException();
         }

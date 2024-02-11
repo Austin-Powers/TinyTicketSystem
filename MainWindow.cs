@@ -59,12 +59,12 @@ namespace TinyTicketSystem
                 newTicketToolStripMenuItem.Enabled = true;
 				toolStripStatusLabel.Text = "Loaded tickets from " + Properties.Settings.Default.TicketDirectory;
             }
-            catch (Exception)
+            catch (Exception e)
 			{
 				_model = null;
 				dataGridView.Rows.Clear();
                 newTicketToolStripMenuItem.Enabled = false;
-				toolStripStatusLabel.Text = "Loading tickets from \"" + Properties.Settings.Default.TicketDirectory + "\" failed";
+				toolStripStatusLabel.Text = "Loading tickets from \"" + Properties.Settings.Default.TicketDirectory + "\" failed: " + e.Message;
             }
         }
 
