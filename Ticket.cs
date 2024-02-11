@@ -13,6 +13,22 @@ namespace TinyTicketSystem
 	public class Ticket : IComparable<Ticket>
 	{
 		/// <summary>
+		/// Creates the filepath for the given parameters.
+		/// </summary>
+		/// <param name="ticketDirectory">The ticket directory all tickets are stored in.</param>
+		/// <param name="id">The id of the ticket.</param>
+		/// <returns>The path of the ticket.</returns>
+		public static string CreateFilePath(string ticketDirectory, uint id)
+		{
+            var subDirNumber = 100;
+            while (subDirNumber < id)
+            {
+                subDirNumber += 100;
+            }
+            return Path.Combine(ticketDirectory, subDirNumber.ToString(), id.ToString() + ".md");
+        }
+
+		/// <summary>
 		/// The identifier to tell tickets apart.
 		/// </summary>
 		public uint ID { get; }
@@ -69,12 +85,7 @@ namespace TinyTicketSystem
         public Ticket(string ticketDirectory, uint id)
 		{
 			ID = id;
-			var subDirNumber = 100;
-			while (subDirNumber < ID)
-			{
-				subDirNumber += 100;
-			}
-			_path = Path.Combine(ticketDirectory, subDirNumber.ToString(), ID.ToString() + ".md");
+			_path = CreateFilePath(ticketDirectory, id);
 			if (File.Exists(_path))
 			{
 				_lastChanged = File.GetLastWriteTime(_path);
