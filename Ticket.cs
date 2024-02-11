@@ -102,7 +102,23 @@ namespace TinyTicketSystem
 		/// <returns>True if the ticket is empty, false otherwise.</returns>
 		public bool Empty()
 		{
-            throw new NotImplementedException();
+			if (Title.Length != 0)
+			{
+				return false;
+			}
+			if (Details.Length != 0)
+			{
+				return false;
+			}
+			if (IDsOfTicketsBlockingThisTicket.Count != 0)
+			{
+				return false;
+			}
+			if (Tags.Count != 0)
+			{
+				return false;
+			}
+			return true;
         }
 
         /// <summary>

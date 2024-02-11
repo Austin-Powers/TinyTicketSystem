@@ -30,6 +30,7 @@ namespace TinyTicketSystem
 					_model.AddEmptyTicket();
 					UpdateTable();
 				}
+				DisplayInfo("Created new Ticket");
 			}
 			catch (Exception ex)
 			{
