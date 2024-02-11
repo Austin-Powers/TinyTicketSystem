@@ -23,31 +23,45 @@ namespace TinyTicketSystem
 
 		private void newTicketToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			if(_model != null)
+			try
 			{
-				_model.AddEmptyTicket();
-				UpdateTable();
+				if(_model != null)
+				{
+					_model.AddEmptyTicket();
+					UpdateTable();
+				}
+			}
+			catch (Exception ex)
+			{
+				DisplayError("Error during creation of new Ticket: " + ex.Message);
             }
         }
 
         private void setTicketDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-			var dialog = new FolderBrowserDialog();
-			if (dialog.ShowDialog() == DialogResult.OK)
+			try
 			{
-				Properties.Settings.Default.TicketDirectory = dialog.SelectedPath;
-				Properties.Settings.Default.Save();
-				CreateModel();
+				var dialog = new FolderBrowserDialog();
+				if (dialog.ShowDialog() == DialogResult.OK)
+				{
+					Properties.Settings.Default.TicketDirectory = dialog.SelectedPath;
+					Properties.Settings.Default.Save();
+					CreateModel();
+				}
+			}
+			catch (Exception ex)
+			{
+                DisplayError("Error when setting new ticket directory: " + ex.Message);
             }
         }
 
         private void dataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
 		{
 			var ticketNumber = dataGridView.Rows[e.RowIndex].Cells[0].Value;
-            toolStripStatusLabel.Text = "Editing ticket " + ticketNumber;
+			DisplayInfo("Editing ticket " + ticketNumber);
             var ticketView = new TicketWindow(_model, Convert.ToUInt32(ticketNumber));
 			ticketView.ShowDialog(this);
-            toolStripStatusLabel.Text = "Ticket " + ticketNumber + " saved";
+            DisplayInfo("Ticket " + ticketNumber + " saved");
         }
 
         private void CreateModel()
@@ -57,14 +71,14 @@ namespace TinyTicketSystem
                 _model = new Model(Properties.Settings.Default.TicketDirectory);
 				UpdateTable();
                 newTicketToolStripMenuItem.Enabled = true;
-				toolStripStatusLabel.Text = "Loaded tickets from " + Properties.Settings.Default.TicketDirectory;
+				DisplayInfo("Loaded tickets from " + Properties.Settings.Default.TicketDirectory);
             }
-            catch (Exception e)
+            catch (Exception ex)
 			{
 				_model = null;
 				dataGridView.Rows.Clear();
                 newTicketToolStripMenuItem.Enabled = false;
-				toolStripStatusLabel.Text = "Loading tickets from \"" + Properties.Settings.Default.TicketDirectory + "\" failed: " + e.Message;
+				DisplayError("Loading tickets from \"" + Properties.Settings.Default.TicketDirectory + "\" failed: " + ex.Message);
             }
         }
 
@@ -74,13 +88,45 @@ namespace TinyTicketSystem
 			foreach(var ticket in _model.TicketList)
 			{
 				var row = new DataGridViewRow();
-				var cell = new DataGridViewTextBoxCell
+				row.Cells.Add(new DataGridViewTextBoxCell
+                {
+                    Value = ticket.ID
+                });
+				row.Cells.Add(new DataGridViewTextBoxCell
+                {
+                    Value = ticket.Title
+                });
+				row.Cells.Add(new DataGridViewTextBoxCell
 				{
-					Value = ticket.ID
-				};
-				row.Cells.Add(cell);
+					Value = ticket.LastChanged.ToString()
+				});
+				row.Cells.Add(new DataGridViewTextBoxCell
+				{
+					Value = ticket.Status
+				});
+				var tagsString = "";
+				foreach(var tag in ticket.Tags)
+				{
+					tagsString += (tag + " ");
+				}
+				row.Cells.Add(new DataGridViewTextBoxCell
+				{
+					Value = tagsString
+				});
 				dataGridView.Rows.Add(row);
 			}
 		}
+
+		private void DisplayInfo(string info)
+		{
+            toolStripStatusLabel.Text = info;
+            toolStripStatusLabel.ForeColor = Color.Black;
+        }
+
+		private void DisplayError(string error)
+		{
+            toolStripStatusLabel.Text = error;
+            toolStripStatusLabel.ForeColor = Color.Red;
+        }
     }
 }

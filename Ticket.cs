@@ -89,7 +89,6 @@ namespace TinyTicketSystem
 			if (File.Exists(_path))
 			{
 				_lastChanged = File.GetLastWriteTime(_path);
-				throw new NotImplementedException();
             }
             else
 			{
