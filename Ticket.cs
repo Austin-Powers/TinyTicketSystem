@@ -29,9 +29,13 @@ namespace TinyTicketSystem
             return Path.Combine(ticketDirectory, subDirNumber.ToString(), id.ToString() + ".md");
         }
 
-		private static string OpenString = " - `open`";
+		private static readonly string TitleString = "# ";
 
-		private static string ClosedString = " - `closed`";
+		private static readonly string OpenString = " - `open`";
+
+		private static readonly string ClosedString = " - `closed`";
+
+		private static readonly string BlockByString = "__Blocked by__ ";
 
 		/// <summary>
 		/// The identifier to tell tickets apart.
@@ -131,23 +135,23 @@ namespace TinyTicketSystem
         private void ProcessTitleLine(string line)
 		{
 			// # Title - `status`
-			if (!line.StartsWith("# "))
+			if (!line.StartsWith(TitleString))
 			{
-				throw new FormatException("First line does not start with \"# \"");
+				throw new FormatException("First line does not start with \"" + TitleString + "\": " + _path);
 			}
 			if (line.EndsWith(OpenString))
 			{
 				_status = true;
-				_title = line.Substring(2, line.Length - 2 - OpenString.Length);
+				_title = line.Substring(2, line.Length - TitleString.Length - OpenString.Length);
 			}
 			else if (line.EndsWith(ClosedString))
 			{
                 _status = false;
-				_title = line.Substring(2, line.Length - 2 - ClosedString.Length);
+				_title = line.Substring(2, line.Length - TitleString.Length - ClosedString.Length);
             }
             else
 			{
-				throw new FormatException("First line does end on a known status");
+				throw new FormatException("First line does end on a known status: " + _path);
             }
 
         }
@@ -155,8 +159,7 @@ namespace TinyTicketSystem
 		private void ProcessTagLine(string line)
 		{
             // `tag0` `tag1` `tag2` ...
-			var parts = line.Split('`');
-			foreach (var part in parts)
+			foreach (var part in line.Split('`'))
 			{
 				var trimed = part.Trim();
 				if (trimed.Length != 0)
@@ -170,13 +173,26 @@ namespace TinyTicketSystem
             // 
 			if (line.Trim().Length != 0)
 			{
-                throw new FormatException("Expected Empty line");
+                throw new FormatException("Expected Empty line: " + _path);
             }
         }
 
         private void ProcessBlockedByLine(string line)
         {
             // __Blocked by__ [0](../100/0.md) ...
+			if (!line.StartsWith(BlockByString))
+			{
+                throw new FormatException("Fourth line does not start with \"" + BlockByString + "\" : " + _path);
+            }
+			var number = false;
+			foreach (var part in line.Split('[', ']'))
+			{
+				if (number)
+				{
+					_idsOfTicketsBlockingThisTicket.Add(uint.Parse(part));
+				}
+				number = !number;
+			}
         }
 
         private void ProcessDetailsHeaderLine(string line)
