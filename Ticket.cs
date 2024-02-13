@@ -37,6 +37,8 @@ namespace TinyTicketSystem
 
 		private static readonly string BlockByString = "__Blocked by__ ";
 
+		private static readonly string DetailsString = "## Details";
+
 		/// <summary>
 		/// The identifier to tell tickets apart.
 		/// </summary>
@@ -198,11 +200,16 @@ namespace TinyTicketSystem
         private void ProcessDetailsHeaderLine(string line)
         {
             // ## Details
+            if (!line.Equals(DetailsString))
+            {
+                throw new FormatException("Expected line six to be \"" + DetailsString + "\": " + _path);
+            }
         }
 
         private void ProcessDetailsLine(string line)
         {
 			// ...
+			_details += line + "\n";
         }
 
         /// <summary>
