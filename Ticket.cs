@@ -168,6 +168,10 @@ namespace TinyTicketSystem
         private void ProcessLineEmpty(string line)
         {
             // 
+			if (line.Trim().Length != 0)
+			{
+                throw new FormatException("Expected Empty line");
+            }
         }
 
         private void ProcessBlockedByLine(string line)
