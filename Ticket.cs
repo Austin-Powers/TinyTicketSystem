@@ -155,6 +155,15 @@ namespace TinyTicketSystem
 		private void ProcessTagLine(string line)
 		{
             // `tag0` `tag1` `tag2` ...
+			var parts = line.Split('`');
+			foreach (var part in parts)
+			{
+				var trimed = part.Trim();
+				if (trimed.Length != 0)
+				{
+                    _tags.Add(part.Trim());
+                }
+            }
         }
         private void ProcessLineEmpty(string line)
         {
