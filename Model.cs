@@ -42,7 +42,7 @@ namespace TinyTicketSystem
 					{
 						var line = sr.ReadLine();
 						var offset = line.IndexOf('[') + 1;
-						var length = line.IndexOf(']') - offset;
+						var length = line.IndexOf(' ') - offset;
 						var idString = line.Substring(offset, length);
 						AddTicket(uint.Parse(line.Substring(offset, length)));
 					}
