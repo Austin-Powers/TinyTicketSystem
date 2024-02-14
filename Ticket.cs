@@ -116,6 +116,7 @@ namespace TinyTicketSystem
 					{
 						ProcessDetailsLine(sr.ReadLine());
 					}
+					_details = _details.Trim();
                 }
                 catch (Exception ex)
 				{
@@ -238,10 +239,11 @@ namespace TinyTicketSystem
         }
 
         /// <summary>
-        /// Save changes to this ticket to the file, if there are any.
+        /// Save ticket to the file.
         /// </summary>
-        public void SaveChanges()
+        public void Save()
 		{
+			_lastChanged = DateTime.Now;
             throw new NotImplementedException();
         }
 
