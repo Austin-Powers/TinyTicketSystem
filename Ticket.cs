@@ -244,7 +244,49 @@ namespace TinyTicketSystem
         public void Save()
 		{
 			_lastChanged = DateTime.Now;
-            throw new NotImplementedException();
+            FileStream fs = null;
+            StreamWriter sw = null;
+            try
+            {
+                fs = new FileStream(_path, FileMode.OpenOrCreate);
+                sw = new StreamWriter(fs);
+				sw.WriteLine(TitleString + _title + (_status ? OpenString : ClosedString));
+				sw.WriteLine(CreateTagsString());
+				sw.WriteLine();
+				sw.WriteLine(CreateBlockedByString());
+				sw.WriteLine();
+				sw.WriteLine(DetailsString);
+				sw.WriteLine(_details.Trim());
+            }
+            catch (Exception ex)
+            {
+				throw ex;
+            }
+            finally
+            {
+                sw?.Close();
+                fs?.Close();
+            }
+        }
+
+		private string CreateTagsString()
+		{
+			string result = "";
+			foreach (var tag in _tags)
+			{
+				result += "`" + tag + "` ";
+			}
+			return result.Trim();
+        }
+
+		private string CreateBlockedByString()
+		{
+			string result = BlockByString;
+			foreach (var id in _idsOfTicketsBlockingThisTicket)
+			{
+				result += "[" + id + "](" + CreateFilePath("..", id) + ") ";
+			}
+			return result.Trim();
         }
 
         public int CompareTo(Ticket other)
