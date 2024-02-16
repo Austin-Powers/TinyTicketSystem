@@ -15,11 +15,18 @@ namespace TinyTicketSystem
 		public TicketWindow(Model model, UInt32 ticketID)
 		{
 			InitializeComponent();
+			blockingTicketsListBox.ContextMenuStrip = blockingIdsCMS;
+            tagsListBox.ContextMenuStrip = tagsCMS;
 		}
 
         private void openCloseButton_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void blockingTicketsListBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            blockingTicketsListBox.Items.Add(e.KeyChar);
         }
     }
 }

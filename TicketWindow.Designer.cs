@@ -28,17 +28,29 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+            this.components = new System.ComponentModel.Container();
             this.mainSplit = new System.Windows.Forms.SplitContainer();
             this.additionalInfoSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.openCloseButton = new System.Windows.Forms.Button();
+            this.blockingTicketsListBox = new System.Windows.Forms.ListBox();
+            this.closeReopenButton = new System.Windows.Forms.Button();
             this.detailsTextBox = new System.Windows.Forms.TextBox();
             this.titleTextBox = new System.Windows.Forms.TextBox();
+            this.blockingIdsCMS = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.removeTicketTSMI = new System.Windows.Forms.ToolStripMenuItem();
+            this.tagsCMS = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.removeTagTSMI = new System.Windows.Forms.ToolStripMenuItem();
+            this.newTagTextBox = new System.Windows.Forms.TextBox();
+            this.tagsListBox = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplit)).BeginInit();
             this.mainSplit.Panel1.SuspendLayout();
             this.mainSplit.Panel2.SuspendLayout();
             this.mainSplit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.additionalInfoSplitContainer)).BeginInit();
+            this.additionalInfoSplitContainer.Panel1.SuspendLayout();
+            this.additionalInfoSplitContainer.Panel2.SuspendLayout();
             this.additionalInfoSplitContainer.SuspendLayout();
+            this.blockingIdsCMS.SuspendLayout();
+            this.tagsCMS.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainSplit
@@ -50,7 +62,7 @@
             // mainSplit.Panel1
             // 
             this.mainSplit.Panel1.Controls.Add(this.additionalInfoSplitContainer);
-            this.mainSplit.Panel1.Controls.Add(this.openCloseButton);
+            this.mainSplit.Panel1.Controls.Add(this.closeReopenButton);
             // 
             // mainSplit.Panel2
             // 
@@ -66,20 +78,39 @@
             this.additionalInfoSplitContainer.Location = new System.Drawing.Point(0, 26);
             this.additionalInfoSplitContainer.Name = "additionalInfoSplitContainer";
             this.additionalInfoSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // additionalInfoSplitContainer.Panel1
+            // 
+            this.additionalInfoSplitContainer.Panel1.Controls.Add(this.blockingTicketsListBox);
+            // 
+            // additionalInfoSplitContainer.Panel2
+            // 
+            this.additionalInfoSplitContainer.Panel2.Controls.Add(this.tagsListBox);
+            this.additionalInfoSplitContainer.Panel2.Controls.Add(this.newTagTextBox);
             this.additionalInfoSplitContainer.Size = new System.Drawing.Size(261, 535);
             this.additionalInfoSplitContainer.SplitterDistance = 246;
             this.additionalInfoSplitContainer.TabIndex = 1;
             // 
-            // openCloseButton
+            // blockingTicketsListBox
             // 
-            this.openCloseButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.openCloseButton.Location = new System.Drawing.Point(0, 0);
-            this.openCloseButton.Name = "openCloseButton";
-            this.openCloseButton.Size = new System.Drawing.Size(261, 26);
-            this.openCloseButton.TabIndex = 0;
-            this.openCloseButton.Text = "Close";
-            this.openCloseButton.UseVisualStyleBackColor = true;
-            this.openCloseButton.Click += new System.EventHandler(this.openCloseButton_Click);
+            this.blockingTicketsListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.blockingTicketsListBox.FormattingEnabled = true;
+            this.blockingTicketsListBox.Location = new System.Drawing.Point(0, 0);
+            this.blockingTicketsListBox.Name = "blockingTicketsListBox";
+            this.blockingTicketsListBox.Size = new System.Drawing.Size(261, 246);
+            this.blockingTicketsListBox.TabIndex = 0;
+            this.blockingTicketsListBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.blockingTicketsListBox_KeyPress);
+            // 
+            // closeReopenButton
+            // 
+            this.closeReopenButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.closeReopenButton.Location = new System.Drawing.Point(0, 0);
+            this.closeReopenButton.Name = "closeReopenButton";
+            this.closeReopenButton.Size = new System.Drawing.Size(261, 26);
+            this.closeReopenButton.TabIndex = 0;
+            this.closeReopenButton.Text = "Close";
+            this.closeReopenButton.UseVisualStyleBackColor = true;
+            this.closeReopenButton.Click += new System.EventHandler(this.openCloseButton_Click);
             // 
             // detailsTextBox
             // 
@@ -103,6 +134,51 @@
             this.titleTextBox.TabIndex = 0;
             this.titleTextBox.Text = "Title";
             // 
+            // blockingIdsCMS
+            // 
+            this.blockingIdsCMS.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeTicketTSMI});
+            this.blockingIdsCMS.Name = "contextMenuStrip1";
+            this.blockingIdsCMS.Size = new System.Drawing.Size(118, 26);
+            // 
+            // removeTicketTSMI
+            // 
+            this.removeTicketTSMI.Name = "removeTicketTSMI";
+            this.removeTicketTSMI.Size = new System.Drawing.Size(117, 22);
+            this.removeTicketTSMI.Text = "Remove";
+            // 
+            // tagsCMS
+            // 
+            this.tagsCMS.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeTagTSMI});
+            this.tagsCMS.Name = "tagsCMS";
+            this.tagsCMS.Size = new System.Drawing.Size(118, 26);
+            // 
+            // removeTagTSMI
+            // 
+            this.removeTagTSMI.Name = "removeTagTSMI";
+            this.removeTagTSMI.Size = new System.Drawing.Size(117, 22);
+            this.removeTagTSMI.Text = "Remove";
+            // 
+            // newTagTextBox
+            // 
+            this.newTagTextBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.newTagTextBox.ForeColor = System.Drawing.SystemColors.InactiveCaption;
+            this.newTagTextBox.Location = new System.Drawing.Point(0, 265);
+            this.newTagTextBox.Name = "newTagTextBox";
+            this.newTagTextBox.Size = new System.Drawing.Size(261, 20);
+            this.newTagTextBox.TabIndex = 0;
+            this.newTagTextBox.Text = "New Tag";
+            // 
+            // tagsListBox
+            // 
+            this.tagsListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tagsListBox.FormattingEnabled = true;
+            this.tagsListBox.Location = new System.Drawing.Point(0, 0);
+            this.tagsListBox.Name = "tagsListBox";
+            this.tagsListBox.Size = new System.Drawing.Size(261, 265);
+            this.tagsListBox.TabIndex = 1;
+            // 
             // TicketWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -116,8 +192,13 @@
             this.mainSplit.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplit)).EndInit();
             this.mainSplit.ResumeLayout(false);
+            this.additionalInfoSplitContainer.Panel1.ResumeLayout(false);
+            this.additionalInfoSplitContainer.Panel2.ResumeLayout(false);
+            this.additionalInfoSplitContainer.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.additionalInfoSplitContainer)).EndInit();
             this.additionalInfoSplitContainer.ResumeLayout(false);
+            this.blockingIdsCMS.ResumeLayout(false);
+            this.tagsCMS.ResumeLayout(false);
             this.ResumeLayout(false);
 
 		}
@@ -127,7 +208,14 @@
 		private System.Windows.Forms.SplitContainer mainSplit;
 		private System.Windows.Forms.TextBox detailsTextBox;
 		private System.Windows.Forms.TextBox titleTextBox;
-		private System.Windows.Forms.Button openCloseButton;
+		private System.Windows.Forms.Button closeReopenButton;
 		private System.Windows.Forms.SplitContainer additionalInfoSplitContainer;
-	}
+        private System.Windows.Forms.ListBox blockingTicketsListBox;
+        private System.Windows.Forms.ContextMenuStrip blockingIdsCMS;
+        private System.Windows.Forms.ToolStripMenuItem removeTicketTSMI;
+        private System.Windows.Forms.ContextMenuStrip tagsCMS;
+        private System.Windows.Forms.ToolStripMenuItem removeTagTSMI;
+        private System.Windows.Forms.TextBox newTagTextBox;
+        private System.Windows.Forms.ListBox tagsListBox;
+    }
 }
