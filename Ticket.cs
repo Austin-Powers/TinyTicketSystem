@@ -112,6 +112,7 @@ namespace TinyTicketSystem
 					ProcessBlockedByLine(sr.ReadLine());
 					ProcessLineEmpty(sr.ReadLine());
                     ProcessDetailsHeaderLine(sr.ReadLine());
+					_details = "";
 					while (sr.Peek() != -1)
 					{
 						ProcessDetailsLine(sr.ReadLine());
