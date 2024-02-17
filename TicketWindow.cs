@@ -29,6 +29,7 @@ namespace TinyTicketSystem
 			_ticket = model.GetTicket(ticketID);
 			titleTextBox.Text = _ticket.Title;
 			detailsTextBox.Text = _ticket.Details;
+			UpdateStatus();
 			UpdateTitle();
 			UpdateDetails();
 		}
@@ -41,15 +42,25 @@ namespace TinyTicketSystem
 			_ticket.Save();
 		}
 
-		private void openCloseButton_Click(object sender, EventArgs e)
+		#region Status
+		private void closeReopenButton_Click(object sender, EventArgs e)
         {
+			_ticket.Closed = !_ticket.Closed;
 			UpdateStatus();
         }
 
 		private void UpdateStatus()
 		{
-
+			if (_ticket.Closed)
+			{
+				closeReopenButton.Text = "Reopen";
+			}
+			else
+			{
+				closeReopenButton.Text = "Close";
+			}
 		}
+		#endregion
 
 		#region Title
 		private void titleTextBox_Enter(object sender, EventArgs e)

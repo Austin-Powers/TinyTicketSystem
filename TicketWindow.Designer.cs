@@ -128,7 +128,7 @@
 			this.closeReopenButton.TabIndex = 0;
 			this.closeReopenButton.Text = "Close";
 			this.closeReopenButton.UseVisualStyleBackColor = true;
-			this.closeReopenButton.Click += new System.EventHandler(this.openCloseButton_Click);
+			this.closeReopenButton.Click += new System.EventHandler(this.closeReopenButton_Click);
 			// 
 			// detailsTextBox
 			// 
