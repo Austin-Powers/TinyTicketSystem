@@ -108,9 +108,9 @@ namespace TinyTicketSystem
 					sr = new StreamReader(fs);
                     ProcessTitleLine(sr.ReadLine());
                     ProcessTagLine(sr.ReadLine());
-					ProcessLineEmpty(sr.ReadLine());
+					ProcessLineEmpty(sr.ReadLine(), 3U);
 					ProcessBlockedByLine(sr.ReadLine());
-					ProcessLineEmpty(sr.ReadLine());
+					ProcessLineEmpty(sr.ReadLine(), 5U);
                     ProcessDetailsHeaderLine(sr.ReadLine());
 					_details = "";
 					while (sr.Peek() != -1)
@@ -139,6 +139,10 @@ namespace TinyTicketSystem
         private void ProcessTitleLine(string line)
 		{
 			// # Title - `status`
+			if (line == null)
+			{
+				throw new FormatException("Line 1 missing: " + _path);
+			}
 			if (!line.StartsWith(TitleString))
 			{
 				throw new FormatException("First line does not start with \"" + TitleString + "\": " + _path);
@@ -162,7 +166,11 @@ namespace TinyTicketSystem
 
 		private void ProcessTagLine(string line)
 		{
-            // `tag0` `tag1` `tag2` ...
+			// `tag0` `tag1` `tag2` ...
+			if (line == null)
+			{
+				throw new FormatException("Line 2 missing: " + _path);
+			}
 			foreach (var part in line.Split('`'))
 			{
 				var trimed = part.Trim();
@@ -172,18 +180,26 @@ namespace TinyTicketSystem
                 }
             }
         }
-        private void ProcessLineEmpty(string line)
+        private void ProcessLineEmpty(string line, uint number)
         {
-            // 
+			// 
+			if (line == null)
+			{
+				throw new FormatException("Line " + number + " missing: " + _path);
+			}
 			if (line.Trim().Length != 0)
 			{
-                throw new FormatException("Expected Empty line: " + _path);
+                throw new FormatException("Expected line " + number + " to be empty: " + _path);
             }
         }
 
         private void ProcessBlockedByLine(string line)
         {
-            // __Blocked by__ [0](../100/0.md) ...
+			// __Blocked by__ [0](../100/0.md) ...
+			if (line == null)
+			{
+				throw new FormatException("Line 4 missing: " + _path);
+			}
 			if (!line.StartsWith(BlockByString))
 			{
                 throw new FormatException("Fourth line does not start with \"" + BlockByString + "\" : " + _path);
@@ -201,8 +217,12 @@ namespace TinyTicketSystem
 
         private void ProcessDetailsHeaderLine(string line)
         {
-            // ## Details
-            if (!line.Equals(DetailsString))
+			// ## Details
+			if (line == null)
+			{
+				throw new FormatException("Line 6 missing: " + _path);
+			}
+			if (!line.Equals(DetailsString))
             {
                 throw new FormatException("Expected line six to be \"" + DetailsString + "\": " + _path);
             }
@@ -211,8 +231,11 @@ namespace TinyTicketSystem
         private void ProcessDetailsLine(string line)
         {
 			// ...
-			_details += line + "\n";
-        }
+			if (line != null)
+			{
+				_details += line + "\n";
+			}
+		}
 
         /// <summary>
         /// Checks if the ticket does not contain any information.
@@ -258,7 +281,7 @@ namespace TinyTicketSystem
 				sw.WriteLine(CreateBlockedByString());
 				sw.WriteLine();
 				sw.WriteLine(DetailsString);
-				sw.WriteLine(_details.Trim());
+				sw.WriteLine(Details.Trim());
             }
             catch (Exception ex)
             {
