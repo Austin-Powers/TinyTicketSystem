@@ -249,6 +249,7 @@ namespace TinyTicketSystem
             StreamWriter sw = null;
             try
             {
+				Directory.CreateDirectory(Path.GetDirectoryName(_path));
                 fs = new FileStream(_path, FileMode.OpenOrCreate);
                 sw = new StreamWriter(fs);
 				sw.WriteLine(TitleString + _title + (_status ? OpenString : ClosedString));
