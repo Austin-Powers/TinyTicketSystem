@@ -86,8 +86,9 @@ namespace TinyTicketSystem
 		private void UpdateTable()
 		{
 			dataGridView.Rows.Clear();
-			foreach(var ticket in _model.TicketList)
+			foreach(var id in _model.TicketIds)
 			{
+				var ticket = _model.GetTicket(id);
 				var row = new DataGridViewRow();
 				row.Cells.Add(new DataGridViewTextBoxCell
                 {

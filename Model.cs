@@ -18,9 +18,14 @@ namespace TinyTicketSystem
 
 		private uint _nextId = 0U;
 
-		private readonly List<Ticket> _ticketList = new List<Ticket>();
+		private readonly Dictionary<uint, Ticket> _tickets = new Dictionary<uint, Ticket>();
 
-		public List<Ticket> TicketList {  get { return _ticketList; } }
+		public List<uint> TicketIds {  get { return _tickets.Keys.ToList(); } }
+
+		public Ticket GetTicket(uint ticketId)
+		{
+			return _tickets[ticketId];
+		}
 
 		public Model(string TicketDirectory)
 		{
@@ -89,10 +94,10 @@ namespace TinyTicketSystem
 				var path = Path.Combine(_ticketDirectory, IndexFileName);
 				fs = new FileStream(path, FileMode.OpenOrCreate);
 				sw = new StreamWriter(fs);
-				foreach (var ticket in _ticketList)
+				foreach (var key in _tickets.Keys)
 				{
-					var line = "[" + ticket.ID + " " + ticket.Title + "](";
-					line += Ticket.CreateFilePath(".", ticket.ID) + ")";
+					var line = "[" + _tickets[key].ID + " " + _tickets[key].Title + "](";
+					line += Ticket.CreateFilePath(".", _tickets[key].ID) + ")";
 					sw.WriteLine(line);
 				}
 			}
@@ -109,12 +114,12 @@ namespace TinyTicketSystem
 
 		private uint NextUnusedID()
 		{
-            if (_ticketList.Count == (_nextId + 1U))
+            if (_tickets.Count == (_nextId + 1U))
             {
                 // average case where the ids are continuous
                 ++_nextId;
             }
-            else if (_ticketList.Count == 0U)
+            else if (_tickets.Count == 0U)
 			{
 				// edge case if the ticket list is empty
                 _nextId = 0U;
@@ -122,16 +127,12 @@ namespace TinyTicketSystem
             else
 			{
 				// edge case where deletion caused a hole in the ids
-				_ticketList.Sort();
-				_nextId = 0U;
-				foreach (var ticket in _ticketList)
+				for (_nextId = 0U; _nextId < _tickets.Count; ++_nextId)
 				{
-					if (ticket.ID == _nextId)
+					if (!_tickets.ContainsKey(_nextId))
 					{
-						++_nextId;
-						continue;
+						break;
 					}
-					break;
 				}
             }
             return _nextId;
@@ -140,7 +141,7 @@ namespace TinyTicketSystem
 		private Ticket AddTicket(uint id)
 		{
 			var ticket = new Ticket(_ticketDirectory, id);
-            _ticketList.Add(ticket);
+            _tickets.Add(id, ticket);
 			return ticket;
         }
     }
