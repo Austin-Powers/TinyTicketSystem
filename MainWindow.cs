@@ -69,6 +69,7 @@ namespace TinyTicketSystem
             var ticketView = new TicketWindow(_model, Convert.ToUInt32(ticketNumber));
 			ticketView.ShowDialog(this);
             DisplayInfo("Ticket " + ticketNumber + " saved");
+			UpdateTable();
         }
 
         private void CreateModel()

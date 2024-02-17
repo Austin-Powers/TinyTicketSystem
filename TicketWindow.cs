@@ -31,6 +31,8 @@ namespace TinyTicketSystem
 
 		private void TicketWindow_FormClosing(object sender, FormClosingEventArgs e)
 		{
+			// Copy updated values into ticket, if form is closing before leaving textboxes
+			_ticket.Title = titleTextBox.Text;
 			_ticket.Save();
 		}
 
