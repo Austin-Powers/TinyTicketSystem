@@ -12,6 +12,8 @@ namespace TinyTicketSystem
 	/// </summary>
 	public class Model
 	{
+		private static readonly string IndexFileName = "index.md";
+
 		private readonly string _ticketDirectory;
 
 		private uint _nextId = 0U;
@@ -28,7 +30,7 @@ namespace TinyTicketSystem
 				throw new Exception("Directory does not exist");
 			}
 
-			var indexFilepath = Path.Combine(_ticketDirectory, "index.md");
+			var indexFilepath = Path.Combine(_ticketDirectory, IndexFileName);
 			if(File.Exists(indexFilepath))
 			{
 				FileStream fs = null;
@@ -47,9 +49,9 @@ namespace TinyTicketSystem
 						AddTicket(uint.Parse(line.Substring(offset, length)));
 					}
 				}
-				catch (Exception e)
+				catch (Exception ex)
 				{
-					throw e;
+					throw ex;
 				}
 				finally
 				{
@@ -73,6 +75,36 @@ namespace TinyTicketSystem
 			{
                 newTicket = AddTicket(NextUnusedID());
             }
+		}
+
+		/// <summary>
+		/// Saves the index file.
+		/// </summary>
+		public void SaveIndex()
+		{
+			FileStream fs = null;
+			StreamWriter sw = null;
+			try
+			{
+				var path = Path.Combine(_ticketDirectory, IndexFileName);
+				fs = new FileStream(path, FileMode.OpenOrCreate);
+				sw = new StreamWriter(fs);
+				foreach (var ticket in _ticketList)
+				{
+					var line = "[" + ticket.ID + " " + ticket.Title + "](";
+					line += Ticket.CreateFilePath(".", ticket.ID) + ")";
+					sw.WriteLine(line);
+				}
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+			finally
+			{
+				sw?.Close();
+				fs?.Close();
+			}
 		}
 
 		private uint NextUnusedID()

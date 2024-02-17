@@ -129,5 +129,10 @@ namespace TinyTicketSystem
             toolStripStatusLabel.Text = error;
             toolStripStatusLabel.ForeColor = Color.Red;
         }
-    }
+
+		private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			_model?.SaveIndex();
+		}
+	}
 }
