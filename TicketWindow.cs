@@ -12,7 +12,9 @@ namespace TinyTicketSystem
 {
 	public partial class TicketWindow : Form
 	{
-		private static readonly string TitleEmptyString = "Enter the ticket Title here";
+		private static readonly string TitleEmptyString = "Enter the ticket title here";
+
+		private static readonly string DetailsEmptyString = "Enter the details of the ticket here";
 
 		private Ticket _ticket;
 
@@ -26,13 +28,16 @@ namespace TinyTicketSystem
 			// Load Ticket
 			_ticket = model.GetTicket(ticketID);
 			titleTextBox.Text = _ticket.Title;
+			detailsTextBox.Text = _ticket.Details;
 			UpdateTitle();
+			UpdateDetails();
 		}
 
 		private void TicketWindow_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			// Copy updated values into ticket, if form is closing before leaving textboxes
 			_ticket.Title = titleTextBox.Text;
+			_ticket.Details = detailsTextBox.Text;
 			_ticket.Save();
 		}
 
@@ -67,6 +72,36 @@ namespace TinyTicketSystem
 			{
 				titleTextBox.ForeColor = SystemColors.InactiveCaption;
 				titleTextBox.Text = TitleEmptyString;
+			}
+		}
+		#endregion
+
+		#region Details
+		private void detailsTextBox_Enter(object sender, EventArgs e)
+		{
+			if (detailsTextBox.ForeColor == SystemColors.InactiveCaption)
+			{
+				detailsTextBox.ForeColor = SystemColors.ControlText;
+				detailsTextBox.Text = "";
+			}
+		}
+
+		private void detailsTextBox_Leave(object sender, EventArgs e)
+		{
+			_ticket.Details = detailsTextBox.Text;
+			UpdateDetails();
+		}
+
+		private void UpdateDetails()
+		{
+			if (_ticket.Details.Length > 0)
+			{
+				detailsTextBox.ForeColor = SystemColors.ControlText;
+			}
+			else
+			{
+				detailsTextBox.ForeColor = SystemColors.InactiveCaption;
+				detailsTextBox.Text = DetailsEmptyString;
 			}
 		}
 		#endregion

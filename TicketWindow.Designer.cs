@@ -141,6 +141,8 @@
 			this.detailsTextBox.Size = new System.Drawing.Size(519, 541);
 			this.detailsTextBox.TabIndex = 1;
 			this.detailsTextBox.Text = "Details";
+			this.detailsTextBox.Enter += new System.EventHandler(this.detailsTextBox_Enter);
+			this.detailsTextBox.Leave += new System.EventHandler(this.detailsTextBox_Leave);
 			// 
 			// titleTextBox
 			// 
