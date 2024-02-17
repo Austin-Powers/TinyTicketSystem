@@ -18,6 +18,7 @@ namespace TinyTicketSystem
 		{
 			InitializeComponent();
             newTicketToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.N;
+			refreshToolStripMenuItem.ShortcutKeys = Keys.F5;
 			CreateModel();
         }
 
@@ -54,9 +55,14 @@ namespace TinyTicketSystem
 			{
                 DisplayError("Error when setting new ticket directory: " + ex.Message);
             }
-        }
+		}
 
-        private void dataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+		private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			CreateModel();
+		}
+
+		private void dataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
 		{
 			var ticketNumber = dataGridView.Rows[e.RowIndex].Cells[0].Value;
 			DisplayInfo("Editing ticket " + ticketNumber);
