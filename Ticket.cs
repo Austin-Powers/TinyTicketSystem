@@ -273,7 +273,7 @@ namespace TinyTicketSystem
             try
             {
 				Directory.CreateDirectory(Path.GetDirectoryName(_path));
-                fs = new FileStream(_path, FileMode.OpenOrCreate);
+                fs = new FileStream(_path, FileMode.Create);
                 sw = new StreamWriter(fs);
 				sw.WriteLine(TitleString + _title + (_status ? OpenString : ClosedString));
 				sw.WriteLine(CreateTagsString());
@@ -311,7 +311,7 @@ namespace TinyTicketSystem
 			{
 				result += "[" + id + "](" + CreateFilePath("..", id) + ") ";
 			}
-			return result.Trim();
+			return result;
         }
 
         public int CompareTo(Ticket other)
