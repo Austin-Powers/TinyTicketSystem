@@ -43,8 +43,13 @@ namespace TinyTicketSystem
 
 		private void openCloseButton_Click(object sender, EventArgs e)
         {
-
+			UpdateStatus();
         }
+
+		private void UpdateStatus()
+		{
+
+		}
 
 		#region Title
 		private void titleTextBox_Enter(object sender, EventArgs e)

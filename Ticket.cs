@@ -60,12 +60,10 @@ namespace TinyTicketSystem
 		/// </summary>
 		public DateTime LastChanged { get { return _lastChanged; } }
 
-		private bool _status;
-
 		/// <summary>
-		/// The status of the ticket, Open or Closed.
+		/// Flag signalling if the ticket is closed.
 		/// </summary>
-		public string Status { get { return _status ? "open" : "closed"; } set { _status = value.ToLower().Equals("open"); } }
+		public bool Closed { get; set; }
 
 		private readonly List<string> _tags = new List<string>();
 
@@ -132,7 +130,7 @@ namespace TinyTicketSystem
             else
 			{
                 _lastChanged = DateTime.Now;
-				_status = true;
+				Closed = true;
             }
         }
 
@@ -149,12 +147,12 @@ namespace TinyTicketSystem
 			}
 			if (line.EndsWith(OpenString))
 			{
-				_status = true;
+				Closed = false;
 				_title = line.Substring(2, line.Length - TitleString.Length - OpenString.Length);
 			}
 			else if (line.EndsWith(ClosedString))
 			{
-                _status = false;
+                Closed = true;
 				_title = line.Substring(2, line.Length - TitleString.Length - ClosedString.Length);
             }
             else
@@ -275,7 +273,7 @@ namespace TinyTicketSystem
 				Directory.CreateDirectory(Path.GetDirectoryName(_path));
                 fs = new FileStream(_path, FileMode.Create);
                 sw = new StreamWriter(fs);
-				sw.WriteLine(TitleString + _title + (_status ? OpenString : ClosedString));
+				sw.WriteLine(TitleString + _title + (Closed ? ClosedString : OpenString));
 				sw.WriteLine(CreateTagsString());
 				sw.WriteLine();
 				sw.WriteLine(CreateBlockedByString());

@@ -111,7 +111,7 @@ namespace TinyTicketSystem
 				});
 				row.Cells.Add(new DataGridViewTextBoxCell
 				{
-					Value = ticket.Status
+					Value = ticket.Closed ? "closed" : "open"
 				});
 				var tagsString = "";
 				foreach(var tag in ticket.Tags)
