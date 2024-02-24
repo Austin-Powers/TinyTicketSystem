@@ -69,17 +69,19 @@ namespace TinyTicketSystem
 		/// <summary>
 		/// Adds a new empty ticket using the next available id.
 		/// </summary>
+		/// <returns>The id of the new ticket.</returns>
 		/// <remarks>
 		/// This method may discover tickets that already exist in the folder,
 		/// those tickets will be added to the model.
 		/// </remarks>
-		public void AddEmptyTicket()
+		public uint AddEmptyTicket()
 		{
 			var newTicket = AddTicket(NextUnusedID());
 			while (!newTicket.Empty())
 			{
                 newTicket = AddTicket(NextUnusedID());
             }
+			return newTicket.ID;
 		}
 
 		/// <summary>

@@ -30,10 +30,12 @@ namespace TinyTicketSystem
 			{
 				if(_model != null)
 				{
-					_model.AddEmptyTicket();
+					var id = _model.AddEmptyTicket();
 					UpdateTable();
+					var ticketView = new TicketWindow(_model, id);
+					ticketView.ShowDialog(this);
+					DisplayInfo("Created new Ticket");
 				}
-				DisplayInfo("Created new Ticket");
 			}
 			catch (Exception ex)
 			{
