@@ -18,10 +18,12 @@ namespace TinyTicketSystem
 		{
 			InitializeComponent();
             newTicketToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.N;
+			deleteTicketToolStripMenuItem.ShortcutKeys = Keys.Delete;
 			refreshToolStripMenuItem.ShortcutKeys = Keys.F5;
 			CreateModel();
         }
 
+		#region Toolstrip
 		private void newTicketToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			try
@@ -37,9 +39,29 @@ namespace TinyTicketSystem
 			{
 				DisplayError("Error during creation of new Ticket: " + ex.Message);
             }
-        }
+		}
 
-        private void setTicketDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
+		private void deleteTicketToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				var selectedTicketIndex = dataGridView.SelectedCells[0].RowIndex;
+				var selectedTicketNumber = dataGridView.Rows[selectedTicketIndex].Cells[0].Value;
+
+				var result = MessageBox.Show("Delete Ticket " + selectedTicketNumber + "?", "Are you sure?", MessageBoxButtons.YesNo);
+				if (result == DialogResult.Yes)
+				{
+					_model.RemoveTicket(Convert.ToUInt32(selectedTicketNumber));
+					UpdateTable();
+				}
+			}
+			catch (Exception ex)
+			{
+				DisplayError("Error while deleting a ticket: " + ex.Message);
+			}
+		}
+
+		private void setTicketDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
 			try
 			{
@@ -61,6 +83,7 @@ namespace TinyTicketSystem
 		{
 			CreateModel();
 		}
+		#endregion
 
 		private void dataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
 		{

@@ -83,6 +83,16 @@ namespace TinyTicketSystem
 		}
 
 		/// <summary>
+		/// Removed the ticket with the given id from the list.
+		/// </summary>
+		/// <param name="id">The id of the ticket to remove.</param>
+		public void RemoveTicket(uint id)
+		{
+			_tickets[id].RemoveFile();
+			_tickets.Remove(id);
+		}
+
+		/// <summary>
 		/// Saves the index file.
 		/// </summary>
 		public void SaveIndex()
@@ -92,7 +102,7 @@ namespace TinyTicketSystem
 			try
 			{
 				var path = Path.Combine(_ticketDirectory, IndexFileName);
-				fs = new FileStream(path, FileMode.OpenOrCreate);
+				fs = new FileStream(path, FileMode.Create);
 				sw = new StreamWriter(fs);
 				foreach (var key in _tickets.Keys)
 				{

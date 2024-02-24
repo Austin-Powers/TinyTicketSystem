@@ -292,6 +292,14 @@ namespace TinyTicketSystem
             }
         }
 
+		/// <summary>
+		/// Removes the file connected to this ticket.
+		/// </summary>
+		public void RemoveFile()
+		{
+			File.Delete(_path);
+		}
+
 		private string CreateTagsString()
 		{
 			string result = "";

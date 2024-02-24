@@ -38,9 +38,10 @@
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.newTicketToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.setTicketDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-			this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.deleteTicketToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
 			this.menuStrip.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
@@ -119,6 +120,7 @@
 			// 
 			this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newTicketToolStripMenuItem,
+            this.deleteTicketToolStripMenuItem,
             this.setTicketDirectoryToolStripMenuItem,
             this.refreshToolStripMenuItem});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -139,6 +141,13 @@
 			this.setTicketDirectoryToolStripMenuItem.Text = "Set Ticket Directory";
 			this.setTicketDirectoryToolStripMenuItem.Click += new System.EventHandler(this.setTicketDirectoryToolStripMenuItem_Click);
 			// 
+			// refreshToolStripMenuItem
+			// 
+			this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+			this.refreshToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.refreshToolStripMenuItem.Text = "Refresh";
+			this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+			// 
 			// statusStrip1
 			// 
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -155,12 +164,12 @@
 			this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
 			this.toolStripStatusLabel.Text = "Ready";
 			// 
-			// refreshToolStripMenuItem
+			// deleteTicketToolStripMenuItem
 			// 
-			this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-			this.refreshToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.refreshToolStripMenuItem.Text = "Refresh";
-			this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+			this.deleteTicketToolStripMenuItem.Name = "deleteTicketToolStripMenuItem";
+			this.deleteTicketToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.deleteTicketToolStripMenuItem.Text = "Delete Ticket";
+			this.deleteTicketToolStripMenuItem.Click += new System.EventHandler(this.deleteTicketToolStripMenuItem_Click);
 			// 
 			// MainWindow
 			// 
@@ -199,6 +208,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
 		private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem deleteTicketToolStripMenuItem;
 	}
 }
 
