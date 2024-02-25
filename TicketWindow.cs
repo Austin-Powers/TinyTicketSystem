@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,6 +17,8 @@ namespace TinyTicketSystem
 
 		private static readonly string DetailsEmptyString = "Enter the details of the ticket here";
 
+		private Model _model;
+
 		private Ticket _ticket;
 
 		public TicketWindow(Model model, UInt32 ticketID)
@@ -26,7 +29,8 @@ namespace TinyTicketSystem
             tagsListBox.ContextMenuStrip = tagsCMS;
 
 			// Load Ticket
-			_ticket = model.GetTicket(ticketID);
+			_model = model;
+			_ticket = _model.GetTicket(ticketID);
 			titleTextBox.Text = _ticket.Title;
 			detailsTextBox.Text = _ticket.Details;
 			UpdateStatus();
@@ -37,8 +41,14 @@ namespace TinyTicketSystem
 		private void TicketWindow_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			// Copy updated values into ticket, if form is closing before leaving textboxes
-			_ticket.Title = titleTextBox.Text;
-			_ticket.Details = detailsTextBox.Text;
+			if (titleTextBox.ForeColor == SystemColors.ControlText)
+			{
+				_ticket.Title = titleTextBox.Text;
+			}
+			if (detailsTextBox.ForeColor == SystemColors.ControlText)
+			{
+				_ticket.Details = detailsTextBox.Text;
+			}
 			_ticket.Save();
 		}
 
@@ -119,6 +129,16 @@ namespace TinyTicketSystem
 				detailsTextBox.ForeColor = SystemColors.InactiveCaption;
 				detailsTextBox.Text = DetailsEmptyString;
 			}
+		}
+		#endregion
+
+		#region Blocking Tickets
+		private void newTicketToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			var id = _model.AddEmptyTicket();
+			var ticketView = new TicketWindow(_model, id);
+			ticketView.ShowDialog(this);
+			_ticket.IDsOfTicketsBlockingThisTicket.Add(id);
 		}
 		#endregion
 	}
