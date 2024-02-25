@@ -176,9 +176,14 @@ namespace TinyTicketSystem
 				blockingTicketsListBox.Items.Clear();
 				foreach (var ticket in value)
 				{
-					blockingTicketsListBox.Items.Add(ticket.ToString() + " - " + _model.GetTicket(ticket).Title);
+					AddBlockingTicket(ticket);
 				}
 			}
+		}
+
+		private void AddBlockingTicket(uint id)
+		{
+			blockingTicketsListBox.Items.Add(id.ToString() + " - " + _model.GetTicket(id).Title);
 		}
 
 		private bool ContentIsSame(List<uint> a, List<uint> b)
@@ -202,6 +207,10 @@ namespace TinyTicketSystem
 			var id = _model.AddEmptyTicket();
 			var ticketView = new TicketWindow(_model, id);
 			ticketView.ShowDialog(this);
+			if (!_model.RemoveTicketIfEmpty(id))
+			{
+				AddBlockingTicket(id);
+			}
 		}
 		#endregion
 	}
