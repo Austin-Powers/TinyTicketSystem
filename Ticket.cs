@@ -130,7 +130,7 @@ namespace TinyTicketSystem
             else
 			{
                 _lastChanged = DateTime.Now;
-				Closed = true;
+				Closed = false;
             }
         }
 
