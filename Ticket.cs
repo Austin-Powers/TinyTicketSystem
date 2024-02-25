@@ -265,31 +265,34 @@ namespace TinyTicketSystem
         /// </summary>
         public void Save()
 		{
-			_lastChanged = DateTime.Now;
-            FileStream fs = null;
-            StreamWriter sw = null;
-            try
-            {
-				Directory.CreateDirectory(Path.GetDirectoryName(_path));
-                fs = new FileStream(_path, FileMode.Create);
-                sw = new StreamWriter(fs);
-				sw.WriteLine(TitleString + _title + (Closed ? ClosedString : OpenString));
-				sw.WriteLine(CreateTagsString());
-				sw.WriteLine();
-				sw.WriteLine(CreateBlockedByString());
-				sw.WriteLine();
-				sw.WriteLine(DetailsString);
-				sw.WriteLine(Details.Trim());
-            }
-            catch (Exception ex)
-            {
-				throw ex;
-            }
-            finally
-            {
-                sw?.Close();
-                fs?.Close();
-            }
+			if (!Empty())
+			{
+				_lastChanged = DateTime.Now;
+				FileStream fs = null;
+				StreamWriter sw = null;
+				try
+				{
+					Directory.CreateDirectory(Path.GetDirectoryName(_path));
+					fs = new FileStream(_path, FileMode.Create);
+					sw = new StreamWriter(fs);
+					sw.WriteLine(TitleString + _title + (Closed ? ClosedString : OpenString));
+					sw.WriteLine(CreateTagsString());
+					sw.WriteLine();
+					sw.WriteLine(CreateBlockedByString());
+					sw.WriteLine();
+					sw.WriteLine(DetailsString);
+					sw.WriteLine(Details.Trim());
+				}
+				catch (Exception ex)
+				{
+					throw ex;
+				}
+				finally
+				{
+					sw?.Close();
+					fs?.Close();
+				}
+			}
         }
 
 		/// <summary>
