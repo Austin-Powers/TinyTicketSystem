@@ -70,14 +70,36 @@ namespace TinyTicketSystem
 		/// <summary>
 		/// Returns the list of all tags of this ticket, tags can be used to group tickets.
 		/// </summary>
-		public List<string> Tags { get { return _tags; } }
+		public List<string> Tags
+		{
+			get
+			{
+				return _tags;
+			}
+			set
+			{
+				_tags.Clear();
+				_tags.AddRange(value);
+			}
+		}
 
 		private readonly List<uint> _idsOfTicketsBlockingThisTicket = new List<uint>();
 
 		/// <summary>
 		/// Returns the list of identifiers of all tickets blocking this ticket.
 		/// </summary>
-		public List<uint> IDsOfTicketsBlockingThisTicket { get { return _idsOfTicketsBlockingThisTicket; } }
+		public List<uint> IDsOfTicketsBlockingThisTicket
+		{
+			get
+			{
+				return _idsOfTicketsBlockingThisTicket;
+			}
+			set
+			{
+				_idsOfTicketsBlockingThisTicket.Clear();
+				_idsOfTicketsBlockingThisTicket.AddRange(value);
+			}
+		}
 
         private string _details;
 
