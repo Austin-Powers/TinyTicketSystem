@@ -85,6 +85,21 @@ namespace TinyTicketSystem
 		}
 
 		/// <summary>
+		/// Removed the ticket with the given id from the list, if the ticket is empty.
+		/// </summary>
+		/// <param name="id">The id of the ticket to remove.</param>
+		/// <returns>True if the ticket was removed, false otherwise.</returns>
+		public bool RemoveTicketIfEmpty(uint id)
+		{
+			if (_tickets[id].Empty())
+			{
+				RemoveTicket(id);
+				return true;
+			}
+			return false;
+		}
+
+		/// <summary>
 		/// Removed the ticket with the given id from the list.
 		/// </summary>
 		/// <param name="id">The id of the ticket to remove.</param>

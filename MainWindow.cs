@@ -33,9 +33,8 @@ namespace TinyTicketSystem
 					var id = _model.AddEmptyTicket();
 					var ticketView = new TicketWindow(_model, id);
 					ticketView.ShowDialog(this);
-					if (_model.GetTicket(id).Empty() )
+					if (_model.RemoveTicketIfEmpty(id))
 					{
-						_model.RemoveTicket(id);
 						DisplayInfo("Ticket discarded");
 					}
 					else
