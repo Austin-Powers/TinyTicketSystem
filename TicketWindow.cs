@@ -21,7 +21,7 @@ namespace TinyTicketSystem
 
 		private Ticket _ticket;
 
-		public TicketWindow(Model model, UInt32 ticketID)
+		public TicketWindow(Model model, uint ticketID)
 		{
 			// WinForms setup
 			InitializeComponent();
@@ -33,6 +33,7 @@ namespace TinyTicketSystem
 			_ticket = _model.GetTicket(ticketID);
 			TitleText = _ticket.Title;
 			DetailsText = _ticket.Details;
+			BlockingTicketIDs = _ticket.IDsOfTicketsBlockingThisTicket;
 			UpdateStatus();
 		}
 
@@ -47,6 +48,12 @@ namespace TinyTicketSystem
 			if (_ticket.Details != DetailsText)
 			{
 				_ticket.Details = DetailsText;
+				edited = true;
+			}
+			var blockingIds = BlockingTicketIDs;
+			if (!ContentIsSame(_ticket.IDsOfTicketsBlockingThisTicket, blockingIds))
+			{
+				_ticket.IDsOfTicketsBlockingThisTicket = blockingIds;
 				edited = true;
 			}
 			if (edited)
@@ -152,12 +159,49 @@ namespace TinyTicketSystem
 		#endregion
 
 		#region Blocking Tickets
+		private List<uint> BlockingTicketIDs
+		{
+			get
+			{
+				var list = new List<uint>();
+				foreach (var ticket in blockingTicketsListBox.Items)
+				{
+					list.Add(Convert.ToUInt32(ticket.ToString().Split(' ')[0]));
+				}
+				return list;
+			}
+
+			set
+			{
+				blockingTicketsListBox.Items.Clear();
+				foreach (var ticket in value)
+				{
+					blockingTicketsListBox.Items.Add(ticket.ToString() + " - " + _model.GetTicket(ticket).Title);
+				}
+			}
+		}
+
+		private bool ContentIsSame(List<uint> a, List<uint> b)
+		{
+			if (a.Count != b.Count)
+			{
+				return false;
+			}
+			for (var i = 0; i < a.Count; ++i)
+			{
+				if (a[i] != b[i])
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+
 		private void newTicketToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			var id = _model.AddEmptyTicket();
 			var ticketView = new TicketWindow(_model, id);
 			ticketView.ShowDialog(this);
-			_ticket.IDsOfTicketsBlockingThisTicket.Add(id);
 		}
 		#endregion
 	}
