@@ -31,25 +31,28 @@ namespace TinyTicketSystem
 			// Load Ticket
 			_model = model;
 			_ticket = _model.GetTicket(ticketID);
-			titleTextBox.Text = _ticket.Title;
-			detailsTextBox.Text = _ticket.Details;
+			TitleText = _ticket.Title;
+			DetailsText = _ticket.Details;
 			UpdateStatus();
-			UpdateTitle();
-			UpdateDetails();
 		}
 
 		private void TicketWindow_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			// Copy updated values into ticket, if form is closing before leaving textboxes
-			if (titleTextBox.ForeColor == SystemColors.ControlText)
+			bool edited = false;
+			if (_ticket.Title != TitleText)
 			{
-				_ticket.Title = titleTextBox.Text;
+				_ticket.Title = TitleText;
+				edited = true;
 			}
-			if (detailsTextBox.ForeColor == SystemColors.ControlText)
+			if (_ticket.Details != DetailsText)
 			{
-				_ticket.Details = detailsTextBox.Text;
+				_ticket.Details = DetailsText;
+				edited = true;
 			}
-			_ticket.Save();
+			if (edited)
+			{
+				_ticket.Save();
+			}
 		}
 
 		#region Status
@@ -73,6 +76,28 @@ namespace TinyTicketSystem
 		#endregion
 
 		#region Title
+		private string TitleText
+		{
+			get
+			{
+				return titleTextBox.ForeColor == SystemColors.InactiveCaption ? "" : titleTextBox.Text;
+			}
+
+			set
+			{
+				if (value == "")
+				{
+					titleTextBox.ForeColor = SystemColors.InactiveCaption;
+					titleTextBox.Text = TitleEmptyString;
+				}
+				else
+				{
+					titleTextBox.ForeColor = SystemColors.ControlText;
+					titleTextBox.Text = value;
+				}
+			}
+		}
+
 		private void titleTextBox_Enter(object sender, EventArgs e)
 		{
 			if (titleTextBox.ForeColor == SystemColors.InactiveCaption)
@@ -84,25 +109,33 @@ namespace TinyTicketSystem
 
 		private void titleTextBox_Leave(object sender, EventArgs e)
 		{
-			_ticket.Title = titleTextBox.Text;
-			UpdateTitle();
-		}
-
-		private void UpdateTitle()
-		{
-			if (_ticket.Title.Length > 0)
-			{
-				titleTextBox.ForeColor = SystemColors.ControlText;
-			}
-			else
-			{
-				titleTextBox.ForeColor = SystemColors.InactiveCaption;
-				titleTextBox.Text = TitleEmptyString;
-			}
+			TitleText = titleTextBox.Text;
 		}
 		#endregion
 
 		#region Details
+		private string DetailsText
+		{
+			get
+			{
+				return detailsTextBox.ForeColor == SystemColors.InactiveCaption ? "" : detailsTextBox.Text;
+			}
+
+			set
+			{
+				if (value == "")
+				{
+					detailsTextBox.ForeColor = SystemColors.InactiveCaption;
+					detailsTextBox.Text = DetailsEmptyString;
+				}
+				else
+				{
+					detailsTextBox.ForeColor = SystemColors.ControlText;
+					detailsTextBox.Text = value;
+				}
+			}
+		}
+
 		private void detailsTextBox_Enter(object sender, EventArgs e)
 		{
 			if (detailsTextBox.ForeColor == SystemColors.InactiveCaption)
@@ -114,21 +147,7 @@ namespace TinyTicketSystem
 
 		private void detailsTextBox_Leave(object sender, EventArgs e)
 		{
-			_ticket.Details = detailsTextBox.Text;
-			UpdateDetails();
-		}
-
-		private void UpdateDetails()
-		{
-			if (_ticket.Details.Length > 0)
-			{
-				detailsTextBox.ForeColor = SystemColors.ControlText;
-			}
-			else
-			{
-				detailsTextBox.ForeColor = SystemColors.InactiveCaption;
-				detailsTextBox.Text = DetailsEmptyString;
-			}
+			DetailsText = detailsTextBox.Text;
 		}
 		#endregion
 
