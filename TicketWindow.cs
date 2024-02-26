@@ -96,11 +96,13 @@ namespace TinyTicketSystem
 				{
 					titleTextBox.ForeColor = SystemColors.InactiveCaption;
 					titleTextBox.Text = TitleEmptyString;
+					Text = TitleEmptyString;
 				}
 				else
 				{
 					titleTextBox.ForeColor = SystemColors.ControlText;
 					titleTextBox.Text = value;
+					Text = value;
 				}
 			}
 		}
