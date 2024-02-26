@@ -353,5 +353,10 @@ namespace TinyTicketSystem
 			}
 			return ID.CompareTo(other.ID);
 		}
+
+		public override string ToString()
+		{
+			return ID.ToString() + " - " + Title;
+		}
 	}
 }
