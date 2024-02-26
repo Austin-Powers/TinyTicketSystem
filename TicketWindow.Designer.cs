@@ -38,10 +38,11 @@
 			this.detailsTextBox = new System.Windows.Forms.TextBox();
 			this.titleTextBox = new System.Windows.Forms.TextBox();
 			this.blockingIdsCMS = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.newTicketToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.removeTicketTSMI = new System.Windows.Forms.ToolStripMenuItem();
 			this.tagsCMS = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.removeTagTSMI = new System.Windows.Forms.ToolStripMenuItem();
-			this.newTicketToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.addTicketToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.mainSplit)).BeginInit();
 			this.mainSplit.Panel1.SuspendLayout();
 			this.mainSplit.Panel2.SuspendLayout();
@@ -161,9 +162,17 @@
 			// 
 			this.blockingIdsCMS.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newTicketToolStripMenuItem,
+            this.addTicketToolStripMenuItem,
             this.removeTicketTSMI});
 			this.blockingIdsCMS.Name = "contextMenuStrip1";
-			this.blockingIdsCMS.Size = new System.Drawing.Size(181, 70);
+			this.blockingIdsCMS.Size = new System.Drawing.Size(181, 92);
+			// 
+			// newTicketToolStripMenuItem
+			// 
+			this.newTicketToolStripMenuItem.Name = "newTicketToolStripMenuItem";
+			this.newTicketToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.newTicketToolStripMenuItem.Text = "New Ticket";
+			this.newTicketToolStripMenuItem.Click += new System.EventHandler(this.newTicketToolStripMenuItem_Click);
 			// 
 			// removeTicketTSMI
 			// 
@@ -184,12 +193,12 @@
 			this.removeTagTSMI.Size = new System.Drawing.Size(117, 22);
 			this.removeTagTSMI.Text = "Remove";
 			// 
-			// newTicketToolStripMenuItem
+			// addTicketToolStripMenuItem
 			// 
-			this.newTicketToolStripMenuItem.Name = "newTicketToolStripMenuItem";
-			this.newTicketToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.newTicketToolStripMenuItem.Text = "New Ticket";
-			this.newTicketToolStripMenuItem.Click += new System.EventHandler(this.newTicketToolStripMenuItem_Click);
+			this.addTicketToolStripMenuItem.Name = "addTicketToolStripMenuItem";
+			this.addTicketToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.addTicketToolStripMenuItem.Text = "Add Ticket";
+			this.addTicketToolStripMenuItem.Click += new System.EventHandler(this.addTicketToolStripMenuItem_Click);
 			// 
 			// TicketWindow
 			// 
@@ -231,5 +240,6 @@
         private System.Windows.Forms.TextBox newTagTextBox;
         private System.Windows.Forms.ListBox tagsListBox;
 		private System.Windows.Forms.ToolStripMenuItem newTicketToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem addTicketToolStripMenuItem;
 	}
 }

@@ -96,7 +96,7 @@ namespace TinyTicketSystem
 				{
 					titleTextBox.ForeColor = SystemColors.InactiveCaption;
 					titleTextBox.Text = TitleEmptyString;
-					Text = TitleEmptyString;
+					Text = "New Ticket";
 				}
 				else
 				{
@@ -170,6 +170,7 @@ namespace TinyTicketSystem
 				{
 					list.Add(Convert.ToUInt32(ticket.ToString().Split(' ')[0]));
 				}
+				list.Sort();
 				return list;
 			}
 
@@ -185,7 +186,7 @@ namespace TinyTicketSystem
 
 		private void AddBlockingTicket(uint id)
 		{
-			blockingTicketsListBox.Items.Add(id.ToString() + " - " + _model.GetTicket(id).Title);
+			blockingTicketsListBox.Items.Add(_model.GetTicket(id).ToString());
 		}
 
 		private bool ContentIsSame(List<uint> a, List<uint> b)
@@ -212,6 +213,16 @@ namespace TinyTicketSystem
 			if (!_model.RemoveTicketIfEmpty(id))
 			{
 				AddBlockingTicket(id);
+			}
+		}
+
+		private void addTicketToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			var selector = new TicketSelectorWindow(_model, BlockingTicketIDs);
+			selector.ShowDialog(this);
+			foreach (var ticket in selector.SelectedTickets)
+			{
+				blockingTicketsListBox.Items.Add(ticket);
 			}
 		}
 		#endregion
