@@ -202,13 +202,14 @@
 			this.tagsCMS.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.removeTagTSMI});
 			this.tagsCMS.Name = "tagsCMS";
-			this.tagsCMS.Size = new System.Drawing.Size(118, 26);
+			this.tagsCMS.Size = new System.Drawing.Size(181, 48);
 			// 
 			// removeTagTSMI
 			// 
 			this.removeTagTSMI.Name = "removeTagTSMI";
-			this.removeTagTSMI.Size = new System.Drawing.Size(117, 22);
+			this.removeTagTSMI.Size = new System.Drawing.Size(180, 22);
 			this.removeTagTSMI.Text = "Remove";
+			this.removeTagTSMI.Click += new System.EventHandler(this.removeTagTSMI_Click);
 			// 
 			// TicketWindow
 			// 

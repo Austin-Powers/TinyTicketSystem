@@ -327,6 +327,15 @@ namespace TinyTicketSystem
 				newTagTextBox.Text = "";
 			}
 		}
+
+		private void removeTagTSMI_Click(object sender, EventArgs e)
+		{
+			var toRemove = tagsListBox.SelectedItem;
+			if (toRemove != null)
+			{
+				tagsListBox.Items.Remove(toRemove);
+			}
+		}
 		#endregion
 	}
 }
