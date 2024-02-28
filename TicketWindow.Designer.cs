@@ -39,10 +39,10 @@
 			this.titleTextBox = new System.Windows.Forms.TextBox();
 			this.blockingIdsCMS = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.newTicketToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.addTicketToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.removeTicketTSMI = new System.Windows.Forms.ToolStripMenuItem();
 			this.tagsCMS = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.removeTagTSMI = new System.Windows.Forms.ToolStripMenuItem();
-			this.addTicketToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.mainSplit)).BeginInit();
 			this.mainSplit.Panel1.SuspendLayout();
 			this.mainSplit.Panel2.SuspendLayout();
@@ -174,11 +174,19 @@
 			this.newTicketToolStripMenuItem.Text = "New Ticket";
 			this.newTicketToolStripMenuItem.Click += new System.EventHandler(this.newTicketToolStripMenuItem_Click);
 			// 
+			// addTicketToolStripMenuItem
+			// 
+			this.addTicketToolStripMenuItem.Name = "addTicketToolStripMenuItem";
+			this.addTicketToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.addTicketToolStripMenuItem.Text = "Add Ticket";
+			this.addTicketToolStripMenuItem.Click += new System.EventHandler(this.addTicketToolStripMenuItem_Click);
+			// 
 			// removeTicketTSMI
 			// 
 			this.removeTicketTSMI.Name = "removeTicketTSMI";
 			this.removeTicketTSMI.Size = new System.Drawing.Size(180, 22);
 			this.removeTicketTSMI.Text = "Remove";
+			this.removeTicketTSMI.Click += new System.EventHandler(this.removeTicketToolStripMenuItem_Click);
 			// 
 			// tagsCMS
 			// 
@@ -192,13 +200,6 @@
 			this.removeTagTSMI.Name = "removeTagTSMI";
 			this.removeTagTSMI.Size = new System.Drawing.Size(117, 22);
 			this.removeTagTSMI.Text = "Remove";
-			// 
-			// addTicketToolStripMenuItem
-			// 
-			this.addTicketToolStripMenuItem.Name = "addTicketToolStripMenuItem";
-			this.addTicketToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.addTicketToolStripMenuItem.Text = "Add Ticket";
-			this.addTicketToolStripMenuItem.Click += new System.EventHandler(this.addTicketToolStripMenuItem_Click);
 			// 
 			// TicketWindow
 			// 

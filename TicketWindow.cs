@@ -28,6 +28,9 @@ namespace TinyTicketSystem
 			blockingTicketsListBox.ContextMenuStrip = blockingIdsCMS;
             tagsListBox.ContextMenuStrip = tagsCMS;
 
+			removeTicketTSMI.ShortcutKeys = Keys.Delete;
+			removeTagTSMI.ShortcutKeys = Keys.Delete;
+
 			// Load Ticket
 			_model = model;
 			_ticket = _model.GetTicket(ticketID);
@@ -223,6 +226,15 @@ namespace TinyTicketSystem
 			foreach (var ticket in selector.SelectedTickets)
 			{
 				blockingTicketsListBox.Items.Add(ticket);
+			}
+		}
+
+		private void removeTicketToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			var toRemove = blockingTicketsListBox.SelectedItem;
+			if (toRemove != null)
+			{
+				blockingTicketsListBox.Items.Remove(toRemove);
 			}
 		}
 		#endregion
