@@ -27,6 +27,13 @@ namespace TinyTicketSystem
 			return _tickets[ticketId];
 		}
 
+		private readonly HashSet<string> _tags = new HashSet<string>();
+
+		/// <summary>
+		/// A list of all tags known to this model.
+		/// </summary>
+		public List<string> Tags { get { return _tags.ToList(); } }
+
 		public Model(string TicketDirectory)
 		{
 			_ticketDirectory = TicketDirectory;
@@ -110,6 +117,18 @@ namespace TinyTicketSystem
 		}
 
 		/// <summary>
+		/// Adds the tags of the given ticket to the set of known tickets.
+		/// </summary>
+		/// <param name="ticket">The ticket to extract the tags from.</param>
+		public void AddTagsOf(Ticket ticket)
+		{
+			foreach (var tag in ticket.Tags)
+			{
+				_tags.Add(tag);
+			}
+		}
+
+		/// <summary>
 		/// Saves the index file.
 		/// </summary>
 		public void SaveIndex()
@@ -169,6 +188,7 @@ namespace TinyTicketSystem
 		{
 			var ticket = new Ticket(_ticketDirectory, id);
             _tickets.Add(id, ticket);
+			AddTagsOf(ticket);
 			return ticket;
         }
     }
