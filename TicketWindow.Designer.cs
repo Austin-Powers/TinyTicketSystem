@@ -101,6 +101,7 @@
 			this.blockingTicketsListBox.Name = "blockingTicketsListBox";
 			this.blockingTicketsListBox.Size = new System.Drawing.Size(261, 246);
 			this.blockingTicketsListBox.TabIndex = 0;
+			this.blockingTicketsListBox.DoubleClick += new System.EventHandler(this.blockingTicketsListBox_DoubleClick);
 			// 
 			// tagsListBox
 			// 
@@ -165,26 +166,26 @@
             this.addTicketToolStripMenuItem,
             this.removeTicketTSMI});
 			this.blockingIdsCMS.Name = "contextMenuStrip1";
-			this.blockingIdsCMS.Size = new System.Drawing.Size(181, 92);
+			this.blockingIdsCMS.Size = new System.Drawing.Size(133, 70);
 			// 
 			// newTicketToolStripMenuItem
 			// 
 			this.newTicketToolStripMenuItem.Name = "newTicketToolStripMenuItem";
-			this.newTicketToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.newTicketToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
 			this.newTicketToolStripMenuItem.Text = "New Ticket";
 			this.newTicketToolStripMenuItem.Click += new System.EventHandler(this.newTicketToolStripMenuItem_Click);
 			// 
 			// addTicketToolStripMenuItem
 			// 
 			this.addTicketToolStripMenuItem.Name = "addTicketToolStripMenuItem";
-			this.addTicketToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.addTicketToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
 			this.addTicketToolStripMenuItem.Text = "Add Ticket";
 			this.addTicketToolStripMenuItem.Click += new System.EventHandler(this.addTicketToolStripMenuItem_Click);
 			// 
 			// removeTicketTSMI
 			// 
 			this.removeTicketTSMI.Name = "removeTicketTSMI";
-			this.removeTicketTSMI.Size = new System.Drawing.Size(180, 22);
+			this.removeTicketTSMI.Size = new System.Drawing.Size(132, 22);
 			this.removeTicketTSMI.Text = "Remove";
 			this.removeTicketTSMI.Click += new System.EventHandler(this.removeTicketToolStripMenuItem_Click);
 			// 

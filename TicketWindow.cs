@@ -237,6 +237,17 @@ namespace TinyTicketSystem
 				blockingTicketsListBox.Items.Remove(toRemove);
 			}
 		}
+
+		private void blockingTicketsListBox_DoubleClick(object sender, EventArgs e)
+		{
+			var selected = blockingTicketsListBox.SelectedItem;
+			if (selected != null)
+			{
+				var id = Convert.ToUInt32(selected.ToString().Split(' ')[0]);
+				var ticketView = new TicketWindow(_model, id);
+				ticketView.ShowDialog(this);
+			}
+		}
 		#endregion
 	}
 }
