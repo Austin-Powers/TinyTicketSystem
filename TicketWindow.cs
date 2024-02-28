@@ -17,6 +17,8 @@ namespace TinyTicketSystem
 
 		private static readonly string DetailsEmptyString = "Enter the details of the ticket here";
 
+		private static readonly string TagEmptyString = "Enter new tag here, Press Enter to submit";
+
 		private Model _model;
 
 		private Ticket _ticket;
@@ -27,6 +29,8 @@ namespace TinyTicketSystem
 			InitializeComponent();
 			blockingTicketsListBox.ContextMenuStrip = blockingIdsCMS;
             tagsListBox.ContextMenuStrip = tagsCMS;
+			newTagTextBox.Text = TagEmptyString;
+			newTagTextBox.ForeColor = SystemColors.InactiveCaption;
 
 			removeTicketTSMI.ShortcutKeys = Keys.Delete;
 			removeTagTSMI.ShortcutKeys = Keys.Delete;
@@ -246,6 +250,35 @@ namespace TinyTicketSystem
 				var id = Convert.ToUInt32(selected.ToString().Split(' ')[0]);
 				var ticketView = new TicketWindow(_model, id);
 				ticketView.ShowDialog(this);
+			}
+		}
+		#endregion
+
+		#region Tags
+		private void newTagTextBox_Enter(object sender, EventArgs e)
+		{
+			if (newTagTextBox.ForeColor == SystemColors.InactiveCaption)
+			{
+				newTagTextBox.ForeColor = SystemColors.ControlText;
+				newTagTextBox.Text = "";
+			}
+		}
+
+		private void newTagTextBox_Leave(object sender, EventArgs e)
+		{
+			if (newTagTextBox.Text == "")
+			{
+				newTagTextBox.ForeColor = SystemColors.InactiveCaption;
+				newTagTextBox.Text = TagEmptyString;
+			}
+		}
+
+		private void newTagTextBox_TextChanged(object sender, EventArgs e)
+		{
+			if (newTagTextBox.Text.EndsWith("\n"))
+			{
+				tagsListBox.Items.Add(newTagTextBox.Text.Trim());
+				newTagTextBox.Text = "";
 			}
 		}
 		#endregion

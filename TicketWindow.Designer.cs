@@ -114,13 +114,19 @@
 			// 
 			// newTagTextBox
 			// 
+			this.newTagTextBox.AcceptsReturn = true;
+			this.newTagTextBox.AcceptsTab = true;
 			this.newTagTextBox.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.newTagTextBox.ForeColor = System.Drawing.SystemColors.InactiveCaption;
 			this.newTagTextBox.Location = new System.Drawing.Point(0, 265);
+			this.newTagTextBox.Multiline = true;
 			this.newTagTextBox.Name = "newTagTextBox";
 			this.newTagTextBox.Size = new System.Drawing.Size(261, 20);
 			this.newTagTextBox.TabIndex = 0;
 			this.newTagTextBox.Text = "New Tag";
+			this.newTagTextBox.TextChanged += new System.EventHandler(this.newTagTextBox_TextChanged);
+			this.newTagTextBox.Enter += new System.EventHandler(this.newTagTextBox_Enter);
+			this.newTagTextBox.Leave += new System.EventHandler(this.newTagTextBox_Leave);
 			// 
 			// closeReopenButton
 			// 
@@ -135,6 +141,8 @@
 			// 
 			// detailsTextBox
 			// 
+			this.detailsTextBox.AcceptsReturn = true;
+			this.detailsTextBox.AcceptsTab = true;
 			this.detailsTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.detailsTextBox.ForeColor = System.Drawing.SystemColors.InactiveCaption;
 			this.detailsTextBox.Location = new System.Drawing.Point(0, 20);
