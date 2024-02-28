@@ -41,6 +41,7 @@ namespace TinyTicketSystem
 			TitleText = _ticket.Title;
 			DetailsText = _ticket.Details;
 			BlockingTicketIDs = _ticket.IDsOfTicketsBlockingThisTicket;
+			TicketTags = _ticket.Tags;
 			UpdateStatus();
 		}
 
@@ -61,6 +62,12 @@ namespace TinyTicketSystem
 			if (!ContentIsSame(_ticket.IDsOfTicketsBlockingThisTicket, blockingIds))
 			{
 				_ticket.IDsOfTicketsBlockingThisTicket = blockingIds;
+				edited = true;
+			}
+			var tags = TicketTags;
+			if (!ContentIsSame(_ticket.Tags, tags))
+			{
+				_ticket.Tags = tags;
 				edited = true;
 			}
 			if (edited)
@@ -255,6 +262,45 @@ namespace TinyTicketSystem
 		#endregion
 
 		#region Tags
+		private List<string> TicketTags
+		{
+			get
+			{
+				var list = new List<string>();
+				foreach (var tag in tagsListBox.Items)
+				{
+					list.Add(tag.ToString());
+				}
+				list.Sort();
+				return list;
+			}
+
+			set
+			{
+				tagsListBox.Items.Clear();
+				foreach (var tag in value)
+				{
+					tagsListBox.Items.Add(tag);
+				}
+			}
+		}
+
+		private bool ContentIsSame(List<string> a, List<string> b)
+		{
+			if (a.Count != b.Count)
+			{
+				return false;
+			}
+			for (var i = 0; i < a.Count; ++i)
+			{
+				if (a[i] != b[i])
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+
 		private void newTagTextBox_Enter(object sender, EventArgs e)
 		{
 			if (newTagTextBox.ForeColor == SystemColors.InactiveCaption)
