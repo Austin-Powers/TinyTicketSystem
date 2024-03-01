@@ -68,6 +68,7 @@ namespace TinyTicketSystem
 			if (!ContentIsSame(_ticket.Tags, tags))
 			{
 				_ticket.Tags = tags;
+				_model.AddTagsOf(_ticket);
 				edited = true;
 			}
 			if (edited)
