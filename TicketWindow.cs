@@ -322,14 +322,17 @@ namespace TinyTicketSystem
 
 		private void newTagTextBox_TextChanged(object sender, EventArgs e)
 		{
-			if (newTagTextBox.Text.EndsWith("\n"))
+			var text = newTagTextBox.Text;
+
+			// Enter was hit
+            if (text.Contains("\n"))
 			{
-				tagsListBox.Items.Add(newTagTextBox.Text.Trim());
+				tagsListBox.Items.Add(newTagTextBox.Text.Trim().Replace("\r", "").Replace("\n", "");
 				newTagTextBox.Text = "";
 			}
-		}
+        }
 
-		private void removeTagTSMI_Click(object sender, EventArgs e)
+        private void removeTagTSMI_Click(object sender, EventArgs e)
 		{
 			var toRemove = tagsListBox.SelectedItem;
 			if (toRemove != null)
