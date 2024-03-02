@@ -327,7 +327,7 @@ namespace TinyTicketSystem
 			// Enter was hit
             if (text.Contains("\n"))
 			{
-				tagsListBox.Items.Add(newTagTextBox.Text.Trim().Replace("\r", "").Replace("\n", "");
+				tagsListBox.Items.Add(newTagTextBox.Text.Trim().Replace("\r", "").Replace("\n", ""));
 				newTagTextBox.Text = "";
 			}
         }
