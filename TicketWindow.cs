@@ -8,6 +8,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TinyTicketSystem
 {
@@ -322,14 +324,6 @@ namespace TinyTicketSystem
 
 		private void newTagTextBox_TextChanged(object sender, EventArgs e)
 		{
-			var text = newTagTextBox.Text;
-
-			// Enter was hit
-            if (text.Contains("\n"))
-			{
-				tagsListBox.Items.Add(newTagTextBox.Text.Trim().Replace("\r", "").Replace("\n", ""));
-				newTagTextBox.Text = "";
-			}
         }
 
         private void removeTagTSMI_Click(object sender, EventArgs e)
@@ -340,6 +334,52 @@ namespace TinyTicketSystem
 				tagsListBox.Items.Remove(toRemove);
 			}
 		}
-		#endregion
-	}
+
+        private void newTagTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+			var text = newTagTextBox.Text;
+			switch (e.KeyCode)
+			{
+				case Keys.Return:
+                    tagsListBox.Items.Add(text.Trim().Replace("\r", "").Replace("\n", ""));
+                    newTagTextBox.Text = "";
+                    break;
+				case Keys.Tab:
+					newTagTextBox.Text = TagAutoComplete(text.Trim());
+					newTagTextBox.SelectionStart = newTagTextBox.Text.Length;
+                    break;
+				case Keys.Delete:
+				case Keys.Back:
+                    break;
+                default:
+					var fill = TagAutoComplete(text);
+                    newTagTextBox.Text = fill;
+                    newTagTextBox.SelectionStart = text.Length;
+                    newTagTextBox.SelectionLength = fill.Length - text.Length;
+                    break;
+            }
+        }
+
+		private string TagAutoComplete(string text)
+		{
+            // auto completion, as the built in one does not work as expected
+            if (text.Length > 0)
+            {
+                foreach (var tag in _model.Tags)
+                {
+                    if (tag.StartsWith(text))
+                    {
+                        // skip already included ones
+                        if (tagsListBox.Items.Contains(tag))
+                        {
+                            continue;
+                        }
+						return tag;
+                    }
+                }
+            }
+			return text;
+        }
+        #endregion
+    }
 }
