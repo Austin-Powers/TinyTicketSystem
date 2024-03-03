@@ -283,7 +283,7 @@ namespace TinyTicketSystem
 				tagsListBox.Items.Clear();
 				foreach (var tag in value)
 				{
-					tagsListBox.Items.Add(tag);
+					AddTagToList(tag);
 				}
 			}
 		}
@@ -341,7 +341,7 @@ namespace TinyTicketSystem
 			switch (e.KeyCode)
 			{
 				case Keys.Return:
-                    tagsListBox.Items.Add(text.Trim().Replace("\r", "").Replace("\n", ""));
+                    AddTagToList(text.Trim().Replace("\r", "").Replace("\n", ""));
                     newTagTextBox.Text = "";
                     break;
 				case Keys.Tab:
@@ -380,6 +380,18 @@ namespace TinyTicketSystem
             }
 			return text;
         }
+
+		/// <summary>
+		/// Adds the given tag to the list, if it is not already included.
+		/// </summary>
+		/// <param name="tag">The tag to add.</param>
+		private void AddTagToList(string tag)
+		{
+			if (!tagsListBox.Items.Contains(tag))
+			{
+				tagsListBox.Items.Add(tag);
+			}
+		}
         #endregion
     }
 }
