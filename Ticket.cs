@@ -253,7 +253,7 @@ namespace TinyTicketSystem
 			// ...
 			if (line != null)
 			{
-				_details += line + "\n";
+				_details += line + "\r\n";
 			}
 		}
 

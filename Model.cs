@@ -143,7 +143,7 @@ namespace TinyTicketSystem
 				foreach (var key in _tickets.Keys)
 				{
 					var line = "[" + _tickets[key].ID + " " + _tickets[key].Title + "](";
-					line += Ticket.CreateFilePath(".", _tickets[key].ID) + ")";
+					line += Ticket.CreateFilePath(".", _tickets[key].ID) + ")  ";
 					sw.WriteLine(line);
 				}
 			}
