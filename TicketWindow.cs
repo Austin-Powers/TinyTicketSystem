@@ -347,6 +347,10 @@ namespace TinyTicketSystem
                     break;
 				case Keys.Delete:
 				case Keys.Back:
+				case Keys.Up: 
+				case Keys.Down:
+				case Keys.Left:
+				case Keys.Right:
                     break;
                 default:
 					var fill = TagAutoComplete(text);
