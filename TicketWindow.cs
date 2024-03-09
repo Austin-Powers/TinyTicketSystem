@@ -15,11 +15,13 @@ namespace TinyTicketSystem
 {
 	public partial class TicketWindow : Form
 	{
-		private Model _model;
+		private readonly Model _model;
 
-		private Ticket _ticket;
+		private readonly Ticket _ticket;
 
-		private Localisation _localisation;
+		private readonly Localisation _localisation;
+
+		private bool _closed;
 
 		public TicketWindow(Model model, uint ticketID, Localisation localisation)
 		{
@@ -37,6 +39,7 @@ namespace TinyTicketSystem
 			_model = model;
 			_ticket = _model.GetTicket(ticketID);
 			_localisation = localisation;
+			_closed = _ticket.Closed;
 			TitleText = _ticket.Title;
 			DetailsText = _ticket.Details;
 			BlockingTicketIDs = _ticket.IDsOfTicketsBlockingThisTicket;
@@ -47,6 +50,11 @@ namespace TinyTicketSystem
 		private void TicketWindow_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			bool edited = false;
+			if (_ticket.Closed != _closed)
+			{
+				_ticket.Closed = _closed;
+				edited = true;
+			}
 			if (_ticket.Title != TitleText)
 			{
 				_ticket.Title = TitleText;
@@ -77,15 +85,15 @@ namespace TinyTicketSystem
 		}
 
 		#region Status
-		private void closeReopenButton_Click(object sender, EventArgs e)
+		private void CloseReopenButton_Click(object sender, EventArgs e)
         {
-			_ticket.Closed = !_ticket.Closed;
+			_closed = !_closed;
 			UpdateStatus();
         }
 
 		private void UpdateStatus()
 		{
-			if (_ticket.Closed)
+			if (_closed)
 			{
 				closeReopenButton.Text = _localisation.Get("ticket_status_reopen");
 			}
