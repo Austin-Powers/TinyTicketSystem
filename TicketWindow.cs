@@ -15,23 +15,19 @@ namespace TinyTicketSystem
 {
 	public partial class TicketWindow : Form
 	{
-		private static readonly string TitleEmptyString = "Enter the ticket title here";
-
-		private static readonly string DetailsEmptyString = "Enter the details of the ticket here";
-
-		private static readonly string TagEmptyString = "Enter new tag here, Press Enter to submit";
-
 		private Model _model;
 
 		private Ticket _ticket;
 
-		public TicketWindow(Model model, uint ticketID)
+		private Localisation _localisation;
+
+		public TicketWindow(Model model, uint ticketID, Localisation localisation)
 		{
 			// WinForms setup
 			InitializeComponent();
 			blockingTicketsListBox.ContextMenuStrip = blockingIdsCMS;
             tagsListBox.ContextMenuStrip = tagsCMS;
-			newTagTextBox.Text = TagEmptyString;
+			newTagTextBox.Text = localisation.Get("ticket_tag_empty");
 			newTagTextBox.ForeColor = SystemColors.InactiveCaption;
 
 			removeTicketTSMI.ShortcutKeys = Keys.Delete;
@@ -40,6 +36,7 @@ namespace TinyTicketSystem
 			// Load Ticket
 			_model = model;
 			_ticket = _model.GetTicket(ticketID);
+			_localisation = localisation;
 			TitleText = _ticket.Title;
 			DetailsText = _ticket.Details;
 			BlockingTicketIDs = _ticket.IDsOfTicketsBlockingThisTicket;
@@ -90,11 +87,11 @@ namespace TinyTicketSystem
 		{
 			if (_ticket.Closed)
 			{
-				closeReopenButton.Text = "Reopen";
+				closeReopenButton.Text = _localisation.Get("ticket_status_reopen");
 			}
 			else
 			{
-				closeReopenButton.Text = "Close";
+				closeReopenButton.Text = _localisation.Get("ticket_status_close");
 			}
 		}
 		#endregion
@@ -112,8 +109,8 @@ namespace TinyTicketSystem
 				if (value == "")
 				{
 					titleTextBox.ForeColor = SystemColors.InactiveCaption;
-					titleTextBox.Text = TitleEmptyString;
-					Text = "New Ticket";
+					titleTextBox.Text = _localisation.Get("ticket_title_empty");
+					Text = _localisation.Get("ticket_new_ticket");
 				}
 				else
 				{
@@ -152,7 +149,7 @@ namespace TinyTicketSystem
 				if (value == "")
 				{
 					detailsTextBox.ForeColor = SystemColors.InactiveCaption;
-					detailsTextBox.Text = DetailsEmptyString;
+					detailsTextBox.Text = _localisation.Get("ticket_details_empty");
 				}
 				else
 				{
@@ -225,7 +222,7 @@ namespace TinyTicketSystem
 		private void newTicketToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			var id = _model.AddEmptyTicket();
-			var ticketView = new TicketWindow(_model, id);
+			var ticketView = new TicketWindow(_model, id, _localisation);
 			ticketView.ShowDialog(this);
 			if (!_model.RemoveTicketIfEmpty(id))
 			{
@@ -235,7 +232,7 @@ namespace TinyTicketSystem
 
 		private void addTicketToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			var selector = new TicketSelectorWindow(_model, BlockingTicketIDs);
+			var selector = new TicketSelectorWindow(_model, BlockingTicketIDs, _localisation);
 			selector.ShowDialog(this);
 			foreach (var ticket in selector.SelectedTickets)
 			{
@@ -258,7 +255,7 @@ namespace TinyTicketSystem
 			if (selected != null)
 			{
 				var id = Convert.ToUInt32(selected.ToString().Split(' ')[0]);
-				var ticketView = new TicketWindow(_model, id);
+				var ticketView = new TicketWindow(_model, id, _localisation);
 				ticketView.ShowDialog(this);
 			}
 		}
@@ -318,7 +315,7 @@ namespace TinyTicketSystem
 			if (newTagTextBox.Text == "")
 			{
 				newTagTextBox.ForeColor = SystemColors.InactiveCaption;
-				newTagTextBox.Text = TagEmptyString;
+				newTagTextBox.Text = _localisation.Get("ticket_tag_empty");
 			}
 		}
 

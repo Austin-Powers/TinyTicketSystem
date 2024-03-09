@@ -16,9 +16,11 @@ namespace TinyTicketSystem
 
 		public List<string> SelectedTickets { get { return selectedTickets; } }
 
-		public TicketSelectorWindow(Model model, List<uint> alreadyBlockingTickets)
+		public TicketSelectorWindow(Model model, List<uint> alreadyBlockingTickets, Localisation localisation)
 		{
 			InitializeComponent();
+			Text = localisation.Get("selector_title");
+			addButton.Text = localisation.Get("selector_add");
 			foreach (var ticketId in model.TicketIds)
 			{
 				if (!alreadyBlockingTickets.Contains(ticketId))
