@@ -12,7 +12,7 @@ namespace TinyTicketSystem
 {
 	public partial class TicketSelectorWindow : Form
 	{
-		private List<string> selectedTickets = new List<string>();
+		private readonly List<string> selectedTickets = new List<string>();
 
 		public List<string> SelectedTickets { get { return selectedTickets; } }
 
@@ -30,7 +30,7 @@ namespace TinyTicketSystem
 			}
 		}
 
-		private void addButton_Click(object sender, EventArgs e)
+		private void AddButton_Click(object sender, EventArgs e)
 		{
 			Close();
 		}

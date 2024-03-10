@@ -129,7 +129,7 @@ namespace TinyTicketSystem
 			}
 		}
 
-		private void titleTextBox_Enter(object sender, EventArgs e)
+		private void TitleTextBox_Enter(object sender, EventArgs e)
 		{
 			if (titleTextBox.ForeColor == SystemColors.InactiveCaption)
 			{
@@ -138,7 +138,7 @@ namespace TinyTicketSystem
 			}
 		}
 
-		private void titleTextBox_Leave(object sender, EventArgs e)
+		private void TitleTextBox_Leave(object sender, EventArgs e)
 		{
 			TitleText = titleTextBox.Text;
 		}
@@ -167,7 +167,7 @@ namespace TinyTicketSystem
 			}
 		}
 
-		private void detailsTextBox_Enter(object sender, EventArgs e)
+		private void DetailsTextBox_Enter(object sender, EventArgs e)
 		{
 			if (detailsTextBox.ForeColor == SystemColors.InactiveCaption)
 			{
@@ -176,7 +176,7 @@ namespace TinyTicketSystem
 			}
 		}
 
-		private void detailsTextBox_Leave(object sender, EventArgs e)
+		private void DetailsTextBox_Leave(object sender, EventArgs e)
 		{
 			DetailsText = detailsTextBox.Text;
 		}
@@ -227,7 +227,7 @@ namespace TinyTicketSystem
 			return true;
 		}
 
-		private void newTicketToolStripMenuItem_Click(object sender, EventArgs e)
+		private void NewTicketToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			var id = _model.AddEmptyTicket();
 			var ticketView = new TicketWindow(_model, id, _localisation);
@@ -238,7 +238,7 @@ namespace TinyTicketSystem
 			}
 		}
 
-		private void addTicketToolStripMenuItem_Click(object sender, EventArgs e)
+		private void AddTicketToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			var selector = new TicketSelectorWindow(_model, BlockingTicketIDs, _localisation);
 			selector.ShowDialog(this);
@@ -248,7 +248,7 @@ namespace TinyTicketSystem
 			}
 		}
 
-		private void removeTicketToolStripMenuItem_Click(object sender, EventArgs e)
+		private void RemoveTicketToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			var toRemove = blockingTicketsListBox.SelectedItem;
 			if (toRemove != null)
@@ -257,7 +257,7 @@ namespace TinyTicketSystem
 			}
 		}
 
-		private void blockingTicketsListBox_DoubleClick(object sender, EventArgs e)
+		private void BlockingTicketsListBox_DoubleClick(object sender, EventArgs e)
 		{
 			var selected = blockingTicketsListBox.SelectedItem;
 			if (selected != null)
@@ -309,7 +309,7 @@ namespace TinyTicketSystem
 			return true;
 		}
 
-		private void newTagTextBox_Enter(object sender, EventArgs e)
+		private void NewTagTextBox_Enter(object sender, EventArgs e)
 		{
 			if (newTagTextBox.ForeColor == SystemColors.InactiveCaption)
 			{
@@ -318,7 +318,7 @@ namespace TinyTicketSystem
 			}
 		}
 
-		private void newTagTextBox_Leave(object sender, EventArgs e)
+		private void NewTagTextBox_Leave(object sender, EventArgs e)
 		{
 			if (newTagTextBox.Text == "")
 			{
@@ -327,11 +327,11 @@ namespace TinyTicketSystem
 			}
 		}
 
-		private void newTagTextBox_TextChanged(object sender, EventArgs e)
+		private void NewTagTextBox_TextChanged(object sender, EventArgs e)
 		{
         }
 
-        private void removeTagTSMI_Click(object sender, EventArgs e)
+        private void RemoveTagTSMI_Click(object sender, EventArgs e)
 		{
 			var toRemove = tagsListBox.SelectedItem;
 			if (toRemove != null)
@@ -340,7 +340,7 @@ namespace TinyTicketSystem
 			}
 		}
 
-        private void newTagTextBox_KeyUp(object sender, KeyEventArgs e)
+        private void NewTagTextBox_KeyUp(object sender, KeyEventArgs e)
         {
 			var text = newTagTextBox.Text;
 			switch (e.KeyCode)

@@ -37,7 +37,7 @@ namespace TinyTicketSystem
         }
 
 		#region Toolstrip
-		private void newTicketToolStripMenuItem_Click(object sender, EventArgs e)
+		private void NewTicketToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			try
 			{
@@ -63,7 +63,7 @@ namespace TinyTicketSystem
             }
 		}
 
-		private void deleteTicketToolStripMenuItem_Click(object sender, EventArgs e)
+		private void DeleteTicketToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			try
 			{
@@ -86,7 +86,7 @@ namespace TinyTicketSystem
 			}
 		}
 
-		private void setTicketDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
+		private void SetTicketDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
 			try
 			{
@@ -104,13 +104,13 @@ namespace TinyTicketSystem
             }
 		}
 
-		private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+		private void RefreshToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			CreateModel();
 		}
 		#endregion
 
-		private void dataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+		private void DataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
 		{
 			var ticketNumber = dataGridView.Rows[e.RowIndex].Cells[0].Value;
 			DisplayInfo(_localisation.Get("main_edit_open", ticketNumber));

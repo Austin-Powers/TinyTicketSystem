@@ -101,7 +101,7 @@
             this.blockingTicketsListBox.Name = "blockingTicketsListBox";
             this.blockingTicketsListBox.Size = new System.Drawing.Size(261, 246);
             this.blockingTicketsListBox.TabIndex = 0;
-            this.blockingTicketsListBox.DoubleClick += new System.EventHandler(this.blockingTicketsListBox_DoubleClick);
+            this.blockingTicketsListBox.DoubleClick += new System.EventHandler(this.BlockingTicketsListBox_DoubleClick);
             // 
             // tagsListBox
             // 
@@ -124,9 +124,9 @@
             this.newTagTextBox.Size = new System.Drawing.Size(261, 20);
             this.newTagTextBox.TabIndex = 0;
             this.newTagTextBox.Text = "New Tag";
-            this.newTagTextBox.Enter += new System.EventHandler(this.newTagTextBox_Enter);
-            this.newTagTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.newTagTextBox_KeyUp);
-            this.newTagTextBox.Leave += new System.EventHandler(this.newTagTextBox_Leave);
+            this.newTagTextBox.Enter += new System.EventHandler(this.NewTagTextBox_Enter);
+            this.newTagTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.NewTagTextBox_KeyUp);
+            this.newTagTextBox.Leave += new System.EventHandler(this.NewTagTextBox_Leave);
             // 
             // closeReopenButton
             // 
@@ -152,8 +152,8 @@
             this.detailsTextBox.Size = new System.Drawing.Size(519, 541);
             this.detailsTextBox.TabIndex = 1;
             this.detailsTextBox.Text = "Details";
-            this.detailsTextBox.Enter += new System.EventHandler(this.detailsTextBox_Enter);
-            this.detailsTextBox.Leave += new System.EventHandler(this.detailsTextBox_Leave);
+            this.detailsTextBox.Enter += new System.EventHandler(this.DetailsTextBox_Enter);
+            this.detailsTextBox.Leave += new System.EventHandler(this.DetailsTextBox_Leave);
             // 
             // titleTextBox
             // 
@@ -164,8 +164,8 @@
             this.titleTextBox.Size = new System.Drawing.Size(519, 20);
             this.titleTextBox.TabIndex = 0;
             this.titleTextBox.Text = "Title";
-            this.titleTextBox.Enter += new System.EventHandler(this.titleTextBox_Enter);
-            this.titleTextBox.Leave += new System.EventHandler(this.titleTextBox_Leave);
+            this.titleTextBox.Enter += new System.EventHandler(this.TitleTextBox_Enter);
+            this.titleTextBox.Leave += new System.EventHandler(this.TitleTextBox_Leave);
             // 
             // blockingIdsCMS
             // 
@@ -181,21 +181,21 @@
             this.newTicketToolStripMenuItem.Name = "newTicketToolStripMenuItem";
             this.newTicketToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.newTicketToolStripMenuItem.Text = "New Ticket";
-            this.newTicketToolStripMenuItem.Click += new System.EventHandler(this.newTicketToolStripMenuItem_Click);
+            this.newTicketToolStripMenuItem.Click += new System.EventHandler(this.NewTicketToolStripMenuItem_Click);
             // 
             // addTicketToolStripMenuItem
             // 
             this.addTicketToolStripMenuItem.Name = "addTicketToolStripMenuItem";
             this.addTicketToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.addTicketToolStripMenuItem.Text = "Add Ticket";
-            this.addTicketToolStripMenuItem.Click += new System.EventHandler(this.addTicketToolStripMenuItem_Click);
+            this.addTicketToolStripMenuItem.Click += new System.EventHandler(this.AddTicketToolStripMenuItem_Click);
             // 
             // removeTicketTSMI
             // 
             this.removeTicketTSMI.Name = "removeTicketTSMI";
             this.removeTicketTSMI.Size = new System.Drawing.Size(132, 22);
             this.removeTicketTSMI.Text = "Remove";
-            this.removeTicketTSMI.Click += new System.EventHandler(this.removeTicketToolStripMenuItem_Click);
+            this.removeTicketTSMI.Click += new System.EventHandler(this.RemoveTicketToolStripMenuItem_Click);
             // 
             // tagsCMS
             // 
@@ -209,7 +209,7 @@
             this.removeTagTSMI.Name = "removeTagTSMI";
             this.removeTagTSMI.Size = new System.Drawing.Size(117, 22);
             this.removeTagTSMI.Text = "Remove";
-            this.removeTagTSMI.Click += new System.EventHandler(this.removeTagTSMI_Click);
+            this.removeTagTSMI.Click += new System.EventHandler(this.RemoveTagTSMI_Click);
             // 
             // TicketWindow
             // 

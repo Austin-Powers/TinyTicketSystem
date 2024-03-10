@@ -65,7 +65,7 @@
 			this.dataGridView.ReadOnly = true;
 			this.dataGridView.Size = new System.Drawing.Size(800, 426);
 			this.dataGridView.TabIndex = 0;
-			this.dataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellDoubleClick);
+			this.dataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellDoubleClick);
 			// 
 			// idColumn
 			// 
@@ -132,21 +132,21 @@
 			this.newTicketToolStripMenuItem.Name = "newTicketToolStripMenuItem";
 			this.newTicketToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.newTicketToolStripMenuItem.Text = "New Ticket";
-			this.newTicketToolStripMenuItem.Click += new System.EventHandler(this.newTicketToolStripMenuItem_Click);
+			this.newTicketToolStripMenuItem.Click += new System.EventHandler(this.NewTicketToolStripMenuItem_Click);
 			// 
 			// setTicketDirectoryToolStripMenuItem
 			// 
 			this.setTicketDirectoryToolStripMenuItem.Name = "setTicketDirectoryToolStripMenuItem";
 			this.setTicketDirectoryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.setTicketDirectoryToolStripMenuItem.Text = "Set Ticket Directory";
-			this.setTicketDirectoryToolStripMenuItem.Click += new System.EventHandler(this.setTicketDirectoryToolStripMenuItem_Click);
+			this.setTicketDirectoryToolStripMenuItem.Click += new System.EventHandler(this.SetTicketDirectoryToolStripMenuItem_Click);
 			// 
 			// refreshToolStripMenuItem
 			// 
 			this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
 			this.refreshToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.refreshToolStripMenuItem.Text = "Refresh";
-			this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+			this.refreshToolStripMenuItem.Click += new System.EventHandler(this.RefreshToolStripMenuItem_Click);
 			// 
 			// statusStrip1
 			// 
@@ -169,7 +169,7 @@
 			this.deleteTicketToolStripMenuItem.Name = "deleteTicketToolStripMenuItem";
 			this.deleteTicketToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.deleteTicketToolStripMenuItem.Text = "Delete Ticket";
-			this.deleteTicketToolStripMenuItem.Click += new System.EventHandler(this.deleteTicketToolStripMenuItem_Click);
+			this.deleteTicketToolStripMenuItem.Click += new System.EventHandler(this.DeleteTicketToolStripMenuItem_Click);
 			// 
 			// MainWindow
 			// 
