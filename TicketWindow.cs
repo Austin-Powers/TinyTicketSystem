@@ -338,38 +338,49 @@ namespace TinyTicketSystem
 			{
 				tagsListBox.Items.Remove(toRemove);
 			}
-		}
+        }
+
+		private int _downButtons = 0;
+
+        private void NewTagTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+			_downButtons++;
+        }
 
         private void NewTagTextBox_KeyUp(object sender, KeyEventArgs e)
         {
-			var text = newTagTextBox.Text;
-			switch (e.KeyCode)
+			_downButtons--;
+			if (_downButtons == 0)
 			{
-				case Keys.Return:
-                    AddTagToList(text.Trim().Replace("\r", "").Replace("\n", ""));
-                    newTagTextBox.Text = "";
-                    break;
-				case Keys.Tab:
-					newTagTextBox.Text = TagAutoComplete(text.Trim());
-					newTagTextBox.SelectionStart = newTagTextBox.Text.Length;
-                    break;
-				case Keys.Delete:
-				case Keys.Back:
-				case Keys.Up: 
-				case Keys.Down:
-				case Keys.Left:
-				case Keys.Right:
-                    break;
-                default:
-					var fill = TagAutoComplete(text);
-                    newTagTextBox.Text = fill;
-                    newTagTextBox.SelectionStart = text.Length;
-                    newTagTextBox.SelectionLength = fill.Length - text.Length;
-                    break;
-            }
+				var text = newTagTextBox.Text;
+				switch (e.KeyCode)
+				{
+					case Keys.Return:
+				        AddTagToList(text.Trim().Replace("\r", "").Replace("\n", ""));
+				        newTagTextBox.Text = "";
+				        break;
+					case Keys.Tab:
+						newTagTextBox.Text = TagAutoComplete(text.Trim());
+						newTagTextBox.SelectionStart = newTagTextBox.Text.Length;
+				        break;
+					case Keys.Delete:
+					case Keys.Back:
+					case Keys.Up: 
+					case Keys.Down:
+					case Keys.Left:
+					case Keys.Right:
+				        break;
+				    default:
+						var fill = TagAutoComplete(text);
+				        newTagTextBox.Text = fill;
+				        newTagTextBox.SelectionStart = text.Length;
+				        newTagTextBox.SelectionLength = fill.Length - text.Length;
+				        break;
+				}
+			}
         }
 
-		private string TagAutoComplete(string text)
+        private string TagAutoComplete(string text)
 		{
             // auto completion, as the built in one does not work as expected
             if (text.Length > 0)

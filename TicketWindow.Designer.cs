@@ -125,6 +125,7 @@
             this.newTagTextBox.TabIndex = 0;
             this.newTagTextBox.Text = "New Tag";
             this.newTagTextBox.Enter += new System.EventHandler(this.NewTagTextBox_Enter);
+            this.newTagTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NewTagTextBox_KeyDown);
             this.newTagTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.NewTagTextBox_KeyUp);
             this.newTagTextBox.Leave += new System.EventHandler(this.NewTagTextBox_Leave);
             // 
