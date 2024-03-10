@@ -157,12 +157,14 @@ namespace TinyTicketSystem
 				{
 					Value = ticket.LastChanged.ToString()
 				});
-				row.Cells.Add(new DataGridViewTextBoxCell
+				var statusCell = new DataGridViewTextBoxCell
 				{
-					Value = ticket.Closed 
-					? _localisation.Get("main_table_closed") 
-					: _localisation.Get("main_table_open")
-				});
+					Value = ticket.Closed
+					? _localisation.Get("main_table_closed")
+					: _localisation.Get("main_table_open"),
+				};
+				statusCell.Style.ForeColor = ticket.Closed ? Color.Green : Color.Blue;
+                row.Cells.Add(statusCell);
 				var tagsString = "";
 				foreach(var tag in ticket.Tags)
 				{
