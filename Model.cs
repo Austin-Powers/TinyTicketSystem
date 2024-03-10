@@ -73,15 +73,16 @@ namespace TinyTicketSystem
 			}
 		}
 
-		/// <summary>
-		/// Adds a new empty ticket using the next available id.
-		/// </summary>
-		/// <returns>The id of the new ticket.</returns>
-		/// <remarks>
-		/// This method may discover tickets that already exist in the folder,
-		/// those tickets will be added to the model.
-		/// </remarks>
-		public uint AddEmptyTicket()
+        #region Ticket
+        /// <summary>
+        /// Adds a new empty ticket using the next available id.
+        /// </summary>
+        /// <returns>The id of the new ticket.</returns>
+        /// <remarks>
+        /// This method may discover tickets that already exist in the folder,
+        /// those tickets will be added to the model.
+        /// </remarks>
+        public uint AddEmptyTicket()
 		{
 			var newTicket = AddTicket(NextUnusedID());
 			while (!newTicket.Empty())
@@ -117,10 +118,35 @@ namespace TinyTicketSystem
 		}
 
 		/// <summary>
-		/// Adds the tags of the given ticket to the set of known tickets.
+		/// Checks if the ticket with the given id has any open tickets blocking it.
 		/// </summary>
-		/// <param name="ticket">The ticket to extract the tags from.</param>
-		public void AddTagsOf(Ticket ticket)
+		/// <param name="id">The id of the ticket.</param>
+		/// <returns>True if the ticket is blocked, false otherwise.</returns>
+		/// <remarks>If the ticket does not exist the method returns also false.</remarks>
+        public bool IsBlocked(uint id)
+        {
+			if (_tickets.ContainsKey(id))
+			{
+				foreach (var blockginId in _tickets[id].IDsOfTicketsBlockingThisTicket)
+				{
+					if (_tickets.ContainsKey(blockginId))
+					{
+						if (!_tickets[blockginId].Closed)
+						{
+							return true;
+						}
+					}
+				}
+            }
+            return false;
+        }
+        #endregion
+
+        /// <summary>
+        /// Adds the tags of the given ticket to the set of known tickets.
+        /// </summary>
+        /// <param name="ticket">The ticket to extract the tags from.</param>
+        public void AddTagsOf(Ticket ticket)
 		{
 			foreach (var tag in ticket.Tags)
 			{
