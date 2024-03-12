@@ -118,26 +118,22 @@ namespace TinyTicketSystem
 		}
 
 		/// <summary>
-		/// Checks if the ticket with the given id has any open tickets blocking it.
+		/// Checks if the given ticket has any open tickets blocking it.
 		/// </summary>
-		/// <param name="id">The id of the ticket.</param>
+		/// <param name="ticket">The ticket to check.</param>
 		/// <returns>True if the ticket is blocked, false otherwise.</returns>
-		/// <remarks>If the ticket does not exist the method returns also false.</remarks>
-        public bool IsBlocked(uint id)
+        public bool IsBlocked(Ticket ticket)
         {
-			if (_tickets.ContainsKey(id))
+			foreach (var blockginId in ticket.IDsOfTicketsBlockingThisTicket)
 			{
-				foreach (var blockginId in _tickets[id].IDsOfTicketsBlockingThisTicket)
+				if (_tickets.ContainsKey(blockginId))
 				{
-					if (_tickets.ContainsKey(blockginId))
+					if (!_tickets[blockginId].Closed)
 					{
-						if (!_tickets[blockginId].Closed)
-						{
-							return true;
-						}
+						return true;
 					}
 				}
-            }
+			}
             return false;
         }
         #endregion

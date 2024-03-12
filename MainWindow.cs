@@ -157,14 +157,7 @@ namespace TinyTicketSystem
 				{
 					Value = ticket.LastChanged.ToString()
 				});
-				var statusCell = new DataGridViewTextBoxCell
-				{
-					Value = ticket.Closed
-					? _localisation.Get("main_table_closed")
-					: _localisation.Get("main_table_open"),
-				};
-				statusCell.Style.ForeColor = ticket.Closed ? Color.Green : Color.Blue;
-                row.Cells.Add(statusCell);
+                row.Cells.Add(CreateStatusCellFor(ticket));
 				var tagsString = "";
 				foreach(var tag in ticket.Tags)
 				{
@@ -177,6 +170,27 @@ namespace TinyTicketSystem
 				dataGridView.Rows.Add(row);
 			}
 		}
+
+		private DataGridViewTextBoxCell CreateStatusCellFor(Ticket ticket)
+		{
+			var statusCell = new DataGridViewTextBoxCell();
+            if (_model.IsBlocked(ticket))
+			{
+                statusCell.Style.ForeColor = Color.Red;
+                statusCell.Value = _localisation.Get("main_table_blocked");
+            }
+            else if (ticket.Closed)
+			{
+                statusCell.Style.ForeColor = Color.Green;
+                statusCell.Value = _localisation.Get("main_table_closed");
+            }
+			else
+			{
+                statusCell.Style.ForeColor = Color.Blue;
+                statusCell.Value = _localisation.Get("main_table_open");
+            }
+			return statusCell;
+        }
 
 		private void DisplayInfo(string info)
 		{

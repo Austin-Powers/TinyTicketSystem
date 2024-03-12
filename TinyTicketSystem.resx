@@ -168,6 +168,9 @@
   <data name="main_status_ready" xml:space="preserve">
     <value>Ready</value>
   </data>
+  <data name="main_table_blocked" xml:space="preserve">
+    <value>Blocked</value>
+  </data>
   <data name="main_table_closed" xml:space="preserve">
     <value>closed</value>
   </data>
