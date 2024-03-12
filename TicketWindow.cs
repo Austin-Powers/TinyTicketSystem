@@ -218,8 +218,12 @@ namespace TinyTicketSystem
 
 		private void AddBlockingTicket(uint id)
 		{
-			blockingTicketsListBox.Items.Add(_model.GetTicket(id).ToString());
-		}
+			var ticket = _model.GetTicket(id);
+			if (ticket != null)
+			{
+				blockingTicketsListBox.Items.Add(ticket.ToString());
+            }
+        }
 
 		private bool ContentIsSame(List<uint> a, List<uint> b)
 		{
