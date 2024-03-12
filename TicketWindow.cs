@@ -93,14 +93,24 @@ namespace TinyTicketSystem
 
 		private void UpdateStatus()
 		{
-			if (_closed)
-			{
-				closeReopenButton.Text = _localisation.Get("ticket_status_reopen");
-			}
+            if (_model.IsBlocked(_ticket))
+            {
+				_closed = false;
+                closeReopenButton.Text = _localisation.Get("ticket_status_blocked");
+                closeReopenButton.Enabled = false;
+            }
 			else
 			{
-				closeReopenButton.Text = _localisation.Get("ticket_status_close");
-			}
+                closeReopenButton.Enabled = true;
+				if (_closed)
+				{
+                    closeReopenButton.Text = _localisation.Get("ticket_status_reopen");
+                }
+				else
+				{
+                    closeReopenButton.Text = _localisation.Get("ticket_status_close");
+                }
+            }
 		}
 		#endregion
 
@@ -236,6 +246,7 @@ namespace TinyTicketSystem
 			{
 				AddBlockingTicket(id);
 			}
+			UpdateStatus();
 		}
 
 		private void AddTicketToolStripMenuItem_Click(object sender, EventArgs e)
@@ -246,18 +257,20 @@ namespace TinyTicketSystem
 			{
 				blockingTicketsListBox.Items.Add(ticket);
 			}
-		}
+			UpdateStatus();
+        }
 
-		private void RemoveTicketToolStripMenuItem_Click(object sender, EventArgs e)
+        private void RemoveTicketToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			var toRemove = blockingTicketsListBox.SelectedItem;
 			if (toRemove != null)
 			{
 				blockingTicketsListBox.Items.Remove(toRemove);
 			}
-		}
+			UpdateStatus();
+        }
 
-		private void BlockingTicketsListBox_DoubleClick(object sender, EventArgs e)
+        private void BlockingTicketsListBox_DoubleClick(object sender, EventArgs e)
 		{
 			var selected = blockingTicketsListBox.SelectedItem;
 			if (selected != null)
@@ -266,11 +279,12 @@ namespace TinyTicketSystem
 				var ticketView = new TicketWindow(_model, id, _localisation);
 				ticketView.ShowDialog(this);
 			}
-		}
-		#endregion
+			UpdateStatus();
+        }
+        #endregion
 
-		#region Tags
-		private List<string> TicketTags
+        #region Tags
+        private List<string> TicketTags
 		{
 			get
 			{

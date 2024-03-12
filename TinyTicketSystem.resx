@@ -210,6 +210,9 @@
   <data name="ticket_remove" xml:space="preserve">
     <value>Remove</value>
   </data>
+  <data name="ticket_status_blocked" xml:space="preserve">
+    <value>Blocked</value>
+  </data>
   <data name="ticket_status_close" xml:space="preserve">
     <value>Close</value>
   </data>
