@@ -24,8 +24,12 @@ namespace TinyTicketSystem
 
 		public Ticket GetTicket(uint ticketId)
 		{
-			return _tickets[ticketId];
-		}
+			if (_tickets.ContainsKey(ticketId))
+			{
+                return _tickets[ticketId];
+            }
+			return null;
+        }
 
 		private readonly HashSet<string> _tags = new HashSet<string>();
 
@@ -58,7 +62,8 @@ namespace TinyTicketSystem
 						var offset = line.IndexOf('[') + 1;
 						var length = line.IndexOf(' ') - offset;
 						var idString = line.Substring(offset, length);
-						AddTicket(uint.Parse(line.Substring(offset, length)));
+						var ticket = AddTicket(uint.Parse(line.Substring(offset, length)));
+						RemoveTicketIfEmpty(ticket.ID);
 					}
 				}
 				catch (Exception ex)
