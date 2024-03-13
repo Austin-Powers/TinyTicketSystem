@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyTicketSystem", "TinyTicketSystem.csproj", "{20840D3C-7E98-4B44-A809-8DC27B484DDB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyTicketSystem", "TinyTicketSystem\TinyTicketSystem.csproj", "{20840D3C-7E98-4B44-A809-8DC27B484DDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
