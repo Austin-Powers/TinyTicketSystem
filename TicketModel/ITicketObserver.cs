@@ -10,7 +10,7 @@ namespace TicketModel
     /// <summary>
     /// Interface for classes observing updates on a ticket.
     /// </summary>
-    internal interface ITicketObserver
+    public interface ITicketObserver
     {
         /// <summary>
         /// Method called if a ticket is updated.

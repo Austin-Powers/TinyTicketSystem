@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using TicketModel;
 
 namespace TinyTicketSystem
 {
@@ -106,16 +107,20 @@ namespace TinyTicketSystem
         /// The details of the ticket.
         /// </summary>
         public string Details { get { return _details ?? ""; } set { _details = value; } }
-        #endregion
+		#endregion
+
+		ITicketObserver _observer = null;
 
         /// <summary>
         /// Initializes a new ticket object, with the given ID loading it from the ticket directory if the corresponding file exists.
         /// </summary>
         /// <param name="ticketDirectory">The ticket directory currently used by the model.</param>
         /// <param name="id">The id of this ticket.</param>
-        public Ticket(string ticketDirectory, uint id)
+        /// <param name="observer">Optional: An observer getting notified about updates on this ticket.</param>
+        public Ticket(string ticketDirectory, uint id, ITicketObserver observer = null)
 		{
 			ID = id;
+			_observer = observer;
 			_path = CreateFilePath(ticketDirectory, id);
 			if (File.Exists(_path))
 			{
@@ -291,6 +296,7 @@ namespace TinyTicketSystem
 		{
 			if (!Empty())
 			{
+				_observer?.OnTicketUpdated(this);
 				_lastChanged = DateTime.Now;
 				FileStream fs = null;
 				StreamWriter sw = null;
