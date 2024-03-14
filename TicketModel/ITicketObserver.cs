@@ -8,14 +8,14 @@ using TinyTicketSystem;
 namespace TicketModel
 {
     /// <summary>
-    /// Interface for classes observing changes on a ticket.
+    /// Interface for classes observing updates on a ticket.
     /// </summary>
     internal interface ITicketObserver
     {
         /// <summary>
         /// Method called if a ticket is updated.
         /// </summary>
-        /// <param name="ticket">The ticket that has been updated.</param>
-        void OnTicketChanged(Ticket ticket);
+        /// <param name="ticket">The updated ticket.</param>
+        void OnTicketUpdated(Ticket ticket);
     }
 }

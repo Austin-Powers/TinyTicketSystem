@@ -9,6 +9,7 @@ namespace TinyTicketSystem
 	/// </summary>
 	public class Ticket : IComparable<Ticket>
 	{
+		#region static members
 		/// <summary>
 		/// Creates the filepath for the given parameters.
 		/// </summary>
@@ -25,7 +26,7 @@ namespace TinyTicketSystem
             return Path.Combine(ticketDirectory, subDirNumber.ToString(), id.ToString() + ".md");
         }
 
-		private static readonly string TitleString = "# ";
+        private static readonly string TitleString = "# ";
 
 		private static readonly string OpenString = " - `open`";
 
@@ -34,11 +35,13 @@ namespace TinyTicketSystem
 		private static readonly string BlockByString = "__Blocked by__ ";
 
 		private static readonly string DetailsString = "## Details";
+        #endregion
 
-		/// <summary>
-		/// The identifier to tell tickets apart.
-		/// </summary>
-		public uint ID { get; }
+        #region attributes
+        /// <summary>
+        /// The identifier to tell tickets apart.
+        /// </summary>
+        public uint ID { get; }
 
 		private readonly string _path;
 
@@ -103,6 +106,7 @@ namespace TinyTicketSystem
         /// The details of the ticket.
         /// </summary>
         public string Details { get { return _details ?? ""; } set { _details = value; } }
+        #endregion
 
         /// <summary>
         /// Initializes a new ticket object, with the given ID loading it from the ticket directory if the corresponding file exists.
@@ -152,6 +156,7 @@ namespace TinyTicketSystem
             }
         }
 
+        #region process lines
         private void ProcessTitleLine(string line)
 		{
 			// # Title - `status`
@@ -252,6 +257,7 @@ namespace TinyTicketSystem
 				_details += line + "\r\n";
 			}
 		}
+        #endregion
 
         /// <summary>
         /// Checks if the ticket does not contain any information.
@@ -281,7 +287,7 @@ namespace TinyTicketSystem
         /// <summary>
         /// Save ticket to the file.
         /// </summary>
-        public void Save()
+        public void Update()
 		{
 			if (!Empty())
 			{
@@ -313,33 +319,33 @@ namespace TinyTicketSystem
 			}
         }
 
-		/// <summary>
-		/// Removes the file connected to this ticket.
-		/// </summary>
-		public void RemoveFile()
+        private string CreateTagsString()
+        {
+            string result = "";
+            foreach (var tag in _tags)
+            {
+                result += "`" + tag + "` ";
+            }
+            return result.Trim();
+        }
+
+        private string CreateBlockedByString()
+        {
+            string result = BlockByString;
+            foreach (var id in _idsOfTicketsBlockingThisTicket)
+            {
+                result += "[" + id + "](" + CreateFilePath("..", id) + ") ";
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Removes the file connected to this ticket.
+        /// </summary>
+        public void RemoveFile()
 		{
 			File.Delete(_path);
 		}
-
-		private string CreateTagsString()
-		{
-			string result = "";
-			foreach (var tag in _tags)
-			{
-				result += "`" + tag + "` ";
-			}
-			return result.Trim();
-        }
-
-		private string CreateBlockedByString()
-		{
-			string result = BlockByString;
-			foreach (var id in _idsOfTicketsBlockingThisTicket)
-			{
-				result += "[" + id + "](" + CreateFilePath("..", id) + ") ";
-			}
-			return result;
-        }
 
         public int CompareTo(Ticket other)
 		{

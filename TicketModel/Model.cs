@@ -93,14 +93,21 @@ namespace TinyTicketSystem
                 newTicket = AddTicket(NextUnusedID());
             }
 			return newTicket.ID;
-		}
+        }
+        private Ticket AddTicket(uint id)
+        {
+            var ticket = new Ticket(_ticketDirectory, id);
+            _tickets.Add(id, ticket);
+            AddTagsOf(ticket);
+            return ticket;
+        }
 
-		/// <summary>
-		/// Removed the ticket with the given id from the list, if the ticket is empty.
-		/// </summary>
-		/// <param name="id">The id of the ticket to remove.</param>
-		/// <returns>True if the ticket was removed, false otherwise.</returns>
-		public bool RemoveTicketIfEmpty(uint id)
+        /// <summary>
+        /// Removed the ticket with the given id from the list, if the ticket is empty.
+        /// </summary>
+        /// <param name="id">The id of the ticket to remove.</param>
+        /// <returns>True if the ticket was removed, false otherwise.</returns>
+        public bool RemoveTicketIfEmpty(uint id)
 		{
 			if (_tickets[id].Empty())
 			{
@@ -185,7 +192,7 @@ namespace TinyTicketSystem
 
 		private uint NextUnusedID()
 		{
-            if (_tickets.Count == (_nextId + 1U))
+            if (_tickets.Count == _nextId)
             {
                 // average case where the ids are continuous
                 ++_nextId;
@@ -208,13 +215,5 @@ namespace TinyTicketSystem
             }
             return _nextId;
 		}
-
-		private Ticket AddTicket(uint id)
-		{
-			var ticket = new Ticket(_ticketDirectory, id);
-            _tickets.Add(id, ticket);
-			AddTagsOf(ticket);
-			return ticket;
-        }
     }
 }
