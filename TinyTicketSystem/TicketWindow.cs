@@ -80,7 +80,7 @@ namespace TinyTicketSystem
 			}
 			if (edited)
 			{
-				_ticket.Save();
+				_ticket.Update();
 			}
 		}
 
