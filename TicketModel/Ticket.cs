@@ -93,14 +93,34 @@ namespace TinyTicketSystem
                     _savedTitle = _title;
                 }
                 _title = newTitle;
-				if (_title.Equals(_savedTitle))
+			}
+        }
+
+        private string _details = "";
+
+        private string _savedDetails = null;
+
+        /// <summary>
+        /// The details of the ticket.
+        /// </summary>
+        public string Details
+		{
+			get
+			{
+				return _details;
+			}
+			set
+			{
+				var newDetails = value ?? "";
+				if (_savedDetails == null)
 				{
-					_savedTitle = null;
+					_savedDetails = _details;
 				}
+				_details = newDetails;
 			}
 		}
 
-		private readonly List<string> _tags = new List<string>();
+        private readonly List<string> _tags = new List<string>();
 
 		/// <summary>
 		/// Returns the list of all tags of this ticket, tags can be used to group tickets.
@@ -135,13 +155,6 @@ namespace TinyTicketSystem
 				_idsOfTicketsBlockingThisTicket.AddRange(value);
 			}
 		}
-
-        private string _details;
-
-        /// <summary>
-        /// The details of the ticket.
-        /// </summary>
-        public string Details { get { return _details ?? ""; } set { _details = value; } }
 		#endregion
 
 		ITicketObserver _observer = null;

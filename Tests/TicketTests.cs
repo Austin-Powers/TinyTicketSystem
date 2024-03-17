@@ -90,5 +90,21 @@ namespace Tests
             sut.Title = null;
             Assert.AreEqual(sut.Title, "");
         }
+
+        [TestMethod]
+        public void TestDetailsField()
+        {
+            var sut = new Ticket(".", 0U);
+            Assert.AreEqual(sut.Details, "");
+
+            sut.Details = null;
+            Assert.AreEqual(sut.Details, "");
+
+            sut.Details = "Test";
+            Assert.AreEqual(sut.Details, "Test");
+
+            sut.Details = null;
+            Assert.AreEqual(sut.Details, "");
+        }
     }
 }
