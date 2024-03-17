@@ -288,16 +288,15 @@ namespace TinyTicketSystem
         #endregion
 
         #region Tags
-        private List<string> TicketTags
+        private HashSet<string> TicketTags
 		{
 			get
 			{
-				var list = new List<string>();
+				var list = new HashSet<string>();
 				foreach (var tag in tagsListBox.Items)
 				{
 					list.Add(tag.ToString());
 				}
-				list.Sort();
 				return list;
 			}
 
@@ -311,15 +310,17 @@ namespace TinyTicketSystem
 			}
 		}
 
-		private bool ContentIsSame(List<string> a, List<string> b)
+		private bool ContentIsSame(HashSet<string> a, HashSet<string> b)
 		{
 			if (a.Count != b.Count)
 			{
 				return false;
 			}
+			var aArr = a.ToArray();
+			var bArr = b.ToArray();
 			for (var i = 0; i < a.Count; ++i)
 			{
-				if (a[i] != b[i])
+				if (aArr[i] != bArr[i])
 				{
 					return false;
 				}

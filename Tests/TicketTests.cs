@@ -106,5 +106,40 @@ namespace Tests
             sut.Details = null;
             Assert.AreEqual(sut.Details, "");
         }
+
+        [TestMethod]
+        public void TestTagsField()
+        {
+            var sut = new Ticket(".", 0U);
+            Assert.AreEqual(sut.Tags.Count, 0);
+
+            sut.Tags.Add("test");
+            Assert.AreEqual(sut.Tags.Count, 1);
+            Assert.IsTrue(sut.Tags.Contains("test"));
+
+            sut.Tags.Add("test");
+            Assert.AreEqual(sut.Tags.Count, 1);
+            Assert.IsTrue(sut.Tags.Contains("test"));
+
+            sut.Tags.Add("foo");
+            Assert.AreEqual(sut.Tags.Count, 2);
+            Assert.IsTrue(sut.Tags.Contains("test"));
+            Assert.IsTrue(sut.Tags.Contains("foo"));
+
+            sut.Tags.Remove("test");
+            Assert.AreEqual(sut.Tags.Count, 1);
+            Assert.IsTrue(sut.Tags.Contains("foo"));
+
+            sut.Tags = null;
+            Assert.AreEqual(sut.Tags.Count, 0);
+
+            var set = new HashSet<string>();
+            set.Add("bar");
+            set.Add("man");
+            sut.Tags = set;
+            Assert.AreEqual(sut.Tags.Count, 2);
+            Assert.IsTrue(sut.Tags.Contains("man"));
+            Assert.IsTrue(sut.Tags.Contains("bar"));
+        }
     }
 }

@@ -120,23 +120,39 @@ namespace TinyTicketSystem
 			}
 		}
 
-        private readonly List<string> _tags = new List<string>();
+        private readonly HashSet<string> _tags = new HashSet<string>();
+
+		private string _savedTags = null;
 
 		/// <summary>
 		/// Returns the list of all tags of this ticket, tags can be used to group tickets.
 		/// </summary>
-		public List<string> Tags
+		public HashSet<string> Tags
 		{
 			get
-			{
-				return _tags;
+            {
+                if (_savedTags == null)
+                {
+                    _savedTags = CreateTagsString();
+                }
+                return _tags;
 			}
 			set
 			{
-				_tags.Clear();
-				_tags.AddRange(value);
-			}
-		}
+                if (_savedTags == null)
+                {
+                    _savedTags = CreateTagsString();
+                }
+                _tags.Clear();
+				if (value != null)
+				{
+					foreach (var tag in value)
+					{
+						_tags.Add(tag);
+					}
+				}
+            }
+        }
 
 		private readonly List<uint> _idsOfTicketsBlockingThisTicket = new List<uint>();
 
@@ -157,18 +173,19 @@ namespace TinyTicketSystem
 		}
 		#endregion
 
-		ITicketObserver _observer = null;
+		/// <summary>
+		/// An observer getting informed, when changes are committed.
+		/// </summary>
+		ITicketObserver Observer { get; set; }
 
         /// <summary>
         /// Initializes a new ticket object, with the given ID loading it from the ticket directory if the corresponding file exists.
         /// </summary>
         /// <param name="ticketDirectory">The ticket directory currently used by the model.</param>
         /// <param name="id">The id of this ticket.</param>
-        /// <param name="observer">Optional: An observer getting notified about updates on this ticket.</param>
-        public Ticket(string ticketDirectory, uint id, ITicketObserver observer = null)
+        public Ticket(string ticketDirectory, uint id)
 		{
 			ID = id;
-			_observer = observer;
 			_path = CreateFilePath(ticketDirectory, id);
 			if (File.Exists(_path))
 			{
@@ -344,7 +361,7 @@ namespace TinyTicketSystem
 		{
 			if (!Empty())
 			{
-				_observer?.OnTicketUpdated(this);
+				Observer?.OnTicketUpdated(this);
 				_lastChanged = DateTime.Now;
 				FileStream fs = null;
 				StreamWriter sw = null;
