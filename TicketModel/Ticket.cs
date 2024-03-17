@@ -46,19 +46,40 @@ namespace TinyTicketSystem
 
 		private readonly string _path;
 
-		private string _title;
+        private DateTime _lastChanged;
+
+        /// <summary>
+        /// The timestamp of the last change to the ticket.
+        /// </summary>
+        public DateTime LastChanged { get { return _lastChanged; } }
+
+        private string _title = "";
+
+		private string _savedTitle = null;
 
 		/// <summary>
 		/// The title of the ticket.
 		/// </summary>
-		public string Title { get { return _title ?? ""; } set { _title = value; } }
-
-		private DateTime _lastChanged;
-
-		/// <summary>
-		/// The timestamp of the last change to the ticket.
-		/// </summary>
-		public DateTime LastChanged { get { return _lastChanged; } }
+		public string Title
+		{ 
+			get
+			{
+				return _title;
+			}
+			set
+			{
+				var newTitle = value ?? "";
+				if (_savedTitle == null)
+				{
+                    _savedTitle = _title;
+                }
+                _title = newTitle;
+				if (_title.Equals(_savedTitle))
+				{
+					_savedTitle = null;
+				}
+			}
+		}
 
 		/// <summary>
 		/// Flag signalling if the ticket is closed.
@@ -290,7 +311,7 @@ namespace TinyTicketSystem
         }
 
         /// <summary>
-        /// Save ticket to the file.
+        /// Updates the file behind the ticket and notifies any observer about the changes.
         /// </summary>
         public void Update()
 		{

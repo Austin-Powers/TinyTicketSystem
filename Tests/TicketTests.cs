@@ -61,5 +61,21 @@ namespace Tests
             Assert.AreEqual(sut1.CompareTo(sut0), 1, "CompareTo lower did not return 1");
             Assert.AreEqual(sut1.CompareTo(sut2), -1, "CompareTo higher did not return -1");
         }
+
+        [TestMethod]
+        public void TestTitleField()
+        {
+            var sut = new Ticket(".", 0U);
+            Assert.AreEqual(sut.Title, "");
+
+            sut.Title = null;
+            Assert.AreEqual(sut.Title, "");
+
+            sut.Title = "Test";
+            Assert.AreEqual(sut.Title, "Test");
+
+            sut.Title = null;
+            Assert.AreEqual(sut.Title, "");
+        }
     }
 }
