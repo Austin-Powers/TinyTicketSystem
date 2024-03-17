@@ -53,6 +53,25 @@ namespace TinyTicketSystem
         /// </summary>
         public DateTime LastChanged { get { return _lastChanged; } }
 
+		private bool _closed = false;
+
+		private bool _savedClosed = false;
+
+        /// <summary>
+        /// Flag signalling if the ticket is closed.
+        /// </summary>
+        public bool Closed
+		{
+			get
+			{
+				return _closed;
+			}
+			set
+			{
+				_closed = value;
+			}
+		}
+
         private string _title = "";
 
 		private string _savedTitle = null;
@@ -80,11 +99,6 @@ namespace TinyTicketSystem
 				}
 			}
 		}
-
-		/// <summary>
-		/// Flag signalling if the ticket is closed.
-		/// </summary>
-		public bool Closed { get; set; }
 
 		private readonly List<string> _tags = new List<string>();
 

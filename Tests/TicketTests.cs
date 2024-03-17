@@ -63,6 +63,19 @@ namespace Tests
         }
 
         [TestMethod]
+        public void TestClosedField()
+        {
+            var sut = new Ticket(".", 0U);
+            Assert.IsFalse(sut.Closed);
+
+            sut.Closed = true;
+            Assert.IsTrue(sut.Closed);
+
+            sut.Closed = false;
+            Assert.IsFalse(sut.Closed);
+        }
+
+        [TestMethod]
         public void TestTitleField()
         {
             var sut = new Ticket(".", 0U);
