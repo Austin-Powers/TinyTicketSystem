@@ -154,22 +154,38 @@ namespace TinyTicketSystem
             }
         }
 
-		private readonly List<uint> _idsOfTicketsBlockingThisTicket = new List<uint>();
+		private readonly HashSet<uint> _blockingIds = new HashSet<uint>();
 
-		/// <summary>
-		/// Returns the list of identifiers of all tickets blocking this ticket.
-		/// </summary>
-		public List<uint> IDsOfTicketsBlockingThisTicket
+		private string _savedBlockingIds = null;
+
+        /// <summary>
+        /// Returns the list of identifiers of all tickets blocking this ticket.
+        /// </summary>
+        public HashSet<uint> BlockingTicketsIDs
 		{
 			get
 			{
-				return _idsOfTicketsBlockingThisTicket;
+				if (_savedBlockingIds == null)
+				{
+					_savedBlockingIds = CreateBlockedByString();
+				}
+				return _blockingIds;
 			}
 			set
 			{
-				_idsOfTicketsBlockingThisTicket.Clear();
-				_idsOfTicketsBlockingThisTicket.AddRange(value);
-			}
+                if (_savedBlockingIds == null)
+                {
+                    _savedBlockingIds = CreateBlockedByString();
+                }
+                _blockingIds.Clear();
+				if (value != null)
+                {
+                    foreach (var id in value)
+                    {
+                        _blockingIds.Add(id);
+                    }
+                }
+            }
 		}
 		#endregion
 
@@ -300,7 +316,7 @@ namespace TinyTicketSystem
 			{
 				if (number)
 				{
-					_idsOfTicketsBlockingThisTicket.Add(uint.Parse(part));
+					_blockingIds.Add(uint.Parse(part));
 				}
 				number = !number;
 			}
@@ -343,7 +359,7 @@ namespace TinyTicketSystem
 			{
 				return false;
 			}
-			if (IDsOfTicketsBlockingThisTicket.Count != 0)
+			if (BlockingTicketsIDs.Count != 0)
 			{
 				return false;
 			}
@@ -403,7 +419,7 @@ namespace TinyTicketSystem
         private string CreateBlockedByString()
         {
             string result = BlockByString;
-            foreach (var id in _idsOfTicketsBlockingThisTicket)
+            foreach (var id in _blockingIds)
             {
                 result += "[" + id + "](" + CreateFilePath("..", id) + ") ";
             }

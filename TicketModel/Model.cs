@@ -134,7 +134,7 @@ namespace TinyTicketSystem
 		/// <returns>True if the ticket is blocked, false otherwise.</returns>
         public bool IsBlocked(Ticket ticket)
         {
-			foreach (var blockginId in ticket.IDsOfTicketsBlockingThisTicket)
+			foreach (var blockginId in ticket.BlockingTicketsIDs)
 			{
 				if (_tickets.ContainsKey(blockginId))
 				{

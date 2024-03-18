@@ -42,7 +42,7 @@ namespace TinyTicketSystem
 			_closed = _ticket.Closed;
 			TitleText = _ticket.Title;
 			DetailsText = _ticket.Details;
-			BlockingTicketIDs = _ticket.IDsOfTicketsBlockingThisTicket;
+			BlockingTicketIDs = _ticket.BlockingTicketsIDs;
 			TicketTags = _ticket.Tags;
 			UpdateStatus();
 		}
@@ -66,9 +66,9 @@ namespace TinyTicketSystem
 				edited = true;
 			}
 			var blockingIds = BlockingTicketIDs;
-			if (!ContentIsSame(_ticket.IDsOfTicketsBlockingThisTicket, blockingIds))
+			if (!ContentIsSame(_ticket.BlockingTicketsIDs, blockingIds))
 			{
-				_ticket.IDsOfTicketsBlockingThisTicket = blockingIds;
+				_ticket.BlockingTicketsIDs = blockingIds;
 				edited = true;
 			}
 			var tags = TicketTags;
@@ -193,17 +193,16 @@ namespace TinyTicketSystem
 		#endregion
 
 		#region Blocking Tickets
-		private List<uint> BlockingTicketIDs
+		private HashSet<uint> BlockingTicketIDs
 		{
 			get
 			{
-				var list = new List<uint>();
+				var set = new HashSet<uint>();
 				foreach (var ticket in blockingTicketsListBox.Items)
 				{
-					list.Add(Convert.ToUInt32(ticket.ToString().Split(' ')[0]));
+					set.Add(Convert.ToUInt32(ticket.ToString().Split(' ')[0]));
 				}
-				list.Sort();
-				return list;
+				return set;
 			}
 
 			set
@@ -225,15 +224,17 @@ namespace TinyTicketSystem
             }
         }
 
-		private bool ContentIsSame(List<uint> a, List<uint> b)
+		private bool ContentIsSame(HashSet<uint> a, HashSet<uint> b)
 		{
 			if (a.Count != b.Count)
 			{
 				return false;
 			}
+			var aArr = a.ToArray();
+			var bArr = b.ToArray();
 			for (var i = 0; i < a.Count; ++i)
 			{
-				if (a[i] != b[i])
+				if (aArr[i] != bArr[i])
 				{
 					return false;
 				}

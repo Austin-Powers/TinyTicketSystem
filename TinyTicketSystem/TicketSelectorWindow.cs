@@ -16,7 +16,7 @@ namespace TinyTicketSystem
 
 		public List<string> SelectedTickets { get { return selectedTickets; } }
 
-		public TicketSelectorWindow(Model model, List<uint> alreadyBlockingTickets, Localisation localisation)
+		public TicketSelectorWindow(Model model, HashSet<uint> alreadyBlockingTickets, Localisation localisation)
 		{
 			InitializeComponent();
 			Text = localisation.Get("selector_title");

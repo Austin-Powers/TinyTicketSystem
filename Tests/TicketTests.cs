@@ -141,5 +141,40 @@ namespace Tests
             Assert.IsTrue(sut.Tags.Contains("man"));
             Assert.IsTrue(sut.Tags.Contains("bar"));
         }
+
+        [TestMethod]
+        public void TestBlockingIds()
+        {
+            var sut = new Ticket(".", 0U);
+            Assert.AreEqual(sut.BlockingTicketsIDs.Count, 0);
+
+            sut.BlockingTicketsIDs.Add(1U);
+            Assert.AreEqual(sut.BlockingTicketsIDs.Count, 1);
+            Assert.IsTrue(sut.BlockingTicketsIDs.Contains(1U));
+
+            sut.BlockingTicketsIDs.Add(1U);
+            Assert.AreEqual(sut.BlockingTicketsIDs.Count, 1);
+            Assert.IsTrue(sut.BlockingTicketsIDs.Contains(1U));
+
+            sut.BlockingTicketsIDs.Add(2U);
+            Assert.AreEqual(sut.BlockingTicketsIDs.Count, 2);
+            Assert.IsTrue(sut.BlockingTicketsIDs.Contains(1U));
+            Assert.IsTrue(sut.BlockingTicketsIDs.Contains(2U));
+
+            sut.BlockingTicketsIDs.Remove(1U);
+            Assert.AreEqual(sut.BlockingTicketsIDs.Count, 1);
+            Assert.IsTrue(sut.BlockingTicketsIDs.Contains(2U));
+
+            sut.BlockingTicketsIDs = null;
+            Assert.AreEqual(sut.BlockingTicketsIDs.Count, 0);
+
+            var set = new HashSet<uint>();
+            set.Add(3U);
+            set.Add(4U);
+            sut.BlockingTicketsIDs = set;
+            Assert.AreEqual(sut.BlockingTicketsIDs.Count, 2);
+            Assert.IsTrue(sut.BlockingTicketsIDs.Contains(3U));
+            Assert.IsTrue(sut.BlockingTicketsIDs.Contains(4U));
+        }
     }
 }
