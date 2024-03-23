@@ -370,6 +370,45 @@ namespace TinyTicketSystem
 			return true;
         }
 
+		/// <summary>
+		/// Commmits the changes made to the ticket to the filesystem, if there are any.
+		/// </summary>
+		/// <returns>True if changes were present, false otherwise.</returns>
+		public bool CommitChanges()
+		{
+			bool changed = false;
+			if (_closed != _savedClosed)
+			{
+				changed = true;
+			}
+			else if((_savedTitle != null) && (!_title.Equals(_savedTitle)))
+			{
+				changed = true;
+			}
+			else if((_savedDetails != null) && (!_details.Equals(_savedDetails)))
+			{
+				changed = true;
+			}
+			else if((_savedTags != null) && (!_savedTags.Equals(CreateTagsString())))
+			{
+				changed = true;
+			}
+			else if(_savedBlockingIds != null && (!_savedBlockingIds.Equals(CreateBlockedByString())))
+			{
+				changed = true;
+			}
+			if (changed)
+			{
+				Update();
+				_savedClosed = _closed;
+				_savedTitle = null;
+				_savedDetails = null;
+				_savedTags = null;
+				_savedBlockingIds = null;
+			}
+            return changed;
+		}
+
         /// <summary>
         /// Updates the file behind the ticket and notifies any observer about the changes.
         /// </summary>
@@ -431,8 +470,11 @@ namespace TinyTicketSystem
         /// </summary>
         public void RemoveFile()
 		{
-			File.Delete(_path);
-		}
+			if (File.Exists(_path))
+			{
+				File.Delete(_path);
+            }
+        }
 
         public int CompareTo(Ticket other)
 		{
