@@ -192,7 +192,7 @@ namespace TinyTicketSystem
 		/// <summary>
 		/// An observer getting informed, when changes are committed.
 		/// </summary>
-		ITicketObserver Observer { get; set; }
+		public ITicketObserver Observer { get; set; }
 
         /// <summary>
         /// Initializes a new ticket object, with the given ID loading it from the ticket directory if the corresponding file exists.

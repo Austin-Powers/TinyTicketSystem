@@ -5,11 +5,13 @@ namespace Tests
 {
     public class TicketObserver : ITicketObserver
     {
+        public uint CalledByID = 0U;
+
         public TicketObserver() { }
 
         void ITicketObserver.OnTicketUpdated(Ticket ticket)
         {
-
+            CalledByID = ticket.ID;
         }
     }
 
@@ -330,6 +332,7 @@ namespace Tests
             Assert.IsTrue(CheckFile(id));
         }
 
+        [TestMethod]
         public void TestCommitingTicketAfterRemovingBlockingIDs()
         {
             // Arrange
@@ -389,6 +392,24 @@ namespace Tests
             Assert.IsTrue(sut.BlockingTicketsIDs.Contains(blockingId0));
             Assert.IsTrue(sut.BlockingTicketsIDs.Contains(blockingId1));
             Assert.IsTrue(sut.BlockingTicketsIDs.Contains(blockingId2));
+        }
+
+        [TestMethod]
+        public void TestObserverCalledOnSaving()
+        {
+            // Arrange
+            var id = 9U;
+            CleanupTestFile(id);
+            var sut = new Ticket(ticketDir, id);
+            var observer = new TicketObserver();
+            sut.Observer = observer;
+
+            // Act
+            sut.Title = "Test";
+            sut.CommitChanges();
+
+            // Assert
+            Assert.AreEqual(observer.CalledByID, id);
         }
     }
 }
