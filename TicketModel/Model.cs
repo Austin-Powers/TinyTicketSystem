@@ -36,6 +36,10 @@ namespace TinyTicketSystem
 		/// </summary>
 		public List<string> Tags { get { return _tags.ToList(); } }
 
+		/// <summary>
+		/// Initializes a new Model.
+		/// </summary>
+		/// <param name="TicketDirectory">The directory the tickets are stored in.</param>
 		public Model(string TicketDirectory)
 		{
 			_ticketDirectory = TicketDirectory;
@@ -94,6 +98,7 @@ namespace TinyTicketSystem
             }
 			return newTicket.ID;
         }
+
         private Ticket AddTicket(uint id)
         {
             var ticket = new Ticket(_ticketDirectory, id);
