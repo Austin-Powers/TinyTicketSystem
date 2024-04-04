@@ -29,8 +29,8 @@ namespace Tests
             // Act
 
             // Assert
-            Assert.IsTrue(0U == sut.Tags.Count);
-            Assert.IsTrue(0U == sut.TicketIds.Count);
+            Assert.AreEqual(0, sut.Tags.Count());
+            Assert.AreEqual(0, sut.TicketIds.Count());
         }
 
         [TestMethod]
@@ -59,8 +59,8 @@ namespace Tests
             var id1 = sut.AddEmptyTicket();
 
             // Assert
-            Assert.IsTrue(1U == id0);
-            Assert.IsTrue(2U == id1);
+            Assert.AreEqual(1U, id0);
+            Assert.AreEqual(2U, id1);
             Assert.IsNotNull(sut.GetTicket(id0));
             Assert.IsNotNull(sut.GetTicket(id1));
             Assert.IsTrue(sut.GetTicket(id0).Empty());
@@ -169,12 +169,15 @@ namespace Tests
         }
 
         [TestMethod]
-        public void TestSaveIndex()
+        public void TestSaveAndLoadIndex()
         {
             // Arrange
             Cleanup();
             var sut = new Model(ticketDir);
             var ticketId0 = sut.AddEmptyTicket();
+            var ticket = sut.GetTicket(ticketId0);
+            ticket.Title = "Test";
+            ticket.Update();
 
             // Act
             sut.SaveIndex();
@@ -182,6 +185,29 @@ namespace Tests
 
             // Assert
             Assert.IsNotNull(sut.GetTicket(ticketId0));
+        }
+
+        [TestMethod]
+        public void TestAddTagsOf()
+        {
+            // Arrange
+            Cleanup();
+            var sut = new Model(ticketDir);
+            var ticketId = sut.AddEmptyTicket();
+            var ticket = sut.GetTicket(ticketId);
+
+            var tag0 = "Test";
+            var tag1 = "Tag";
+            ticket.Tags.Add(tag0);
+            ticket.Tags.Add(tag1);
+
+            // Act
+            sut.AddTagsOf(ticket);
+
+            // Assert
+            Assert.AreEqual(2, sut.Tags.Count());
+            Assert.IsTrue(sut.Tags.Contains(tag0));
+            Assert.IsTrue(sut.Tags.Contains(tag1));
         }
     }
 }
