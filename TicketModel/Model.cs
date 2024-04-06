@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using TicketModel;
 
 namespace TinyTicketSystem
 {
 	/// <summary>
 	/// The model of the tiny ticket system.
 	/// </summary>
-	public class Model
+	public class Model : ITicketObserver
 	{
 		private static readonly string IndexFileName = "index.md";
 
@@ -102,6 +103,7 @@ namespace TinyTicketSystem
         private Ticket AddTicket(uint id)
         {
             var ticket = new Ticket(_ticketDirectory, id);
+			ticket.Observer = this;
             _tickets.Add(id, ticket);
             AddTagsOf(ticket);
             return ticket;
@@ -130,6 +132,10 @@ namespace TinyTicketSystem
 		{
 			_tickets[id].RemoveFile();
 			_tickets.Remove(id);
+			foreach (var key in _tickets.Keys)
+			{
+				_tickets[key].BlockingTicketsIDs.Remove(id);
+			}
 		}
 
 		/// <summary>
@@ -192,6 +198,18 @@ namespace TinyTicketSystem
 			{
 				sw?.Close();
 				fs?.Close();
+			}
+		}
+
+        /// <summary>
+        /// Method called if a ticket is updated.
+        /// </summary>
+        /// <param name="ticket">The updated ticket.</param>
+        void ITicketObserver.OnTicketUpdated(Ticket ticket)
+		{
+			if ((ticket  != null) && _tickets.ContainsKey(ticket.ID))
+			{
+				AddTagsOf(ticket);
 			}
 		}
 

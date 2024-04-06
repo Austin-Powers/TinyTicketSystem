@@ -1,4 +1,5 @@
-﻿using TinyTicketSystem;
+﻿using TicketModel;
+using TinyTicketSystem;
 
 namespace Tests
 {
@@ -208,6 +209,74 @@ namespace Tests
             Assert.AreEqual(2, sut.Tags.Count());
             Assert.IsTrue(sut.Tags.Contains(tag0));
             Assert.IsTrue(sut.Tags.Contains(tag1));
+        }
+
+        [TestMethod]
+        public void TestOnTicketUpdatedIsNullSafe()
+        {
+            // Arrange
+            var sut = new Model(ticketDir);
+            ITicketObserver observer = sut;
+
+            // Act
+            observer.OnTicketUpdated(null);
+
+            // Assert
+            // Checked automatically
+        }
+
+        [TestMethod]
+        public void TestOnTicketUpdatedOnlyUsesTicketsFromModel()
+        {
+            // Arrange
+            Cleanup();
+            var sut = new Model(ticketDir);
+            ITicketObserver observer = sut;
+            var ticket = new Ticket(ticketDir, 0U);
+            ticket.Tags.Add("Test");
+
+            // Act
+            observer.OnTicketUpdated(ticket);
+
+            // Assert
+            Assert.AreEqual(0, sut.Tags.Count);
+        }
+
+        [TestMethod]
+        public void TestTicketUpdate()
+        {
+            // Arrange
+            var tag = "Test";
+            Cleanup();
+            var sut = new Model(ticketDir);
+            var ticketId = sut.AddEmptyTicket();
+            var ticket = sut.GetTicket(ticketId);
+
+            // Act
+            ticket.Tags.Add(tag);
+            ticket.Update();
+
+            // Assert
+            Assert.AreEqual(1, sut.Tags.Count);
+            Assert.IsTrue(sut.Tags.Contains(tag));
+        }
+
+        [TestMethod]
+        public void TestRemoveTicketRemovesBlockingIdFromOtherTickets()
+        {
+            // Arrange
+            Cleanup();
+            var sut = new Model(ticketDir);
+            var ticketId0 = sut.AddEmptyTicket();
+            var ticketId1 = sut.AddEmptyTicket();
+            var ticket0 = sut.GetTicket(ticketId0);
+            ticket0.BlockingTicketsIDs.Add(ticketId1);
+
+            // Act
+            sut.RemoveTicket(ticketId1);
+
+            // Assert
+            Assert.AreEqual(0, ticket0.BlockingTicketsIDs.Count);
         }
     }
 }
