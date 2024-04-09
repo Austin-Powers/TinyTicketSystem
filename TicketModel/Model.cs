@@ -207,9 +207,21 @@ namespace TinyTicketSystem
         /// <param name="ticket">The updated ticket.</param>
         void ITicketObserver.OnTicketUpdated(Ticket ticket)
 		{
-			if ((ticket  != null) && _tickets.ContainsKey(ticket.ID))
+			if ((ticket != null) && _tickets.ContainsKey(ticket.ID))
 			{
 				AddTagsOf(ticket);
+				if (!ticket.Closed)
+				{
+                    // reopen tickets this ticket is blocking
+                    foreach (var value in _tickets.Values)
+					{
+						if (value.Closed && value.BlockingTicketsIDs.Contains(ticket.ID))
+						{
+							value.Closed = false;
+							value.Update();
+						}
+					}
+                }
 			}
 		}
 

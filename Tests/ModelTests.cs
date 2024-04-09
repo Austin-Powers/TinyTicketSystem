@@ -278,5 +278,41 @@ namespace Tests
             // Assert
             Assert.AreEqual(0, ticket0.BlockingTicketsIDs.Count);
         }
+
+        [TestMethod]
+        public void TestReopenTicketAlsoReopensTicketsBlockedByIt()
+        {
+            // Arrange
+            Cleanup();
+            var sut = new Model(ticketDir);
+            var ticketId0 = sut.AddEmptyTicket();
+            var ticketId1 = sut.AddEmptyTicket();
+            var ticketId2 = sut.AddEmptyTicket();
+
+            var ticket0 = sut.GetTicket(ticketId0);
+            var ticket1 = sut.GetTicket(ticketId1);
+            var ticket2 = sut.GetTicket(ticketId2);
+
+            ticket0.Title = "0";
+            ticket1.Title = "1";
+            ticket2.Title = "2";
+            ticket0.Closed = true;
+            ticket1.Closed = true;
+            ticket2.Closed = true;
+            ticket0.BlockingTicketsIDs.Add(ticketId1);
+            ticket1.BlockingTicketsIDs.Add(ticketId2);
+            ticket0.Update();
+            ticket1.Update();
+            ticket2.Update();
+
+            // Act
+            ticket2.Closed = false;
+            ticket2.Update();
+
+            // Assert
+            Assert.IsFalse(ticket0.Closed);
+            Assert.IsFalse(ticket1.Closed);
+            Assert.IsFalse(ticket2.Closed);
+        }
     }
 }
