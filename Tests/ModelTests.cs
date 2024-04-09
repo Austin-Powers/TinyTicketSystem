@@ -307,7 +307,7 @@ namespace Tests
 
             // Act
             ticket2.Closed = false;
-            ticket2.Update();
+            ticket2.CommitChanges();
 
             // Assert
             Assert.IsFalse(ticket0.Closed);
