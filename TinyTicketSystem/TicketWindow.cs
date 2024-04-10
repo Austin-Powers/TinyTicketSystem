@@ -21,8 +21,6 @@ namespace TinyTicketSystem
 
 		private readonly Localisation _localisation;
 
-		private bool _closed;
-
 		public TicketWindow(Model model, uint ticketID, Localisation localisation)
 		{
 			// WinForms setup
@@ -39,7 +37,7 @@ namespace TinyTicketSystem
 			_model = model;
 			_ticket = _model.GetTicket(ticketID);
 			_localisation = localisation;
-			_closed = _ticket.Closed;
+
 			TitleText = _ticket.Title;
 			DetailsText = _ticket.Details;
 			BlockingTicketIDs = _ticket.BlockingTicketsIDs;
@@ -49,45 +47,17 @@ namespace TinyTicketSystem
 
 		private void TicketWindow_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			bool edited = false;
-			if (_ticket.Closed != _closed)
-			{
-				_ticket.Closed = _closed;
-				edited = true;
-			}
-			if (_ticket.Title != TitleText)
-			{
-				_ticket.Title = TitleText;
-				edited = true;
-			}
-			if (_ticket.Details != DetailsText)
-			{
-				_ticket.Details = DetailsText;
-				edited = true;
-			}
-			var blockingIds = BlockingTicketIDs;
-			if (!ContentIsSame(_ticket.BlockingTicketsIDs, blockingIds))
-			{
-				_ticket.BlockingTicketsIDs = blockingIds;
-				edited = true;
-			}
-			var tags = TicketTags;
-			if (!ContentIsSame(_ticket.Tags, tags))
-			{
-				_ticket.Tags = tags;
-				_model.AddTagsOf(_ticket);
-				edited = true;
-			}
-			if (edited)
-			{
-				_ticket.Update();
-			}
+			_ticket.Title = TitleText;
+			_ticket.Details = DetailsText;
+			_ticket.BlockingTicketsIDs = BlockingTicketIDs;
+			_ticket.Tags = TicketTags;
+			_ticket.CommitChanges();
 		}
 
 		#region Status
 		private void CloseReopenButton_Click(object sender, EventArgs e)
         {
-			_closed = !_closed;
+			_ticket.Closed = !_ticket.Closed;
 			UpdateStatus();
         }
 
@@ -95,14 +65,14 @@ namespace TinyTicketSystem
 		{
             if (_model.IsBlocked(_ticket))
             {
-				_closed = false;
+				_ticket.Closed = false;
                 closeReopenButton.Text = _localisation.Get("ticket_status_blocked");
                 closeReopenButton.Enabled = false;
             }
 			else
 			{
                 closeReopenButton.Enabled = true;
-				if (_closed)
+				if (_ticket.Closed)
 				{
                     closeReopenButton.Text = _localisation.Get("ticket_status_reopen");
                 }
@@ -224,24 +194,6 @@ namespace TinyTicketSystem
             }
         }
 
-		private bool ContentIsSame(HashSet<uint> a, HashSet<uint> b)
-		{
-			if (a.Count != b.Count)
-			{
-				return false;
-			}
-			var aArr = a.ToArray();
-			var bArr = b.ToArray();
-			for (var i = 0; i < a.Count; ++i)
-			{
-				if (aArr[i] != bArr[i])
-				{
-					return false;
-				}
-			}
-			return true;
-		}
-
 		private void NewTicketToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			var id = _model.AddEmptyTicket();
@@ -310,25 +262,6 @@ namespace TinyTicketSystem
 				}
 			}
 		}
-
-		private bool ContentIsSame(HashSet<string> a, HashSet<string> b)
-		{
-			if (a.Count != b.Count)
-			{
-				return false;
-			}
-			var aArr = a.ToArray();
-			var bArr = b.ToArray();
-			for (var i = 0; i < a.Count; ++i)
-			{
-				if (aArr[i] != bArr[i])
-				{
-					return false;
-				}
-			}
-			return true;
-		}
-
 		private void NewTagTextBox_Enter(object sender, EventArgs e)
 		{
 			if (newTagTextBox.ForeColor == SystemColors.InactiveCaption)
