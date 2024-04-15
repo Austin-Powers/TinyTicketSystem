@@ -253,6 +253,7 @@ namespace Tests
             var ticket = sut.GetTicket(ticketId);
 
             // Act
+            ticket.Title = tag; // ticket needs a title to be not counted as empty
             ticket.Tags.Add(tag);
             ticket.Update();
 

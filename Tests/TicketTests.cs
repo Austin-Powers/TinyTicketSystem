@@ -220,6 +220,41 @@ namespace Tests
         }
 
         [TestMethod]
+        public void TestTicketEvalutatesToEmptyCorrectly()
+        {
+            // Arrange
+            var idEmpty = 10U;
+            var idTitle = 11U;
+            var idDetails = 12U;
+            var idBlock = 13U;
+            var idTag = 14U;
+            CleanupTestFile(idEmpty);
+            CleanupTestFile(idTitle);
+            CleanupTestFile(idDetails);
+            CleanupTestFile(idBlock);
+            CleanupTestFile(idTag);
+
+            var sutEmpty = new Ticket(ticketDir, idEmpty);
+            var sutTitle = new Ticket(ticketDir, idTitle);
+            var sutDetails = new Ticket(ticketDir, idDetails);
+            var sutBlock = new Ticket(ticketDir, idBlock);
+            var sutTag = new Ticket(ticketDir, idTag);
+
+            // Act
+            sutTitle.Title = "Title";
+            sutDetails.Details = "Details";
+            sutBlock.BlockingTicketsIDs.Add(1U);
+            sutTag.Tags.Add("Tag");
+
+            // Assert
+            Assert.IsTrue(sutEmpty.Empty());
+            Assert.IsFalse(sutTitle.Empty());
+            Assert.IsFalse(sutDetails.Empty());
+            Assert.IsTrue(sutBlock.Empty());
+            Assert.IsTrue(sutTag.Empty());
+        }
+
+        [TestMethod]
         public void TestCommitingEmptyTicketDoesNotWriteAFile()
         {
             // Arrange
@@ -287,6 +322,7 @@ namespace Tests
             var id = 4U;
             CleanupTestFile(id);
             var sut = new Ticket(ticketDir, id);
+            sut.Title = "Test"; // Add title so the ticket is not counted as empty
 
             // Act
             sut.Tags.Add("Test");
@@ -323,6 +359,7 @@ namespace Tests
             var id = 6U;
             CleanupTestFile(id);
             var sut = new Ticket(ticketDir, id);
+            sut.Title = "Test"; // Add title so the ticket is not counted as empty
 
             // Act
             sut.BlockingTicketsIDs.Add(1U);
@@ -340,6 +377,7 @@ namespace Tests
             var id = 7U;
             CleanupTestFile(id);
             var sut = new Ticket(ticketDir, id);
+            sut.Title = "Test"; // Add title so the ticket is not counted as empty
             sut.BlockingTicketsIDs.Add(blockingId);
             sut.BlockingTicketsIDs.Add(5U);
             sut.CommitChanges();

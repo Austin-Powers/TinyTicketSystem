@@ -346,7 +346,7 @@ namespace TinyTicketSystem
         #endregion
 
         /// <summary>
-        /// Checks if the ticket does not contain any information.
+        /// Checks if the ticket does not contain useful information.
         /// </summary>
         /// <returns>True if the ticket is empty, false otherwise.</returns>
         public bool Empty()
@@ -356,14 +356,6 @@ namespace TinyTicketSystem
 				return false;
 			}
 			if (Details.Length != 0)
-			{
-				return false;
-			}
-			if (BlockingTicketsIDs.Count != 0)
-			{
-				return false;
-			}
-			if (Tags.Count != 0)
 			{
 				return false;
 			}
