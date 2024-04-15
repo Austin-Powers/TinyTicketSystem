@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using TicketModel;
 
-namespace TinyTicketSystem
+namespace TicketModel
 {
 	/// <summary>
 	/// Contains all data typically associated with a ticket.

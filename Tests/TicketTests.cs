@@ -1,5 +1,4 @@
 using TicketModel;
-using TinyTicketSystem;
 
 namespace Tests
 {

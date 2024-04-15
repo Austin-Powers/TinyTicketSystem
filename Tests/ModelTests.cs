@@ -1,5 +1,4 @@
 ﻿using TicketModel;
-using TinyTicketSystem;
 
 namespace Tests
 {
@@ -8,6 +7,7 @@ namespace Tests
     {
         public readonly string ticketDir = ".";
 
+        [TestCleanup]
         public void Cleanup()
         {
             if (File.Exists("index.md"))
@@ -24,7 +24,6 @@ namespace Tests
         public void TestConstruction()
         {
             // Arrange
-            Cleanup();
             var sut = new Model(ticketDir);
 
             // Act
@@ -38,7 +37,6 @@ namespace Tests
         public void TestGetTicketForUnknownIDReturnsNull()
         {
             // Arrange
-            Cleanup();
             var sut = new Model(ticketDir);
 
             // Act
@@ -52,7 +50,6 @@ namespace Tests
         public void TestAddingEmptyTicket()
         {
             // Arrange
-            Cleanup();
             var sut = new Model(ticketDir);
 
             // Act
@@ -72,7 +69,6 @@ namespace Tests
         public void TestRemoveTicketIfEmptyOnEmptyTicket()
         {
             // Arrange
-            Cleanup();
             var sut = new Model(ticketDir);
             var ticketId = sut.AddEmptyTicket();
 
@@ -88,7 +84,6 @@ namespace Tests
         public void TestRemoveTicketIfEmptyOnNonEmptyTicket()
         {
             // Arrange
-            Cleanup();
             var sut = new Model(ticketDir);
             var ticketId = sut.AddEmptyTicket();
             sut.GetTicket(ticketId).Title = "Test";
@@ -105,7 +100,6 @@ namespace Tests
         public void TestRemoveTicket()
         {
             // Arrange
-            Cleanup();
             var sut = new Model(ticketDir);
             var ticketId = sut.AddEmptyTicket();
             sut.GetTicket(ticketId).Title = "Test";
@@ -121,7 +115,6 @@ namespace Tests
         public void TestIsBlockedReturnsFalseOnTicketWithoutBlockingIDs()
         {
             // Arrange
-            Cleanup();
             var sut = new Model(ticketDir);
             var ticketId = sut.AddEmptyTicket();
 
@@ -136,7 +129,6 @@ namespace Tests
         public void TestIsBlockedReturnsTrueIfTicketHasOpenTicketBlockingIt()
         {
             // Arrange
-            Cleanup();
             var sut = new Model(ticketDir);
             var ticketId0 = sut.AddEmptyTicket();
             var ticketId1 = sut.AddEmptyTicket();
@@ -154,7 +146,6 @@ namespace Tests
         public void TestIsBlockedReturnsFalseIfTicketHasClosedTicketBlockingIt()
         {
             // Arrange
-            Cleanup();
             var sut = new Model(ticketDir);
             var ticketId0 = sut.AddEmptyTicket();
             var ticketId1 = sut.AddEmptyTicket();
@@ -173,7 +164,6 @@ namespace Tests
         public void TestSaveAndLoadIndex()
         {
             // Arrange
-            Cleanup();
             var sut = new Model(ticketDir);
             var ticketId0 = sut.AddEmptyTicket();
             var ticket = sut.GetTicket(ticketId0);
@@ -192,7 +182,6 @@ namespace Tests
         public void TestAddTagsOf()
         {
             // Arrange
-            Cleanup();
             var sut = new Model(ticketDir);
             var ticketId = sut.AddEmptyTicket();
             var ticket = sut.GetTicket(ticketId);
@@ -229,7 +218,6 @@ namespace Tests
         public void TestOnTicketUpdatedOnlyUsesTicketsFromModel()
         {
             // Arrange
-            Cleanup();
             var sut = new Model(ticketDir);
             ITicketObserver observer = sut;
             var ticket = new Ticket(ticketDir, 0U);
@@ -247,7 +235,6 @@ namespace Tests
         {
             // Arrange
             var tag = "Test";
-            Cleanup();
             var sut = new Model(ticketDir);
             var ticketId = sut.AddEmptyTicket();
             var ticket = sut.GetTicket(ticketId);
@@ -266,7 +253,6 @@ namespace Tests
         public void TestRemoveTicketRemovesBlockingIdFromOtherTickets()
         {
             // Arrange
-            Cleanup();
             var sut = new Model(ticketDir);
             var ticketId0 = sut.AddEmptyTicket();
             var ticketId1 = sut.AddEmptyTicket();
@@ -284,7 +270,6 @@ namespace Tests
         public void TestReopenTicketAlsoReopensTicketsBlockedByIt()
         {
             // Arrange
-            Cleanup();
             var sut = new Model(ticketDir);
             var ticketId0 = sut.AddEmptyTicket();
             var ticketId1 = sut.AddEmptyTicket();

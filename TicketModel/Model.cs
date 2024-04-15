@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using TicketModel;
 
-namespace TinyTicketSystem
+namespace TicketModel
 {
 	/// <summary>
 	/// The model of the tiny ticket system.
