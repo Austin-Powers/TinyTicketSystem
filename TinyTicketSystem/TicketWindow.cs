@@ -197,7 +197,9 @@ namespace TinyTicketSystem
 		private void NewTicketToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			var id = _model.AddEmptyTicket();
-			var ticketView = new TicketWindow(_model, id, _localisation);
+			var ticket = _model.GetTicket(id);
+			ticket.Tags = TicketTags;
+            var ticketView = new TicketWindow(_model, id, _localisation);
 			ticketView.ShowDialog(this);
 			if (!_model.RemoveTicketIfEmpty(id))
 			{
