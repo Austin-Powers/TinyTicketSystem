@@ -32,12 +32,18 @@ namespace TicketModel
         public TicketState State { get; set; }
 
         /// <summary>
+        /// The title string to filter for.
+        /// </summary>
+        public string Title { get; set; }
+
+        /// <summary>
         /// Applies the set contraints to filter tickets from the given model.
         /// </summary>
         /// <param name="model">The model to extract the tickets from.</param>
         /// <returns></returns>
         public List<Ticket> Apply(Model model)
         {
+            var title = Title?.ToLower();
             var result = new List<Ticket>();
             foreach (var id in model.TicketIds)
             {
@@ -68,6 +74,10 @@ namespace TicketModel
                             continue;
                         }
                         break;
+                }
+                if (!ticket.Title.ToLower().Contains(title ?? ""))
+                {
+                    continue;
                 }
                 result.Add(ticket);
             }

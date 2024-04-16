@@ -23,7 +23,7 @@ namespace Tests
             ticket.Closed = true;
             id = model.AddEmptyTicket();
             ticket = model.GetTicket(id);
-            ticket.Title = "Test2";
+            ticket.Title = "Emp";
             ticket.BlockingTicketsIDs.Add(id0);
         }
 
@@ -131,6 +131,96 @@ namespace Tests
             foreach (var r in result)
             {
                 Assert.IsTrue(r.Closed);
+            }
+        }
+
+        [TestMethod]
+        public void TestSettingTitleToNullReturnsAllTickets()
+        {
+            // Arrange
+            var sut = new Filter();
+            sut.Title = null;
+
+            // Act
+            var result = sut.Apply(model);
+
+            // Assert
+            Assert.IsNotNull(model); // mainly to please linter
+            Assert.AreEqual(model.TicketIds.Count, result.Count);
+        }
+
+        [TestMethod]
+        public void TestSettingTitleToEmptyReturnsAllTickets()
+        {
+            // Arrange
+            var sut = new Filter();
+            sut.Title = "";
+
+            // Act
+            var result = sut.Apply(model);
+
+            // Assert
+            Assert.IsNotNull(model); // mainly to please linter
+            Assert.AreEqual(model.TicketIds.Count, result.Count);
+        }
+
+        [TestMethod]
+        public void TestSettingTitleCaseSensitive()
+        {
+            // Arrange
+            var sut = new Filter();
+            var testTitle = "Te";
+            sut.Title = testTitle;
+
+            // Act
+            var result = sut.Apply(model);
+
+            // Assert
+            Assert.IsNotNull(model); // mainly to please linter
+            Assert.AreEqual(2, result.Count);
+            foreach (var r in result)
+            {
+                Assert.IsTrue(r.Title.Contains(testTitle));
+            }
+        }
+
+        [TestMethod]
+        public void TestSettingTitleCaseInsensitive()
+        {
+            // Arrange
+            var sut = new Filter();
+            var testTitle = "Te";
+            sut.Title = testTitle;
+
+            // Act
+            var result = sut.Apply(model);
+
+            // Assert
+            Assert.IsNotNull(model); // mainly to please linter
+            Assert.AreEqual(2, result.Count);
+            foreach (var r in result)
+            {
+                Assert.IsTrue(r.Title.Contains(testTitle, StringComparison.InvariantCultureIgnoreCase));
+            }
+        }
+
+        [TestMethod]
+        public void TestSettingTitleCaseInsensitive2()
+        {
+            // Arrange
+            var sut = new Filter();
+            var testTitle = "emp";
+            sut.Title = testTitle;
+
+            // Act
+            var result = sut.Apply(model);
+
+            // Assert
+            Assert.IsNotNull(model); // mainly to please linter
+            Assert.AreEqual(2, result.Count);
+            foreach (var r in result)
+            {
+                Assert.IsTrue(r.Title.Contains(testTitle, StringComparison.InvariantCultureIgnoreCase));
             }
         }
     }
