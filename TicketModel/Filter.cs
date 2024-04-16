@@ -10,9 +10,26 @@ namespace TicketModel
     public class Filter
     {
         /// <summary>
+        /// Enumerates all possible states of a ticket.
+        /// </summary>
+        public enum TicketState
+        {
+            All,
+            Open,
+            Blocked,
+            OpenOrBlocked,
+            Closed
+        }
+
+        /// <summary>
         /// Initializes a new filter.
         /// </summary>
         public Filter() { }
+
+        /// <summary>
+        /// The ticket state to filter for.
+        /// </summary>
+        public TicketState State { get; set; }
 
         /// <summary>
         /// Applies the set contraints to filter tickets from the given model.
@@ -25,6 +42,33 @@ namespace TicketModel
             foreach (var id in model.TicketIds)
             {
                 var ticket = model.GetTicket(id);
+                switch (State)
+                {
+                    case TicketState.Open:
+                        if (ticket.Closed || model.IsBlocked(ticket))
+                        {
+                            continue;
+                        }
+                        break;
+                    case TicketState.Blocked:
+                        if (!model.IsBlocked(ticket))
+                        {
+                            continue;
+                        }
+                        break;
+                    case TicketState.OpenOrBlocked:
+                        if (ticket.Closed)
+                        {
+                            continue;
+                        }
+                        break;
+                    case TicketState.Closed:
+                        if (!ticket.Closed)
+                        {
+                            continue;
+                        }
+                        break;
+                }
                 result.Add(ticket);
             }
             return result;
