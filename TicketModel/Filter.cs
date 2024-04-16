@@ -22,6 +22,11 @@ namespace TicketModel
         public List<Ticket> Apply(Model model)
         {
             var result = new List<Ticket>();
+            foreach (var id in model.TicketIds)
+            {
+                var ticket = model.GetTicket(id);
+                result.Add(ticket);
+            }
             return result;
         }
     }

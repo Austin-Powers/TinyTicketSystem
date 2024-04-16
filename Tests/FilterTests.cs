@@ -2,29 +2,33 @@
 
 namespace Tests
 {
-    [TestClass]
+    [TestClass()]
     public class FilterTests
     {
         private readonly string ticketDir = "filterTest";
-
+        
         private Model? model;
-
-        [ClassInitialize]
+        
+        [TestInitialize]
         public void Initialize()
         {
+            Directory.CreateDirectory(ticketDir);
             model = new Model(ticketDir);
+            var id = model.AddEmptyTicket();
         }
 
-        [ClassCleanup]
+        [TestCleanup]
         public void Cleanup()
         {
-            if (File.Exists("index.md"))
+            var indexPath = Path.Combine(ticketDir, "index.md");
+            if (File.Exists(indexPath))
             {
-                File.Delete("index.md");
+                File.Delete(indexPath);
             }
-            if (Directory.Exists("100"))
+            var ticketPath = Path.Combine(ticketDir, "100");
+            if (Directory.Exists(ticketPath))
             {
-                Directory.Delete("100", true);
+                Directory.Delete(ticketPath, true);
             }
         }
 
@@ -32,11 +36,14 @@ namespace Tests
         public void TestNoSetFiltersReturnsAllTicketsOfModel()
         {
             // Arrange
-
+            var sut = new Filter();
 
             // Act
+            var result = sut.Apply(model);
 
             // Assert
+            Assert.IsNotNull(model); // mainly to please linter
+            Assert.AreEqual(model.TicketIds.Count, result.Count);
         }
     }
 }
