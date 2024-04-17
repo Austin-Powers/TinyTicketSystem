@@ -20,10 +20,12 @@ namespace Tests
             var id = model.AddEmptyTicket();
             ticket = model.GetTicket(id);
             ticket.Title = "Temp";
+            ticket.Tags.Add("Tag");
             ticket.Closed = true;
             id = model.AddEmptyTicket();
             ticket = model.GetTicket(id);
             ticket.Title = "Emp";
+            ticket.Tags.Add("Tagging");
             ticket.BlockingTicketsIDs.Add(id0);
         }
 
@@ -221,6 +223,56 @@ namespace Tests
             foreach (var r in result)
             {
                 Assert.IsTrue(r.Title.Contains(testTitle, StringComparison.InvariantCultureIgnoreCase));
+            }
+        }
+
+        [TestMethod]
+        public void TestSettingTagToNullReturnsAllTickets()
+        {
+            // Arrange
+            var sut = new Filter();
+            sut.Tag = null;
+
+            // Act
+            var result = sut.Apply(model);
+
+            // Assert
+            Assert.IsNotNull(model); // mainly to please linter
+            Assert.AreEqual(model.TicketIds.Count, result.Count);
+        }
+
+        [TestMethod]
+        public void TestSettingTagToEmptyReturnsAllTickets()
+        {
+            // Arrange
+            var sut = new Filter();
+            sut.Tag = "";
+
+            // Act
+            var result = sut.Apply(model);
+
+            // Assert
+            Assert.IsNotNull(model); // mainly to please linter
+            Assert.AreEqual(model.TicketIds.Count, result.Count);
+        }
+
+        [TestMethod]
+        public void TestSettingTagReturnsTicketWithExactlyThatTag()
+        {
+            // Arrange
+            var searchString = "Tag";
+            var sut = new Filter();
+            sut.Tag = searchString;
+
+            // Act
+            var result = sut.Apply(model);
+
+            // Assert
+            Assert.IsNotNull(model); // mainly to please linter
+            Assert.AreEqual(1, result.Count);
+            foreach (var r in result)
+            {
+                Assert.IsTrue(r.Tags.Contains(searchString));
             }
         }
     }

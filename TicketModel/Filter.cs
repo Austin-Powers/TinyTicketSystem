@@ -37,6 +37,11 @@ namespace TicketModel
         public string Title { get; set; }
 
         /// <summary>
+        /// The tag to filter for.
+        /// </summary>
+        public string Tag { get; set; }
+
+        /// <summary>
         /// Applies the set contraints to filter tickets from the given model.
         /// </summary>
         /// <param name="model">The model to extract the tickets from.</param>
@@ -78,6 +83,13 @@ namespace TicketModel
                 if (!ticket.Title.ToLower().Contains(title ?? ""))
                 {
                     continue;
+                }
+                if (Tag != null && Tag.Length != 0)
+                {
+                    if (!ticket.Tags.Contains(Tag))
+                    {
+                        continue;
+                    }
                 }
                 result.Add(ticket);
             }
