@@ -48,50 +48,113 @@ namespace TicketModel
         /// <returns></returns>
         public List<Ticket> Apply(Model model)
         {
-            var title = Title?.ToLower();
             var result = new List<Ticket>();
             foreach (var id in model.TicketIds)
             {
                 var ticket = model.GetTicket(id);
-                switch (State)
-                {
-                    case TicketState.Open:
-                        if (ticket.Closed || model.IsBlocked(ticket))
-                        {
-                            continue;
-                        }
-                        break;
-                    case TicketState.Blocked:
-                        if (!model.IsBlocked(ticket))
-                        {
-                            continue;
-                        }
-                        break;
-                    case TicketState.OpenOrBlocked:
-                        if (ticket.Closed)
-                        {
-                            continue;
-                        }
-                        break;
-                    case TicketState.Closed:
-                        if (!ticket.Closed)
-                        {
-                            continue;
-                        }
-                        break;
-                }
-                if (!ticket.Title.ToLower().Contains(title ?? ""))
-                {
-                    continue;
-                }
-                if (Tag != null && Tag.Length != 0)
-                {
-                    if (!ticket.Tags.Contains(Tag))
-                    {
-                        continue;
-                    }
-                }
                 result.Add(ticket);
+            }
+            switch (State)
+            {
+                case TicketState.Open:
+                    result = FilterOpen(model, result);
+                    break;
+                case TicketState.Blocked:
+                    result = FilterBlocked(model, result);
+                    break;
+                case TicketState.OpenOrBlocked:
+                    result = FilterOpenOrBlocked(result);
+                    break;
+                case TicketState.Closed:
+                    result = FilterClosed(result);
+                    break;
+            }
+            if (Title != null && Title.Length != 0)
+            {
+                result = FilterTitle(result);
+            }
+            if (Tag != null && Tag.Length != 0)
+            {
+                result = FilterTag(result);
+            }
+            return result;
+        }
+
+        private List<Ticket> FilterOpen(Model model, List<Ticket> tickets)
+        {
+            var result = new List<Ticket>();
+            foreach (var ticket in tickets)
+            {
+                if (!ticket.Closed && !model.IsBlocked(ticket))
+                {
+                    result.Add(ticket);
+                }
+            }
+            return result;
+        }
+
+        private List<Ticket> FilterBlocked(Model model, List<Ticket> tickets)
+        {
+            var result = new List<Ticket>();
+            foreach (var ticket in tickets)
+            {
+                if (model.IsBlocked(ticket))
+                {
+                    result.Add(ticket);
+                }
+            }
+            return result;
+        }
+
+        private List<Ticket> FilterOpenOrBlocked(List<Ticket> tickets)
+        {
+            var result = new List<Ticket>();
+            foreach (var ticket in tickets)
+            {
+                if (!ticket.Closed)
+                {
+                    result.Add(ticket);
+                }
+            }
+            return result;
+        }
+
+        private List<Ticket> FilterClosed(List<Ticket> tickets)
+        {
+            var result = new List<Ticket>();
+            foreach (var ticket in tickets)
+            {
+                if (ticket.Closed)
+                {
+                    result.Add(ticket);
+                }
+            }
+            return result;
+        }
+
+        private List<Ticket> FilterTitle(List<Ticket> tickets)
+        {
+            var title = Title.ToLower();
+            var result = new List<Ticket>();
+            foreach (var ticket in tickets)
+            {
+                if (ticket.Title.ToLower().Contains(title))
+                {
+                    result.Add(ticket);
+                }
+            }
+            return result;
+        }
+
+        private List<Ticket> FilterTag(List<Ticket> tickets)
+        {
+            var result = new List<Ticket>();
+            foreach (var ticket in tickets)
+            {
+                if (ticket.Tags.Contains(Tag))
+                {
+                    result.Add(ticket);
+                }
             }
             return result;
         }
