@@ -118,13 +118,15 @@ namespace TinyTicketSystem
 
         private void DataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
 		{
-			// TODO react to e.RowIndex being -1, can happen wenn double clicking on the top left cell
-			var ticketNumber = dataGridView.Rows[e.RowIndex].Cells[0].Value;
-			DisplayInfo(_localisation.Get("main_edit_open", ticketNumber));
-            var ticketView = new TicketWindow(_model, Convert.ToUInt32(ticketNumber), _localisation);
-			ticketView.ShowDialog(this);
-            DisplayInfo(_localisation.Get("main_edit_close", ticketNumber));
-			UpdateTable();
+			if (e.RowIndex >= 0)
+			{
+				var ticketNumber = dataGridView.Rows[e.RowIndex].Cells[0].Value;
+				DisplayInfo(_localisation.Get("main_edit_open", ticketNumber));
+				var ticketView = new TicketWindow(_model, Convert.ToUInt32(ticketNumber), _localisation);
+				ticketView.ShowDialog(this);
+				DisplayInfo(_localisation.Get("main_edit_close", ticketNumber));
+				UpdateTable();
+			}
         }
 
         private void CreateModel()
