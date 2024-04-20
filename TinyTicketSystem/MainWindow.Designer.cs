@@ -28,168 +28,193 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.dataGridView = new System.Windows.Forms.DataGridView();
-			this.idColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.titleColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.lastChangedColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.statusColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.tagsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.menuStrip = new System.Windows.Forms.MenuStrip();
-			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.newTicketToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.setTicketDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-			this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-			this.deleteTicketToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
-			this.menuStrip.SuspendLayout();
-			this.statusStrip1.SuspendLayout();
-			this.SuspendLayout();
-			// 
-			// dataGridView
-			// 
-			this.dataGridView.AllowUserToAddRows = false;
-			this.dataGridView.AllowUserToDeleteRows = false;
-			this.dataGridView.AllowUserToResizeRows = false;
-			this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.idColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.titleColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lastChangedColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.statusColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tagsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newTicketToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteTicketToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setTicketDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusFilterTSCB = new System.Windows.Forms.ToolStripComboBox();
+            this.titleFilterTSTB = new System.Windows.Forms.ToolStripTextBox();
+            this.tagFilterTSTB = new System.Windows.Forms.ToolStripTextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
+            this.menuStrip.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // dataGridView
+            // 
+            this.dataGridView.AllowUserToAddRows = false;
+            this.dataGridView.AllowUserToDeleteRows = false;
+            this.dataGridView.AllowUserToResizeRows = false;
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.idColumn,
             this.titleColumn,
             this.lastChangedColumn,
             this.statusColumn,
             this.tagsColumn});
-			this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.dataGridView.Location = new System.Drawing.Point(0, 24);
-			this.dataGridView.Name = "dataGridView";
-			this.dataGridView.ReadOnly = true;
-			this.dataGridView.Size = new System.Drawing.Size(800, 426);
-			this.dataGridView.TabIndex = 0;
-			this.dataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellDoubleClick);
-			// 
-			// idColumn
-			// 
-			this.idColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-			this.idColumn.HeaderText = "ID";
-			this.idColumn.Name = "idColumn";
-			this.idColumn.ReadOnly = true;
-			this.idColumn.Width = 43;
-			// 
-			// titleColumn
-			// 
-			this.titleColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-			this.titleColumn.HeaderText = "Title";
-			this.titleColumn.Name = "titleColumn";
-			this.titleColumn.ReadOnly = true;
-			this.titleColumn.Width = 52;
-			// 
-			// lastChangedColumn
-			// 
-			this.lastChangedColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-			this.lastChangedColumn.HeaderText = "Last Changed";
-			this.lastChangedColumn.Name = "lastChangedColumn";
-			this.lastChangedColumn.ReadOnly = true;
-			this.lastChangedColumn.Width = 98;
-			// 
-			// statusColumn
-			// 
-			this.statusColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-			this.statusColumn.HeaderText = "Status";
-			this.statusColumn.Name = "statusColumn";
-			this.statusColumn.ReadOnly = true;
-			this.statusColumn.Width = 62;
-			// 
-			// tagsColumn
-			// 
-			this.tagsColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.tagsColumn.HeaderText = "Tags";
-			this.tagsColumn.Name = "tagsColumn";
-			this.tagsColumn.ReadOnly = true;
-			// 
-			// menuStrip
-			// 
-			this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
-			this.menuStrip.Location = new System.Drawing.Point(0, 0);
-			this.menuStrip.Name = "menuStrip";
-			this.menuStrip.Size = new System.Drawing.Size(800, 24);
-			this.menuStrip.TabIndex = 1;
-			this.menuStrip.Text = "menuStrip";
-			// 
-			// fileToolStripMenuItem
-			// 
-			this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView.Location = new System.Drawing.Point(0, 27);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.ReadOnly = true;
+            this.dataGridView.Size = new System.Drawing.Size(800, 423);
+            this.dataGridView.TabIndex = 0;
+            this.dataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellDoubleClick);
+            // 
+            // idColumn
+            // 
+            this.idColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.idColumn.HeaderText = "ID";
+            this.idColumn.Name = "idColumn";
+            this.idColumn.ReadOnly = true;
+            this.idColumn.Width = 43;
+            // 
+            // titleColumn
+            // 
+            this.titleColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.titleColumn.HeaderText = "Title";
+            this.titleColumn.Name = "titleColumn";
+            this.titleColumn.ReadOnly = true;
+            this.titleColumn.Width = 52;
+            // 
+            // lastChangedColumn
+            // 
+            this.lastChangedColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.lastChangedColumn.HeaderText = "Last Changed";
+            this.lastChangedColumn.Name = "lastChangedColumn";
+            this.lastChangedColumn.ReadOnly = true;
+            this.lastChangedColumn.Width = 98;
+            // 
+            // statusColumn
+            // 
+            this.statusColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.statusColumn.HeaderText = "Status";
+            this.statusColumn.Name = "statusColumn";
+            this.statusColumn.ReadOnly = true;
+            this.statusColumn.Width = 62;
+            // 
+            // tagsColumn
+            // 
+            this.tagsColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.tagsColumn.HeaderText = "Tags";
+            this.tagsColumn.Name = "tagsColumn";
+            this.tagsColumn.ReadOnly = true;
+            // 
+            // menuStrip
+            // 
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.statusFilterTSCB,
+            this.titleFilterTSTB,
+            this.tagFilterTSTB});
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(800, 27);
+            this.menuStrip.TabIndex = 1;
+            this.menuStrip.Text = "menuStrip";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newTicketToolStripMenuItem,
             this.deleteTicketToolStripMenuItem,
             this.setTicketDirectoryToolStripMenuItem,
             this.refreshToolStripMenuItem});
-			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-			this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-			this.fileToolStripMenuItem.Text = "File";
-			// 
-			// newTicketToolStripMenuItem
-			// 
-			this.newTicketToolStripMenuItem.Name = "newTicketToolStripMenuItem";
-			this.newTicketToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.newTicketToolStripMenuItem.Text = "New Ticket";
-			this.newTicketToolStripMenuItem.Click += new System.EventHandler(this.NewTicketToolStripMenuItem_Click);
-			// 
-			// setTicketDirectoryToolStripMenuItem
-			// 
-			this.setTicketDirectoryToolStripMenuItem.Name = "setTicketDirectoryToolStripMenuItem";
-			this.setTicketDirectoryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.setTicketDirectoryToolStripMenuItem.Text = "Set Ticket Directory";
-			this.setTicketDirectoryToolStripMenuItem.Click += new System.EventHandler(this.SetTicketDirectoryToolStripMenuItem_Click);
-			// 
-			// refreshToolStripMenuItem
-			// 
-			this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-			this.refreshToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.refreshToolStripMenuItem.Text = "Refresh";
-			this.refreshToolStripMenuItem.Click += new System.EventHandler(this.RefreshToolStripMenuItem_Click);
-			// 
-			// statusStrip1
-			// 
-			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 23);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // newTicketToolStripMenuItem
+            // 
+            this.newTicketToolStripMenuItem.Name = "newTicketToolStripMenuItem";
+            this.newTicketToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newTicketToolStripMenuItem.Text = "New Ticket";
+            this.newTicketToolStripMenuItem.Click += new System.EventHandler(this.NewTicketToolStripMenuItem_Click);
+            // 
+            // deleteTicketToolStripMenuItem
+            // 
+            this.deleteTicketToolStripMenuItem.Name = "deleteTicketToolStripMenuItem";
+            this.deleteTicketToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteTicketToolStripMenuItem.Text = "Delete Ticket";
+            this.deleteTicketToolStripMenuItem.Click += new System.EventHandler(this.DeleteTicketToolStripMenuItem_Click);
+            // 
+            // setTicketDirectoryToolStripMenuItem
+            // 
+            this.setTicketDirectoryToolStripMenuItem.Name = "setTicketDirectoryToolStripMenuItem";
+            this.setTicketDirectoryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.setTicketDirectoryToolStripMenuItem.Text = "Set Ticket Directory";
+            this.setTicketDirectoryToolStripMenuItem.Click += new System.EventHandler(this.SetTicketDirectoryToolStripMenuItem_Click);
+            // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.RefreshToolStripMenuItem_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 428);
-			this.statusStrip1.Name = "statusStrip1";
-			this.statusStrip1.Size = new System.Drawing.Size(800, 22);
-			this.statusStrip1.TabIndex = 2;
-			this.statusStrip1.Text = "statusStrip1";
-			// 
-			// toolStripStatusLabel
-			// 
-			this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-			this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
-			this.toolStripStatusLabel.Text = "Ready";
-			// 
-			// deleteTicketToolStripMenuItem
-			// 
-			this.deleteTicketToolStripMenuItem.Name = "deleteTicketToolStripMenuItem";
-			this.deleteTicketToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.deleteTicketToolStripMenuItem.Text = "Delete Ticket";
-			this.deleteTicketToolStripMenuItem.Click += new System.EventHandler(this.DeleteTicketToolStripMenuItem_Click);
-			// 
-			// MainWindow
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(800, 450);
-			this.Controls.Add(this.statusStrip1);
-			this.Controls.Add(this.dataGridView);
-			this.Controls.Add(this.menuStrip);
-			this.MainMenuStrip = this.menuStrip;
-			this.Name = "MainWindow";
-			this.Text = "Tiny Ticket System";
-			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainWindow_FormClosed);
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
-			this.menuStrip.ResumeLayout(false);
-			this.menuStrip.PerformLayout();
-			this.statusStrip1.ResumeLayout(false);
-			this.statusStrip1.PerformLayout();
-			this.ResumeLayout(false);
-			this.PerformLayout();
+            this.statusStrip1.Location = new System.Drawing.Point(0, 428);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip1.TabIndex = 2;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel
+            // 
+            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
+            this.toolStripStatusLabel.Text = "Ready";
+            // 
+            // statusFilterTSCB
+            // 
+            this.statusFilterTSCB.Name = "statusFilterTSCB";
+            this.statusFilterTSCB.Size = new System.Drawing.Size(121, 23);
+            this.statusFilterTSCB.Sorted = true;
+            this.statusFilterTSCB.TextUpdate += new System.EventHandler(this.statusFilterTSCB_TextUpdate);
+            // 
+            // titleFilterTSTB
+            // 
+            this.titleFilterTSTB.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.titleFilterTSTB.Name = "titleFilterTSTB";
+            this.titleFilterTSTB.Size = new System.Drawing.Size(100, 23);
+            // 
+            // tagFilterTSTB
+            // 
+            this.tagFilterTSTB.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.tagFilterTSTB.Name = "tagFilterTSTB";
+            this.tagFilterTSTB.Size = new System.Drawing.Size(100, 23);
+            // 
+            // MainWindow
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.dataGridView);
+            this.Controls.Add(this.menuStrip);
+            this.MainMenuStrip = this.menuStrip;
+            this.Name = "MainWindow";
+            this.Text = "Tiny Ticket System";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainWindow_FormClosed);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
 
 		}
 
@@ -209,6 +234,9 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
 		private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem deleteTicketToolStripMenuItem;
-	}
+        private System.Windows.Forms.ToolStripComboBox statusFilterTSCB;
+        private System.Windows.Forms.ToolStripTextBox titleFilterTSTB;
+        private System.Windows.Forms.ToolStripTextBox tagFilterTSTB;
+    }
 }
 

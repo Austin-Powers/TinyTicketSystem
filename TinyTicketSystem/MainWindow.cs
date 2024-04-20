@@ -109,10 +109,16 @@ namespace TinyTicketSystem
 		{
 			CreateModel();
 		}
-		#endregion
 
-		private void DataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void statusFilterTSCB_TextUpdate(object sender, EventArgs e)
+        {
+			DisplayInfo(statusFilterTSCB.Text);
+        }
+        #endregion
+
+        private void DataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
 		{
+			// TODO react to e.RowIndex being -1, can happen wenn double clicking on the top left cell
 			var ticketNumber = dataGridView.Rows[e.RowIndex].Cells[0].Value;
 			DisplayInfo(_localisation.Get("main_edit_open", ticketNumber));
             var ticketView = new TicketWindow(_model, Convert.ToUInt32(ticketNumber), _localisation);
@@ -209,5 +215,5 @@ namespace TinyTicketSystem
 		{
 			_model?.SaveIndex();
 		}
-	}
+    }
 }
