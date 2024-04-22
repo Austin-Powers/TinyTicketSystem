@@ -40,11 +40,11 @@
             this.deleteTicketToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setTicketDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusFilterTSCB = new System.Windows.Forms.ToolStripComboBox();
             this.titleFilterTSTB = new System.Windows.Forms.ToolStripTextBox();
-            this.tagFilterTSTB = new System.Windows.Forms.ToolStripTextBox();
+            this.tagFilterTSCB = new System.Windows.Forms.ToolStripComboBox();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.menuStrip.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -115,7 +115,7 @@
             this.fileToolStripMenuItem,
             this.statusFilterTSCB,
             this.titleFilterTSTB,
-            this.tagFilterTSTB});
+            this.tagFilterTSCB});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(800, 27);
@@ -136,30 +136,47 @@
             // newTicketToolStripMenuItem
             // 
             this.newTicketToolStripMenuItem.Name = "newTicketToolStripMenuItem";
-            this.newTicketToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newTicketToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.newTicketToolStripMenuItem.Text = "New Ticket";
             this.newTicketToolStripMenuItem.Click += new System.EventHandler(this.NewTicketToolStripMenuItem_Click);
             // 
             // deleteTicketToolStripMenuItem
             // 
             this.deleteTicketToolStripMenuItem.Name = "deleteTicketToolStripMenuItem";
-            this.deleteTicketToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteTicketToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.deleteTicketToolStripMenuItem.Text = "Delete Ticket";
             this.deleteTicketToolStripMenuItem.Click += new System.EventHandler(this.DeleteTicketToolStripMenuItem_Click);
             // 
             // setTicketDirectoryToolStripMenuItem
             // 
             this.setTicketDirectoryToolStripMenuItem.Name = "setTicketDirectoryToolStripMenuItem";
-            this.setTicketDirectoryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.setTicketDirectoryToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.setTicketDirectoryToolStripMenuItem.Text = "Set Ticket Directory";
             this.setTicketDirectoryToolStripMenuItem.Click += new System.EventHandler(this.SetTicketDirectoryToolStripMenuItem_Click);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.RefreshToolStripMenuItem_Click);
+            // 
+            // statusFilterTSCB
+            // 
+            this.statusFilterTSCB.Name = "statusFilterTSCB";
+            this.statusFilterTSCB.Size = new System.Drawing.Size(121, 23);
+            this.statusFilterTSCB.TextUpdate += new System.EventHandler(this.statusFilterTSCB_TextUpdate);
+            // 
+            // titleFilterTSTB
+            // 
+            this.titleFilterTSTB.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.titleFilterTSTB.Name = "titleFilterTSTB";
+            this.titleFilterTSTB.Size = new System.Drawing.Size(100, 23);
+            // 
+            // tagFilterTSCB
+            // 
+            this.tagFilterTSCB.Name = "tagFilterTSCB";
+            this.tagFilterTSCB.Size = new System.Drawing.Size(121, 23);
             // 
             // statusStrip1
             // 
@@ -176,25 +193,6 @@
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabel.Text = "Ready";
-            // 
-            // statusFilterTSCB
-            // 
-            this.statusFilterTSCB.Name = "statusFilterTSCB";
-            this.statusFilterTSCB.Size = new System.Drawing.Size(121, 23);
-            this.statusFilterTSCB.Sorted = true;
-            this.statusFilterTSCB.TextUpdate += new System.EventHandler(this.statusFilterTSCB_TextUpdate);
-            // 
-            // titleFilterTSTB
-            // 
-            this.titleFilterTSTB.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.titleFilterTSTB.Name = "titleFilterTSTB";
-            this.titleFilterTSTB.Size = new System.Drawing.Size(100, 23);
-            // 
-            // tagFilterTSTB
-            // 
-            this.tagFilterTSTB.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.tagFilterTSTB.Name = "tagFilterTSTB";
-            this.tagFilterTSTB.Size = new System.Drawing.Size(100, 23);
             // 
             // MainWindow
             // 
@@ -236,7 +234,7 @@
 		private System.Windows.Forms.ToolStripMenuItem deleteTicketToolStripMenuItem;
         private System.Windows.Forms.ToolStripComboBox statusFilterTSCB;
         private System.Windows.Forms.ToolStripTextBox titleFilterTSTB;
-        private System.Windows.Forms.ToolStripTextBox tagFilterTSTB;
+        private System.Windows.Forms.ToolStripComboBox tagFilterTSCB;
     }
 }
 

@@ -33,7 +33,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.statusFilterTSCB = new System.Windows.Forms.ToolStripComboBox();
             this.titleFilterTSTB = new System.Windows.Forms.ToolStripTextBox();
-            this.tagFilterTSTB = new System.Windows.Forms.ToolStripTextBox();
+            this.tagFilterTSCB = new System.Windows.Forms.ToolStripComboBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,7 +43,7 @@
             this.checkedListBox.FormattingEnabled = true;
             this.checkedListBox.Location = new System.Drawing.Point(0, 27);
             this.checkedListBox.Name = "checkedListBox";
-            this.checkedListBox.Size = new System.Drawing.Size(384, 334);
+            this.checkedListBox.Size = new System.Drawing.Size(434, 334);
             this.checkedListBox.TabIndex = 0;
             // 
             // addButton
@@ -51,7 +51,7 @@
             this.addButton.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.addButton.Location = new System.Drawing.Point(0, 338);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(384, 23);
+            this.addButton.Size = new System.Drawing.Size(434, 23);
             this.addButton.TabIndex = 1;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = true;
@@ -62,10 +62,10 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusFilterTSCB,
             this.titleFilterTSTB,
-            this.tagFilterTSTB});
+            this.tagFilterTSCB});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(384, 27);
+            this.menuStrip1.Size = new System.Drawing.Size(434, 27);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -80,17 +80,16 @@
             this.titleFilterTSTB.Name = "titleFilterTSTB";
             this.titleFilterTSTB.Size = new System.Drawing.Size(100, 23);
             // 
-            // tagFilterTSTB
+            // tagFilterTSCB
             // 
-            this.tagFilterTSTB.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.tagFilterTSTB.Name = "tagFilterTSTB";
-            this.tagFilterTSTB.Size = new System.Drawing.Size(100, 23);
+            this.tagFilterTSCB.Name = "tagFilterTSCB";
+            this.tagFilterTSCB.Size = new System.Drawing.Size(121, 23);
             // 
             // TicketSelectorWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 361);
+            this.ClientSize = new System.Drawing.Size(434, 361);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.checkedListBox);
             this.Controls.Add(this.menuStrip1);
@@ -112,6 +111,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripComboBox statusFilterTSCB;
         private System.Windows.Forms.ToolStripTextBox titleFilterTSTB;
-        private System.Windows.Forms.ToolStripTextBox tagFilterTSTB;
+        private System.Windows.Forms.ToolStripComboBox tagFilterTSCB;
     }
 }

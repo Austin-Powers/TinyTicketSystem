@@ -17,6 +17,8 @@ namespace TinyTicketSystem
 
 		private readonly Localisation _localisation = new Localisation();
 
+		private FilterController _filterController = null;
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -137,6 +139,7 @@ namespace TinyTicketSystem
 				UpdateTable();
                 newTicketToolStripMenuItem.Enabled = true;
 				DisplayInfo(_localisation.Get("main_load_success", Properties.Settings.Default.TicketDirectory));
+				_filterController = new FilterController(_model, _localisation, statusFilterTSCB, titleFilterTSTB, tagFilterTSCB);
             }
             catch (Exception ex)
 			{

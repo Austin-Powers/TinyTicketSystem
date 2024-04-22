@@ -117,6 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="filter_status_all" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="filter_status_blocked" xml:space="preserve">
+    <value>Blocked</value>
+  </data>
+  <data name="filter_status_closed" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="filter_status_open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="filter_status_open_or_blocked" xml:space="preserve">
+    <value>Open or Blocked</value>
+  </data>
   <data name="main_delete_confirm" xml:space="preserve">
     <value>Delete Ticket {1}?</value>
   </data>
