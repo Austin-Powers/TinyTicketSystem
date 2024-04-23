@@ -132,6 +132,9 @@
   <data name="filter_status_open_or_blocked" xml:space="preserve">
     <value>Open or Blocked</value>
   </data>
+  <data name="filter_title_empty" xml:space="preserve">
+    <value>Search for title</value>
+  </data>
   <data name="main_delete_confirm" xml:space="preserve">
     <value>Delete Ticket {1}?</value>
   </data>

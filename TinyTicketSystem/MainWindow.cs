@@ -112,10 +112,46 @@ namespace TinyTicketSystem
 			CreateModel();
 		}
 
-        private void statusFilterTSCB_TextUpdate(object sender, EventArgs e)
+        #region Filter
+        private void titleFilterTSTB_Enter(object sender, EventArgs e)
         {
-			DisplayInfo(statusFilterTSCB.Text);
+			if (_filterController != null)
+			{
+				_filterController.EnterTitle();
+			}
         }
+
+        private void titleFilterTSTB_Leave(object sender, EventArgs e)
+        {
+            if (_filterController != null)
+            {
+                _filterController.LeaveTitle();
+            }
+        }
+
+        private void statusFilterTSCB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateFilter();
+        }
+
+        private void titleFilterTSTB_TextChanged(object sender, EventArgs e)
+        {
+            UpdateFilter();
+        }
+
+        private void tagFilterTSCB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateFilter();
+        }
+
+		private void UpdateFilter()
+		{
+            if ((_filterController != null) && (_filterController.OnUpdate()))
+            {
+                UpdateTable();
+            }
+        }
+        #endregion
         #endregion
 
         private void DataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -136,10 +172,10 @@ namespace TinyTicketSystem
 			try
 			{
                 _model = new Model(Properties.Settings.Default.TicketDirectory);
-				UpdateTable();
+				_filterController = new FilterController(_model, _localisation, statusFilterTSCB, titleFilterTSTB, tagFilterTSCB);
+                UpdateTable();
                 newTicketToolStripMenuItem.Enabled = true;
 				DisplayInfo(_localisation.Get("main_load_success", Properties.Settings.Default.TicketDirectory));
-				_filterController = new FilterController(_model, _localisation, statusFilterTSCB, titleFilterTSTB, tagFilterTSCB);
             }
             catch (Exception ex)
 			{
@@ -153,9 +189,8 @@ namespace TinyTicketSystem
 		private void UpdateTable()
 		{
 			dataGridView.Rows.Clear();
-			foreach(var id in _model.TicketIds)
+			foreach(var ticket in _filterController.Apply())
 			{
-				var ticket = _model.GetTicket(id);
 				var row = new DataGridViewRow();
 				row.Cells.Add(new DataGridViewTextBoxCell
                 {

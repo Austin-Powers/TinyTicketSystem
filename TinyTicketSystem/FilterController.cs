@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TicketModel;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TinyTicketSystem
 {
@@ -31,6 +33,8 @@ namespace TinyTicketSystem
 
         private string _closedStatus = "filter_status_closed";
 
+        private string _titleEmptyText = "filter_title_empty";
+
         private readonly Filter _filter = new Filter();
 
         public FilterController(
@@ -51,6 +55,7 @@ namespace TinyTicketSystem
             _openOrBlockedStatus = localisation.Get(_openOrBlockedStatus);
             _blockedStatus = localisation.Get(_blockedStatus);
             _closedStatus = localisation.Get(_closedStatus);
+            _titleEmptyText = localisation.Get(_titleEmptyText);
 
             // status
             _statusCB.Text = _allStatus;
@@ -61,8 +66,63 @@ namespace TinyTicketSystem
             _statusCB.Items.Add(_closedStatus);
 
             // title
+            _titleTB.Text = _titleEmptyText;
+            _titleTB.ForeColor = SystemColors.InactiveCaption;
 
             // tag
+            _tagCB.Items.Add("");
+            foreach (var tag in _model.Tags)
+            {
+                _tagCB.Items.Add(tag);
+            }
+        }
+
+        public void EnterTitle()
+        {
+
+        }
+
+        public void LeaveTitle()
+        {
+
+        }
+
+        public bool OnUpdate()
+        {
+            var result = false;
+            var currentState = ToTicketState(_statusCB.Text);
+            if (_filter.State != currentState)
+            {
+                _filter.State = currentState;
+                result = true;
+            }
+            return result;
+        }
+
+        private Filter.TicketState ToTicketState(string text)
+        {
+            if (text == _openStatus)
+            {
+                return Filter.TicketState.Open;
+            }
+            if (text == _openOrBlockedStatus)
+            {
+                return Filter.TicketState.OpenOrBlocked;
+            }
+            if (text == _blockedStatus)
+            {
+                return Filter.TicketState.Blocked;
+            }
+            if (text == _closedStatus)
+            {
+                return Filter.TicketState.Closed;
+            }
+            return Filter.TicketState.All;
+        }
+
+        public List<Ticket> Apply()
+        {
+            return _filter.Apply(_model);
         }
     }
 }
