@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TicketModel;
+using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TinyTicketSystem
@@ -77,14 +78,40 @@ namespace TinyTicketSystem
             }
         }
 
+        private string TitleText
+        {
+            get
+            {
+                return _titleTB.ForeColor == SystemColors.InactiveCaption ? "" : _titleTB.Text;
+            }
+
+            set
+            {
+                if (value == "")
+                {
+                    _titleTB.ForeColor = SystemColors.InactiveCaption;
+                    _titleTB.Text = _titleEmptyText;
+                }
+                else
+                {
+                    _titleTB.ForeColor = SystemColors.ControlText;
+                    _titleTB.Text = value;
+                }
+            }
+        }
+
         public void EnterTitle()
         {
-
+            if (_titleTB.ForeColor == SystemColors.InactiveCaption)
+            {
+                _titleTB.ForeColor = SystemColors.ControlText;
+                _titleTB.Text = "";
+            }
         }
 
         public void LeaveTitle()
         {
-
+            TitleText = _titleTB.Text;
         }
 
         public bool OnUpdate()
@@ -94,6 +121,16 @@ namespace TinyTicketSystem
             if (_filter.State != currentState)
             {
                 _filter.State = currentState;
+                result = true;
+            }
+            if (_filter.Title != TitleText)
+            {
+                _filter.Title = TitleText;
+                result = true;
+            }
+            if (_filter.Tag != _tagCB.Text)
+            {
+                _filter.Tag = _tagCB.Text;
                 result = true;
             }
             return result;
