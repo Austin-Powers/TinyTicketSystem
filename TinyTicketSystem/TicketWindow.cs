@@ -32,9 +32,14 @@ namespace TinyTicketSystem
 
 		private string _newTicket = "ticket_new_ticket";
 
-		private string _detailsEmpty = "ticket_details_empty";
+		private string _addTicket = "ticket_add_ticket";
+        
+		private string _removeTicket = "ticket_remove";
 
-		Localisation _localisation;
+        private string _detailsEmpty = "ticket_details_empty";
+
+
+        Localisation _localisation;
 
         public TicketWindow(Model model, uint ticketID, Localisation localisation)
 		{
@@ -46,15 +51,20 @@ namespace TinyTicketSystem
             _statusClose = localisation.Get(_statusClose);
             _titleEmpty = localisation.Get(_titleEmpty);
             _newTicket = localisation.Get(_newTicket);
+            _addTicket = localisation.Get(_addTicket);
+            _removeTicket = localisation.Get(_removeTicket);
             _detailsEmpty = localisation.Get(_detailsEmpty);
-
             blockingTicketsListBox.ContextMenuStrip = blockingIdsCMS;
             tagsListBox.ContextMenuStrip = tagsCMS;
 			newTagTextBox.Text = _tagEmpty;
 			newTagTextBox.ForeColor = SystemColors.InactiveCaption;
+			newTicketToolStripMenuItem.Text = _newTicket;
+			addTicketToolStripMenuItem.Text = _addTicket;
+			removeTagTSMI.Text = _removeTicket;
+			removeTicketTSMI.Text = _removeTicket;
 
-			removeTicketTSMI.ShortcutKeys = Keys.Delete;
 			removeTagTSMI.ShortcutKeys = Keys.Delete;
+            removeTicketTSMI.ShortcutKeys = Keys.Delete;
 
 			// Load Ticket
 			_model = model;
