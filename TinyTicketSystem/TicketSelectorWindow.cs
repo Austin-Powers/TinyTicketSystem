@@ -28,8 +28,8 @@ namespace TinyTicketSystem
 			InitializeComponent();
             _alreadyBlockingTickets = alreadyBlockingTickets;
             _filterController = new FilterController(model, localisation, statusFilterTSCB, titleFilterTSTB, tagFilterTSCB);
-            Text = localisation.Get("selector_title");
-			addButton.Text = localisation.Get("selector_add");
+            Text = localisation.Selector.Title;
+			addButton.Text = localisation.Selector.Add;
             UpdateList();
         }
 

@@ -110,12 +110,27 @@ namespace TinyTicketSystem
         }
         public MainLocalisation Main { get; private set; }
         #endregion
+        #region SelectorLocalisation
+        public class SelectorLocalisation
+        {
+            public string Add { get; private set; }
+            public string Title { get; private set; }
+
+            public SelectorLocalisation(ResourceManager rm)
+            {
+                Add = rm.GetString("selector_add");
+                Title = rm.GetString("selector_title");
+            }
+        }
+        public SelectorLocalisation Selector { get; private set; }
+        #endregion
 
         public Localisation()
         {
             var rm = new ResourceManager("TinyTicketSystem.TinyTicketSystem", typeof(Localisation).Assembly);
             Filter = new FilterLocalisation(rm);
             Main = new MainLocalisation(rm);
+            Selector = new SelectorLocalisation(rm);
         }
 
         /// <summary>
