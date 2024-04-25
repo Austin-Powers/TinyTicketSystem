@@ -124,6 +124,34 @@ namespace TinyTicketSystem
         }
         public SelectorLocalisation Selector { get; private set; }
         #endregion
+        #region TicketLocalisation
+        public class TicketLocalisation
+        {
+            public string AddTicket { get; private set; }
+            public string DetailsEmpty { get; private set; }
+            public string NewTicket { get; private set; }
+            public string Remove { get; private set; }
+            public string StatusBlocked { get; private set; }
+            public string StatusClose { get; private set; }
+            public string StatusReopen { get; private set; }
+            public string TagEmpty { get; private set; }
+            public string TitleEmpty { get; private set; }
+
+            public TicketLocalisation(ResourceManager rm)
+            {
+                AddTicket = rm.GetString("ticket_add_ticket");
+                DetailsEmpty = rm.GetString("ticket_details_empty");
+                NewTicket = rm.GetString("ticket_new_ticket");
+                Remove = rm.GetString("ticket_remove");
+                StatusBlocked = rm.GetString("ticket_status_blocked");
+                StatusClose = rm.GetString("ticket_status_close");
+                StatusReopen = rm.GetString("ticket_status_reopen");
+                TagEmpty = rm.GetString("ticket_tag_empty");
+                TitleEmpty = rm.GetString("ticket_title_empty");
+            }
+        }
+        public TicketLocalisation TicketLoc { get; private set; }
+        #endregion
 
         public Localisation()
         {
@@ -131,6 +159,7 @@ namespace TinyTicketSystem
             Filter = new FilterLocalisation(rm);
             Main = new MainLocalisation(rm);
             Selector = new SelectorLocalisation(rm);
+            TicketLoc = new TicketLocalisation(rm);
         }
 
         /// <summary>

@@ -20,55 +20,29 @@ namespace TinyTicketSystem
 
 		private readonly Ticket _ticket;
 
-		private string _tagEmpty = "ticket_tag_empty";
-
-		private string _statusBlocked = "ticket_status_blocked";
-
-		private string _statusReopen = "ticket_status_reopen";
-
-		private string _statusClose = "ticket_status_close";
-
-		private string _titleEmpty = "ticket_title_empty";
-
-		private string _newTicket = "ticket_new_ticket";
-
-		private string _addTicket = "ticket_add_ticket";
-        
-		private string _removeTicket = "ticket_remove";
-
-        private string _detailsEmpty = "ticket_details_empty";
-
-
-        Localisation _localisation;
+        private readonly Localisation _localisation;
+        private readonly Localisation.TicketLocalisation _myLocalisation;
 
         public TicketWindow(Model model, uint ticketID, Localisation localisation)
 		{
 			// WinForms setup
 			InitializeComponent();
-			_tagEmpty = localisation.Get(_tagEmpty);
-            _statusBlocked = localisation.Get(_statusBlocked);
-            _statusReopen = localisation.Get(_statusReopen);
-            _statusClose = localisation.Get(_statusClose);
-            _titleEmpty = localisation.Get(_titleEmpty);
-            _newTicket = localisation.Get(_newTicket);
-            _addTicket = localisation.Get(_addTicket);
-            _removeTicket = localisation.Get(_removeTicket);
-            _detailsEmpty = localisation.Get(_detailsEmpty);
+			_localisation = localisation;
+			_myLocalisation = _localisation.TicketLoc;
             blockingTicketsListBox.ContextMenuStrip = blockingIdsCMS;
             tagsListBox.ContextMenuStrip = tagsCMS;
-			newTagTextBox.Text = _tagEmpty;
+			newTagTextBox.Text = _myLocalisation.TagEmpty;
 			newTagTextBox.ForeColor = SystemColors.InactiveCaption;
-			newTicketToolStripMenuItem.Text = _newTicket;
-			addTicketToolStripMenuItem.Text = _addTicket;
-			removeTagTSMI.Text = _removeTicket;
-			removeTicketTSMI.Text = _removeTicket;
+			newTicketToolStripMenuItem.Text = _myLocalisation.NewTicket;
+			addTicketToolStripMenuItem.Text = _myLocalisation.AddTicket;
+			removeTagTSMI.Text = _myLocalisation.Remove;
+			removeTicketTSMI.Text = _myLocalisation.Remove;
 
 			removeTagTSMI.ShortcutKeys = Keys.Delete;
             removeTicketTSMI.ShortcutKeys = Keys.Delete;
 
 			// Load Ticket
 			_model = model;
-			_localisation = localisation;
 			_ticket = _model.GetTicket(ticketID);
 
 			TitleText = _ticket.Title;
@@ -99,7 +73,7 @@ namespace TinyTicketSystem
             if (_model.IsBlocked(_ticket))
             {
 				_ticket.Closed = false;
-				closeReopenButton.Text = _statusBlocked;
+				closeReopenButton.Text = _myLocalisation.StatusBlocked;
                 closeReopenButton.Enabled = false;
             }
 			else
@@ -107,11 +81,11 @@ namespace TinyTicketSystem
                 closeReopenButton.Enabled = true;
 				if (_ticket.Closed)
 				{
-                    closeReopenButton.Text = _statusReopen;
+                    closeReopenButton.Text = _myLocalisation.StatusReopen;
                 }
 				else
 				{
-                    closeReopenButton.Text = _statusClose;
+                    closeReopenButton.Text = _myLocalisation.StatusClose;
                 }
             }
 		}
@@ -130,8 +104,8 @@ namespace TinyTicketSystem
 				if (value == "")
 				{
 					titleTextBox.ForeColor = SystemColors.InactiveCaption;
-					titleTextBox.Text = _titleEmpty;
-					Text = _newTicket;
+					titleTextBox.Text = _myLocalisation.TitleEmpty;
+					Text = _myLocalisation.NewTicket;
 				}
 				else
 				{
@@ -170,7 +144,7 @@ namespace TinyTicketSystem
 				if (value == "")
 				{
 					detailsTextBox.ForeColor = SystemColors.InactiveCaption;
-					detailsTextBox.Text = _detailsEmpty;
+					detailsTextBox.Text = _myLocalisation.DetailsEmpty;
 				}
 				else
 				{
