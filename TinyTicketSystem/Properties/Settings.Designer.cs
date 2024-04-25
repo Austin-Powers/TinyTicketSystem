@@ -34,5 +34,41 @@ namespace TinyTicketSystem.Properties {
                 this["TicketDirectory"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FilterStatus {
+            get {
+                return ((string)(this["FilterStatus"]));
+            }
+            set {
+                this["FilterStatus"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FilterTitle {
+            get {
+                return ((string)(this["FilterTitle"]));
+            }
+            set {
+                this["FilterTitle"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FilterTag {
+            get {
+                return ((string)(this["FilterTag"]));
+            }
+            set {
+                this["FilterTag"] = value;
+            }
+        }
     }
 }
