@@ -16,26 +16,11 @@ namespace TinyTicketSystem
     /// </summary>
     public class FilterController
     {
-        private Model _model = null;
-
-        private ToolStripComboBox _statusCB = null;
-
-        private ToolStripTextBox _titleTB = null;
-
-        private ToolStripComboBox _tagCB = null;
-
-        private string _allStatus = "filter_status_all";
-
-        private string _openStatus = "filter_status_open";
-
-        private string _blockedStatus = "filter_status_blocked";
-
-        private string _openOrBlockedStatus = "filter_status_open_or_blocked";
-
-        private string _closedStatus = "filter_status_closed";
-
-        private string _titleEmptyText = "filter_title_empty";
-
+        private readonly Model _model;
+        private readonly ToolStripComboBox _statusCB;
+        private readonly ToolStripTextBox _titleTB;
+        private readonly ToolStripComboBox _tagCB;
+        private readonly Localisation.FilterLocalisation _localisation;
         private readonly Filter _filter = new Filter();
 
         public FilterController(
@@ -49,25 +34,18 @@ namespace TinyTicketSystem
             _statusCB = statusCB;
             _titleTB = titleTB;
             _tagCB = tagCB;
-
-            // localisation
-            _allStatus = localisation.Get(_allStatus);
-            _openStatus = localisation.Get(_openStatus);
-            _openOrBlockedStatus = localisation.Get(_openOrBlockedStatus);
-            _blockedStatus = localisation.Get(_blockedStatus);
-            _closedStatus = localisation.Get(_closedStatus);
-            _titleEmptyText = localisation.Get(_titleEmptyText);
+            _localisation = localisation.Filter;
 
             // status
-            _statusCB.Text = _allStatus;
-            _statusCB.Items.Add(_allStatus);
-            _statusCB.Items.Add(_openStatus);
-            _statusCB.Items.Add(_blockedStatus);
-            _statusCB.Items.Add(_openOrBlockedStatus);
-            _statusCB.Items.Add(_closedStatus);
+            _statusCB.Text = _localisation.StatusAll;
+            _statusCB.Items.Add(_localisation.StatusAll);
+            _statusCB.Items.Add(_localisation.StatusOpen);
+            _statusCB.Items.Add(_localisation.StatusBlocked);
+            _statusCB.Items.Add(_localisation.StatusOpenOrBlocked);
+            _statusCB.Items.Add(_localisation.StatusClosed);
 
             // title
-            _titleTB.Text = _titleEmptyText;
+            _titleTB.Text = _localisation.TitleEmpty;
             _titleTB.ForeColor = SystemColors.InactiveCaption;
 
             // tag
@@ -90,7 +68,7 @@ namespace TinyTicketSystem
                 if (value == "")
                 {
                     _titleTB.ForeColor = SystemColors.InactiveCaption;
-                    _titleTB.Text = _titleEmptyText;
+                    _titleTB.Text = _localisation.TitleEmpty;
                 }
                 else
                 {
@@ -138,19 +116,19 @@ namespace TinyTicketSystem
 
         private Filter.TicketState ToTicketState(string text)
         {
-            if (text == _openStatus)
+            if (text == _localisation.StatusOpen)
             {
                 return Filter.TicketState.Open;
             }
-            if (text == _openOrBlockedStatus)
+            if (text == _localisation.StatusOpenOrBlocked)
             {
                 return Filter.TicketState.OpenOrBlocked;
             }
-            if (text == _blockedStatus)
+            if (text == _localisation.StatusBlocked)
             {
                 return Filter.TicketState.Blocked;
             }
-            if (text == _closedStatus)
+            if (text == _localisation.StatusClosed)
             {
                 return Filter.TicketState.Closed;
             }
