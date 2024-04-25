@@ -38,7 +38,7 @@ namespace TinyTicketSystem
         {
             if (_filterController != null)
             {
-                _filterController.EnterTitle();
+                _filterController.EnterTitle(sender, e);
             }
         }
 
@@ -46,28 +46,28 @@ namespace TinyTicketSystem
         {
             if (_filterController != null)
             {
-                _filterController.LeaveTitle();
+                _filterController.LeaveTitle(sender, e);
             }
         }
 
         private void statusFilterTSCB_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateFilter();
+            UpdateFilter(sender, e);
         }
 
         private void titleFilterTSTB_TextChanged(object sender, EventArgs e)
         {
-            UpdateFilter();
+            UpdateFilter(sender, e);
         }
 
         private void tagFilterTSCB_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateFilter();
+            UpdateFilter(sender, e);
         }
 
-        private void UpdateFilter()
+        private void UpdateFilter(object sender, EventArgs e)
         {
-            if ((_filterController != null) && (_filterController.OnUpdate()))
+            if ((_filterController != null) && (_filterController.FilterInputChanged(sender, e)))
             {
                 UpdateList();
             }

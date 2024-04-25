@@ -16,6 +16,8 @@ namespace TinyTicketSystem
     /// </summary>
     public class FilterController
     {
+        public event EventHandler FilterUpdated;
+
         private readonly Model _model;
         private readonly ToolStripComboBox _statusCB;
         private readonly ToolStripTextBox _titleTB;
@@ -78,7 +80,7 @@ namespace TinyTicketSystem
             }
         }
 
-        public void EnterTitle()
+        public void EnterTitle(object sender, EventArgs e)
         {
             if (_titleTB.ForeColor == SystemColors.InactiveCaption)
             {
@@ -87,12 +89,12 @@ namespace TinyTicketSystem
             }
         }
 
-        public void LeaveTitle()
+        public void LeaveTitle(object sender, EventArgs e)
         {
             TitleText = _titleTB.Text;
         }
 
-        public bool OnUpdate()
+        public bool FilterInputChanged(object sender, EventArgs e)
         {
             var result = false;
             var currentState = ToTicketState(_statusCB.Text);
