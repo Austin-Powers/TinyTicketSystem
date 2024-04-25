@@ -5,6 +5,7 @@ using System.Linq;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace TinyTicketSystem
 {
@@ -13,6 +14,9 @@ namespace TinyTicketSystem
     /// </summary>
     public class Localisation
     {
+        private static readonly string ID1 = "{1}";
+        private static readonly string ID2 = "{2}";
+
         // All users of this class should be in the same assembly
         private readonly ResourceManager _resourceManager = new ResourceManager("TinyTicketSystem.TinyTicketSystem", typeof(Localisation).Assembly);
 
@@ -38,11 +42,80 @@ namespace TinyTicketSystem
         }
         public FilterLocalisation Filter { get; private set; }
         #endregion
+        #region MainLocalisation
+        public class MainLocalisation
+        {
+            private string _deleteConfirm;
+            private string _deleteError;
+            private string _dirError;
+            private string _editClose;
+            private string _editOpen;
+            private string _loadFailure;
+            private string _loadSuccess;
+            private string _newError;
+
+            public string DeleteConfirm(object ticket) { return _deleteConfirm.Replace(ID1, ticket.ToString()); }
+            public string DeleteError(string errorMesssage) { return _deleteError.Replace(ID1, errorMesssage); }
+            public string DeleteQuestion {  get; private set; }
+            public string DirError(string errorMessage) { return _dirError.Replace(ID1, errorMessage); }
+            public string EditClose(object ticket) { return _editClose.Replace(ID1, ticket.ToString()); }
+            public string EditOpen(object ticket) { return _editOpen.Replace(ID1, ticket.ToString()); }
+            public string File {  get; private set; }
+            public string FileDeleteTicket {  get; private set; }
+            public string FileNewTicket {  get; private set; }
+            public string FileRefresh {  get; private set; }
+            public string FileSetTicketDir {  get; private set; }
+            public string LoadFailure(string dir,  string errorMessage) { return _loadFailure.Replace(ID1, dir).Replace(ID2, errorMessage); }
+            public string LoadSuccess(string dir) { return _loadSuccess.Replace(ID1, dir); }
+            public string NewTicketCreated { get; private set; }
+            public string NewTicketDiscarded { get; private set; }
+            public string NewTicketError(string errorMessage) { return _newError.Replace(ID1, errorMessage); }
+            public string TableBlocked { get; private set; }
+            public string TableClosed { get; private set; }
+            public string TableID { get; private set; }
+            public string TableLastChanged { get; private set; }
+            public string TableOpen { get; private set; }
+            public string TableStatus { get; private set; }
+            public string TableTags { get; private set; }
+            public string TableTitle { get; private set; }
+
+            public MainLocalisation(ResourceManager rm)
+            {
+                _deleteConfirm = rm.GetString("main_delete_confirm");
+                _deleteError = rm.GetString("main_delete_error");
+                _dirError = rm.GetString("main_dir_error");
+                _editClose = rm.GetString("main_edit_close");
+                _editOpen = rm.GetString("main_edit_open");
+                _loadFailure = rm.GetString("main_load_failure");
+                _loadSuccess = rm.GetString("main_load_success");
+                _newError = rm.GetString("main_new_error");
+
+                DeleteQuestion = rm.GetString("main_delete_question");
+                File = rm.GetString("main_file");
+                FileDeleteTicket = rm.GetString("main_file_delete_ticket");
+                FileNewTicket = rm.GetString("main_file_new_ticket");
+                FileRefresh = rm.GetString("main_file_refresh");
+                FileSetTicketDir = rm.GetString("main_file_set_ticket_dir");
+                NewTicketCreated = rm.GetString("main_new_created");
+                NewTicketDiscarded = rm.GetString("main_new_discarded");
+                TableBlocked = rm.GetString("main_table_blocked");
+                TableClosed = rm.GetString("main_table_closed");
+                TableID = rm.GetString("main_table_id");
+                TableLastChanged = rm.GetString("main_table_last_changed");
+                TableOpen = rm.GetString("main_table_open");
+                TableStatus = rm.GetString("main_table_status");
+                TableTags = rm.GetString("main_table_tags");
+                TableTitle = rm.GetString("main_table_title");
+            }
+        }
+        public MainLocalisation Main { get; private set; }
+        #endregion
 
         public Localisation()
         {
             var rm = new ResourceManager("TinyTicketSystem.TinyTicketSystem", typeof(Localisation).Assembly);
             Filter = new FilterLocalisation(rm);
+            Main = new MainLocalisation(rm);
         }
 
         /// <summary>

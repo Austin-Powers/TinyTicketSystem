@@ -183,9 +183,6 @@
   <data name="main_new_error" xml:space="preserve">
     <value>Error during creation of new Ticket: {1}</value>
   </data>
-  <data name="main_status_ready" xml:space="preserve">
-    <value>Ready</value>
-  </data>
   <data name="main_table_blocked" xml:space="preserve">
     <value>Blocked</value>
   </data>

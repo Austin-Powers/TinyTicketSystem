@@ -22,16 +22,16 @@ namespace TinyTicketSystem
 		public MainWindow()
 		{
 			InitializeComponent();
-			fileToolStripMenuItem.Text = _localisation.Get("main_file");
-			newTicketToolStripMenuItem.Text = _localisation.Get("main_file_new_ticket");
-			deleteTicketToolStripMenuItem.Text = _localisation.Get("main_file_delete_ticket");
-			setTicketDirectoryToolStripMenuItem.Text = _localisation.Get("main_file_set_ticket_dir");
-			refreshToolStripMenuItem.Text = _localisation.Get("main_file_refresh");
-			dataGridView.Columns[0].HeaderCell.Value = _localisation.Get("main_table_id");
-			dataGridView.Columns[1].HeaderCell.Value = _localisation.Get("main_table_title");
-			dataGridView.Columns[2].HeaderCell.Value = _localisation.Get("main_table_last_changed");
-			dataGridView.Columns[3].HeaderCell.Value = _localisation.Get("main_table_status");
-			dataGridView.Columns[4].HeaderCell.Value = _localisation.Get("main_table_tags");
+			fileToolStripMenuItem.Text = _localisation.Main.File;
+			newTicketToolStripMenuItem.Text = _localisation.Main.FileNewTicket;
+			deleteTicketToolStripMenuItem.Text = _localisation.Main.FileDeleteTicket;
+			setTicketDirectoryToolStripMenuItem.Text = _localisation.Main.FileSetTicketDir;
+			refreshToolStripMenuItem.Text = _localisation.Main.FileRefresh;
+			dataGridView.Columns[0].HeaderCell.Value = _localisation.Main.TableID;
+			dataGridView.Columns[1].HeaderCell.Value = _localisation.Main.TableTitle;
+			dataGridView.Columns[2].HeaderCell.Value = _localisation.Main.TableLastChanged;
+			dataGridView.Columns[3].HeaderCell.Value = _localisation.Main.TableStatus;
+			dataGridView.Columns[4].HeaderCell.Value = _localisation.Main.TableTags;
 
             newTicketToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.N;
 			deleteTicketToolStripMenuItem.ShortcutKeys = Keys.Delete;
@@ -51,18 +51,18 @@ namespace TinyTicketSystem
 					ticketView.ShowDialog(this);
 					if (_model.RemoveTicketIfEmpty(id))
 					{
-						DisplayInfo(_localisation.Get("main_new_discarded"));
+						DisplayInfo(_localisation.Main.NewTicketDiscarded);
 					}
 					else
 					{
-						DisplayInfo(_localisation.Get("main_new_created"));
+						DisplayInfo(_localisation.Main.NewTicketCreated);
 					}
 					UpdateTable();
 				}
 			}
 			catch (Exception ex)
 			{
-				DisplayError(_localisation.Get("main_new_error", ex.Message));
+				DisplayError(_localisation.Main.NewTicketError(ex.Message));
             }
 		}
 
@@ -74,8 +74,8 @@ namespace TinyTicketSystem
 				var selectedTicketNumber = dataGridView.Rows[selectedTicketIndex].Cells[0].Value;
 
 				var result = MessageBox.Show(
-					_localisation.Get("main_delete_confirm",
-					selectedTicketNumber), _localisation.Get("main_delete_question"),
+					_localisation.Main.DeleteConfirm(selectedTicketNumber),
+					_localisation.Main.DeleteQuestion,
 					MessageBoxButtons.YesNo);
 				if (result == DialogResult.Yes)
 				{
@@ -85,7 +85,7 @@ namespace TinyTicketSystem
 			}
 			catch (Exception ex)
 			{
-				DisplayError(_localisation.Get("main_delete_error", ex.Message));
+				DisplayError(_localisation.Main.DeleteError(ex.Message));
 			}
 		}
 
@@ -103,7 +103,7 @@ namespace TinyTicketSystem
 			}
 			catch (Exception ex)
 			{
-                DisplayError(_localisation.Get("main_dir_error", ex.Message));
+                DisplayError(_localisation.Main.DirError(ex.Message));
             }
 		}
 
@@ -159,10 +159,10 @@ namespace TinyTicketSystem
 			if (e.RowIndex >= 0)
 			{
 				var ticketNumber = dataGridView.Rows[e.RowIndex].Cells[0].Value;
-				DisplayInfo(_localisation.Get("main_edit_open", ticketNumber));
+				DisplayInfo(_localisation.Main.EditOpen(ticketNumber));
 				var ticketView = new TicketWindow(_model, Convert.ToUInt32(ticketNumber), _localisation);
 				ticketView.ShowDialog(this);
-				DisplayInfo(_localisation.Get("main_edit_close", ticketNumber));
+				DisplayInfo(_localisation.Main.EditClose(ticketNumber));
 				UpdateTable();
 			}
         }
@@ -175,14 +175,14 @@ namespace TinyTicketSystem
 				_filterController = new FilterController(_model, _localisation, statusFilterTSCB, titleFilterTSTB, tagFilterTSCB);
                 UpdateTable();
                 newTicketToolStripMenuItem.Enabled = true;
-				DisplayInfo(_localisation.Get("main_load_success", Properties.Settings.Default.TicketDirectory));
+				DisplayInfo(_localisation.Main.LoadSuccess(Properties.Settings.Default.TicketDirectory));
             }
             catch (Exception ex)
 			{
 				_model = null;
 				dataGridView.Rows.Clear();
                 newTicketToolStripMenuItem.Enabled = false;
-				DisplayError(_localisation.Get("main_load_failure", Properties.Settings.Default.TicketDirectory, ex.Message));
+				DisplayError(_localisation.Main.LoadFailure(Properties.Settings.Default.TicketDirectory, ex.Message));
             }
         }
 
@@ -224,17 +224,17 @@ namespace TinyTicketSystem
             if (_model.IsBlocked(ticket))
 			{
                 statusCell.Style.ForeColor = Color.Red;
-                statusCell.Value = _localisation.Get("main_table_blocked");
+                statusCell.Value = _localisation.Main.TableBlocked;
             }
             else if (ticket.Closed)
 			{
                 statusCell.Style.ForeColor = Color.Green;
-                statusCell.Value = _localisation.Get("main_table_closed");
+                statusCell.Value = _localisation.Main.TableClosed;
             }
 			else
 			{
                 statusCell.Style.ForeColor = Color.Blue;
-                statusCell.Value = _localisation.Get("main_table_open");
+                statusCell.Value = _localisation.Main.TableOpen;
             }
 			return statusCell;
         }
