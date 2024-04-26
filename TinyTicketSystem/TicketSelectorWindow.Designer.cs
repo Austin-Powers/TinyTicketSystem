@@ -73,22 +73,17 @@
             // 
             this.statusFilterTSCB.Name = "statusFilterTSCB";
             this.statusFilterTSCB.Size = new System.Drawing.Size(121, 23);
-            this.statusFilterTSCB.SelectedIndexChanged += new System.EventHandler(this.statusFilterTSCB_SelectedIndexChanged);
             // 
             // titleFilterTSTB
             // 
             this.titleFilterTSTB.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.titleFilterTSTB.Name = "titleFilterTSTB";
             this.titleFilterTSTB.Size = new System.Drawing.Size(150, 23);
-            this.titleFilterTSTB.Enter += new System.EventHandler(this.titleFilterTSTB_Enter);
-            this.titleFilterTSTB.Leave += new System.EventHandler(this.titleFilterTSTB_Leave);
-            this.titleFilterTSTB.TextChanged += new System.EventHandler(this.titleFilterTSTB_TextChanged);
             // 
             // tagFilterTSCB
             // 
             this.tagFilterTSCB.Name = "tagFilterTSCB";
             this.tagFilterTSCB.Size = new System.Drawing.Size(121, 23);
-            this.tagFilterTSCB.SelectedIndexChanged += new System.EventHandler(this.tagFilterTSCB_SelectedIndexChanged);
             // 
             // TicketSelectorWindow
             // 

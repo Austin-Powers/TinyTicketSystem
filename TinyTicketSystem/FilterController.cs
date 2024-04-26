@@ -45,10 +45,14 @@ namespace TinyTicketSystem
             _statusCB.Items.Add(_localisation.StatusBlocked);
             _statusCB.Items.Add(_localisation.StatusOpenOrBlocked);
             _statusCB.Items.Add(_localisation.StatusClosed);
+            _statusCB.SelectedIndexChanged += new EventHandler(FilterInputChanged);
 
             // title
             _titleTB.Text = _localisation.TitleEmpty;
             _titleTB.ForeColor = SystemColors.InactiveCaption;
+            _titleTB.TextChanged += new EventHandler(FilterInputChanged);
+            _titleTB.Enter += new EventHandler(EnterTitle);
+            _titleTB.Leave += new EventHandler(LeaveTitle);
 
             // tag
             _tagCB.Items.Add("");
@@ -56,6 +60,7 @@ namespace TinyTicketSystem
             {
                 _tagCB.Items.Add(tag);
             }
+            _tagCB.SelectedIndexChanged += new EventHandler(FilterInputChanged);
         }
 
         private string TitleText
@@ -94,7 +99,7 @@ namespace TinyTicketSystem
             TitleText = _titleTB.Text;
         }
 
-        public bool FilterInputChanged(object sender, EventArgs e)
+        public void FilterInputChanged(object sender, EventArgs e)
         {
             var result = false;
             var currentState = ToTicketState(_statusCB.Text);
@@ -113,7 +118,10 @@ namespace TinyTicketSystem
                 _filter.Tag = _tagCB.Text;
                 result = true;
             }
-            return result;
+            if (result)
+            {
+                FilterUpdated?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         private Filter.TicketState ToTicketState(string text)

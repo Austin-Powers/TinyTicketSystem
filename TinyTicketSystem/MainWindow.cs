@@ -112,46 +112,10 @@ namespace TinyTicketSystem
 			CreateModel();
 		}
 
-        #region Filter
-        private void titleFilterTSTB_Enter(object sender, EventArgs e)
-        {
-			if (_filterController != null)
-			{
-				_filterController.EnterTitle(sender, e);
-			}
-        }
-
-        private void titleFilterTSTB_Leave(object sender, EventArgs e)
-        {
-            if (_filterController != null)
-            {
-                _filterController.LeaveTitle(sender, e);
-            }
-        }
-
-        private void statusFilterTSCB_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateFilter(sender, e);
-        }
-
-        private void titleFilterTSTB_TextChanged(object sender, EventArgs e)
-        {
-            UpdateFilter(sender, e);
-        }
-
-        private void tagFilterTSCB_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateFilter(sender, e);
-        }
-
-		private void UpdateFilter(object sender, EventArgs e)
+		private void FilterUpdated(object sender, EventArgs e)
 		{
-            if ((_filterController != null) && (_filterController.FilterInputChanged(sender, e)))
-            {
-                UpdateTable();
-            }
+            UpdateTable();
         }
-        #endregion
         #endregion
 
         private void DataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -173,6 +137,7 @@ namespace TinyTicketSystem
 			{
                 _model = new Model(Properties.Settings.Default.TicketDirectory);
 				_filterController = new FilterController(_model, _localisation, statusFilterTSCB, titleFilterTSTB, tagFilterTSCB);
+				_filterController.FilterUpdated += new EventHandler(FilterUpdated);
                 UpdateTable();
                 newTicketToolStripMenuItem.Enabled = true;
 				DisplayInfo(_localisation.Main.LoadSuccess(Properties.Settings.Default.TicketDirectory));
