@@ -62,14 +62,32 @@ namespace TinyTicketSystem
             _resetMI.Text = _localisation.Reset;
             _resetMI.Click += new EventHandler(ResetClicked);
         }
+        #region FilterAttributes
+        public string Status
+        {
+            get
+            {
+                return _filter.Status.ToString();
+            }
+            set
+            {
+                if (Enum.TryParse(value, true, out Filter.TicketStatus status))
+                {
+                    _filter.Status = status;
+                }
+            }
+        }
+        public string Title { get { return _filter.Title; } set { _filter.Title = value; } }
+        public string Tag { get { return _filter.Tag; } set { _filter.Tag = value; } }
+        #endregion
 
         public void FilterInputChanged(object sender, EventArgs e)
         {
             var result = false;
-            var currentState = ToTicketState(_statusCB.Text);
-            if (_filter.State != currentState)
+            var currentStatus = ToTicketStatus(_statusCB.Text);
+            if (_filter.Status != currentStatus)
             {
-                _filter.State = currentState;
+                _filter.Status = currentStatus;
                 result = true;
             }
             if (_filter.Title != _titleText.Text)
@@ -91,7 +109,7 @@ namespace TinyTicketSystem
         private void ResetClicked(object sender, EventArgs e)
         {
             // Set the filter before updating UI so FilterInputChaned does not call FilterUpdated 3 times
-            _filter.State = Filter.TicketState.All;
+            _filter.Status = Filter.TicketStatus.All;
             _filter.Title = "";
             _filter.Tag = "";
             _statusCB.Text = _localisation.StatusAll;
@@ -101,25 +119,25 @@ namespace TinyTicketSystem
             FilterUpdated?.Invoke(this, EventArgs.Empty);
         }
 
-        private Filter.TicketState ToTicketState(string text)
+        private Filter.TicketStatus ToTicketStatus(string text)
         {
             if (text == _localisation.StatusOpen)
             {
-                return Filter.TicketState.Open;
+                return Filter.TicketStatus.Open;
             }
             if (text == _localisation.StatusOpenOrBlocked)
             {
-                return Filter.TicketState.OpenOrBlocked;
+                return Filter.TicketStatus.OpenOrBlocked;
             }
             if (text == _localisation.StatusBlocked)
             {
-                return Filter.TicketState.Blocked;
+                return Filter.TicketStatus.Blocked;
             }
             if (text == _localisation.StatusClosed)
             {
-                return Filter.TicketState.Closed;
+                return Filter.TicketStatus.Closed;
             }
-            return Filter.TicketState.All;
+            return Filter.TicketStatus.All;
         }
 
         public List<Ticket> Apply()

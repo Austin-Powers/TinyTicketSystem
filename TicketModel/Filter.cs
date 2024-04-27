@@ -12,7 +12,7 @@ namespace TicketModel
         /// <summary>
         /// Enumerates all possible states of a ticket.
         /// </summary>
-        public enum TicketState
+        public enum TicketStatus
         {
             All,
             Open,
@@ -27,9 +27,9 @@ namespace TicketModel
         public Filter() { }
 
         /// <summary>
-        /// The ticket state to filter for.
+        /// The ticket status to filter for.
         /// </summary>
-        public TicketState State { get; set; }
+        public TicketStatus Status { get; set; }
 
         /// <summary>
         /// The title string to filter for.
@@ -54,18 +54,18 @@ namespace TicketModel
                 var ticket = model.GetTicket(id);
                 result.Add(ticket);
             }
-            switch (State)
+            switch (Status)
             {
-                case TicketState.Open:
+                case TicketStatus.Open:
                     result = FilterOpen(model, result);
                     break;
-                case TicketState.Blocked:
+                case TicketStatus.Blocked:
                     result = FilterBlocked(model, result);
                     break;
-                case TicketState.OpenOrBlocked:
+                case TicketStatus.OpenOrBlocked:
                     result = FilterOpenOrBlocked(result);
                     break;
-                case TicketState.Closed:
+                case TicketStatus.Closed:
                     result = FilterClosed(result);
                     break;
             }

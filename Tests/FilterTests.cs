@@ -63,7 +63,7 @@ namespace Tests
         {
             // Arrange
             var sut = new Filter();
-            sut.State = Filter.TicketState.Open;
+            sut.Status = Filter.TicketStatus.Open;
 
             // Act
             var result = sut.Apply(model);
@@ -83,7 +83,7 @@ namespace Tests
         {
             // Arrange
             var sut = new Filter();
-            sut.State = Filter.TicketState.Blocked;
+            sut.Status = Filter.TicketStatus.Blocked;
 
             // Act
             var result = sut.Apply(model);
@@ -103,7 +103,7 @@ namespace Tests
         {
             // Arrange
             var sut = new Filter();
-            sut.State = Filter.TicketState.OpenOrBlocked;
+            sut.Status = Filter.TicketStatus.OpenOrBlocked;
 
             // Act
             var result = sut.Apply(model);
@@ -122,7 +122,7 @@ namespace Tests
         {
             // Arrange
             var sut = new Filter();
-            sut.State = Filter.TicketState.Closed;
+            sut.Status = Filter.TicketStatus.Closed;
 
             // Act
             var result = sut.Apply(model);
