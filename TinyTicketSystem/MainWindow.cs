@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using TicketModel;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace TinyTicketSystem
 {
@@ -137,6 +138,9 @@ namespace TinyTicketSystem
 					titleFilterTSTB,
 					tagFilterTSCB,
 					resetFilterTSMI);
+				_filterController.Status = Properties.Settings.Default.FilterStatus;
+				_filterController.Title = Properties.Settings.Default.FilterTitle;
+				_filterController.Tag = Properties.Settings.Default.FilterTag;
 				_filterController.FilterUpdated += new EventHandler(FilterUpdated);
                 UpdateTable();
                 newTicketToolStripMenuItem.Enabled = true;
@@ -217,8 +221,15 @@ namespace TinyTicketSystem
         }
 
 		private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			_model?.SaveIndex();
+        {
+            _model?.SaveIndex();
+            if (_filterController != null)
+			{
+                Properties.Settings.Default.FilterStatus = _filterController.Status;
+                Properties.Settings.Default.FilterTitle = _filterController.Title;
+                Properties.Settings.Default.FilterTag = _filterController.Tag;
+                Properties.Settings.Default.Save();
+            }
 		}
     }
 }
