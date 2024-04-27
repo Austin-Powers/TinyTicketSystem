@@ -59,6 +59,8 @@ namespace TinyTicketSystem
             _tagCB.SelectedIndexChanged += new EventHandler(FilterInputChanged);
 
             // reset
+            _resetMI.Text = _localisation.Reset;
+            _resetMI.Click += new EventHandler(ResetClicked);
         }
 
         public void FilterInputChanged(object sender, EventArgs e)
@@ -88,7 +90,15 @@ namespace TinyTicketSystem
 
         private void ResetClicked(object sender, EventArgs e)
         {
-
+            // Set the filter before updating UI so FilterInputChaned does not call FilterUpdated 3 times
+            _filter.State = Filter.TicketState.All;
+            _filter.Title = "";
+            _filter.Tag = "";
+            _statusCB.Text = _localisation.StatusAll;
+            _titleText.Text = "";
+            _tagCB.Text = "";
+            // As we suppressed calling FilterUpdated by FilterInputChanged we need to call it ourselfes once
+            FilterUpdated?.Invoke(this, EventArgs.Empty);
         }
 
         private Filter.TicketState ToTicketState(string text)
