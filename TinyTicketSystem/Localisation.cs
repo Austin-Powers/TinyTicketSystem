@@ -16,6 +16,7 @@ namespace TinyTicketSystem
         #region FilterLocalisation
         public class FilterLocalisation
         {
+            public string Reset { get; private set; }
             public string StatusAll { get; private set; }
             public string StatusBlocked { get; private set; }
             public string StatusClosed { get; private set; }
@@ -25,6 +26,7 @@ namespace TinyTicketSystem
 
             public FilterLocalisation(ResourceManager rm)
             {
+                Reset = rm.GetString("filter_reset");
                 StatusAll = rm.GetString("filter_status_all");
                 StatusBlocked = rm.GetString("filter_status_blocked");
                 StatusClosed = rm.GetString("filter_status_closed");
