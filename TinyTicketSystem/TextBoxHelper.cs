@@ -87,22 +87,24 @@ namespace TinyTicketSystem
         private readonly string _defaultText;
         private readonly TextBoxAdapter _textBox;
 
-        public TextBoxHelper(TextBox textBox, string defaultText)
+        public TextBoxHelper(TextBox textBox, string defaultText, string initialText = "")
         {
             textBox.Enter += new EventHandler(EnterTextBox);
             textBox.Leave += new EventHandler(LeaveTextBox);
             textBox.TextChanged += new EventHandler(TextBoxContentChanged);
             _textBox = new TextBoxAdapter(textBox);
             _defaultText = defaultText;
+            Text = initialText;
         }
 
-        public TextBoxHelper(ToolStripTextBox textBox, string defaultText)
+        public TextBoxHelper(ToolStripTextBox textBox, string defaultText, string initialText = "")
         {
             textBox.Enter += new EventHandler(EnterTextBox);
             textBox.Leave += new EventHandler(LeaveTextBox);
             textBox.TextChanged += new EventHandler(TextBoxContentChanged);
             _textBox = new TextBoxAdapter(textBox);
             _defaultText = defaultText;
+            Text = initialText;
         }
 
         private void EnterTextBox(object sender, EventArgs e)

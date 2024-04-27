@@ -18,6 +18,7 @@ namespace TinyTicketSystem
         private readonly ToolStripTextBox _titleTB;
         private readonly ToolStripComboBox _tagCB;
         private readonly Localisation.FilterLocalisation _localisation;
+        private readonly TextBoxHelper _titleText;
         private readonly Filter _filter = new Filter();
 
         public FilterController(
@@ -43,11 +44,8 @@ namespace TinyTicketSystem
             _statusCB.SelectedIndexChanged += new EventHandler(FilterInputChanged);
 
             // title
-            _titleTB.Text = _localisation.TitleEmpty;
-            _titleTB.ForeColor = SystemColors.InactiveCaption;
-            _titleTB.TextChanged += new EventHandler(FilterInputChanged);
-            _titleTB.Enter += new EventHandler(EnterTitle);
-            _titleTB.Leave += new EventHandler(LeaveTitle);
+            _titleText = new TextBoxHelper(_titleTB, _localisation.TitleEmpty);
+            _titleText.TextChanged += new EventHandler(FilterInputChanged);
 
             // tag
             _tagCB.Items.Add("");
@@ -56,42 +54,6 @@ namespace TinyTicketSystem
                 _tagCB.Items.Add(tag);
             }
             _tagCB.SelectedIndexChanged += new EventHandler(FilterInputChanged);
-        }
-
-        private string TitleText
-        {
-            get
-            {
-                return _titleTB.ForeColor == SystemColors.InactiveCaption ? "" : _titleTB.Text;
-            }
-
-            set
-            {
-                if (value == "")
-                {
-                    _titleTB.ForeColor = SystemColors.InactiveCaption;
-                    _titleTB.Text = _localisation.TitleEmpty;
-                }
-                else
-                {
-                    _titleTB.ForeColor = SystemColors.ControlText;
-                    _titleTB.Text = value;
-                }
-            }
-        }
-
-        public void EnterTitle(object sender, EventArgs e)
-        {
-            if (_titleTB.ForeColor == SystemColors.InactiveCaption)
-            {
-                _titleTB.ForeColor = SystemColors.ControlText;
-                _titleTB.Text = "";
-            }
-        }
-
-        public void LeaveTitle(object sender, EventArgs e)
-        {
-            TitleText = _titleTB.Text;
         }
 
         public void FilterInputChanged(object sender, EventArgs e)
@@ -103,9 +65,9 @@ namespace TinyTicketSystem
                 _filter.State = currentState;
                 result = true;
             }
-            if (_filter.Title != TitleText)
+            if (_filter.Title != _titleText.Text)
             {
-                _filter.Title = TitleText;
+                _filter.Title = _titleText.Text;
                 result = true;
             }
             if (_filter.Tag != _tagCB.Text)
