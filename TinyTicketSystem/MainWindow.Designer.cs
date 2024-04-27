@@ -45,6 +45,7 @@
             this.tagFilterTSCB = new System.Windows.Forms.ToolStripComboBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.resetFilterTSMI = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.menuStrip.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -115,7 +116,8 @@
             this.fileToolStripMenuItem,
             this.statusFilterTSCB,
             this.titleFilterTSTB,
-            this.tagFilterTSCB});
+            this.tagFilterTSCB,
+            this.resetFilterTSMI});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(800, 27);
@@ -193,6 +195,12 @@
             this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabel.Text = "Ready";
             // 
+            // resetFilterTSMI
+            // 
+            this.resetFilterTSMI.Name = "resetFilterTSMI";
+            this.resetFilterTSMI.Size = new System.Drawing.Size(76, 23);
+            this.resetFilterTSMI.Text = "Reset Filter";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -234,6 +242,7 @@
         private System.Windows.Forms.ToolStripComboBox statusFilterTSCB;
         private System.Windows.Forms.ToolStripTextBox titleFilterTSTB;
         private System.Windows.Forms.ToolStripComboBox tagFilterTSCB;
+        private System.Windows.Forms.ToolStripMenuItem resetFilterTSMI;
     }
 }
 

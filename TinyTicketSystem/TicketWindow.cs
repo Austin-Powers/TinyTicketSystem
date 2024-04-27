@@ -214,10 +214,6 @@ namespace TinyTicketSystem
 			}
 		}
 
-		private void NewTagTextBox_TextChanged(object sender, EventArgs e)
-		{
-        }
-
         private void RemoveTagTSMI_Click(object sender, EventArgs e)
 		{
 			var toRemove = tagsListBox.SelectedItem;
