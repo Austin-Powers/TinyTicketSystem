@@ -17,6 +17,7 @@ namespace TinyTicketSystem
         private readonly ToolStripComboBox _statusCB;
         private readonly ToolStripTextBox _titleTB;
         private readonly ToolStripComboBox _tagCB;
+        private readonly ToolStripMenuItem _resetMI;
         private readonly Localisation.FilterLocalisation _localisation;
         private readonly TextBoxHelper _titleText;
         private readonly Filter _filter = new Filter();
@@ -26,12 +27,14 @@ namespace TinyTicketSystem
             Localisation localisation,
             ToolStripComboBox statusCB,
             ToolStripTextBox titleTB,
-            ToolStripComboBox tagCB)
+            ToolStripComboBox tagCB,
+            ToolStripMenuItem resetMI)
         {
             _model = model;
             _statusCB = statusCB;
             _titleTB = titleTB;
             _tagCB = tagCB;
+            _resetMI = resetMI;
             _localisation = localisation.Filter;
 
             // status
@@ -54,6 +57,8 @@ namespace TinyTicketSystem
                 _tagCB.Items.Add(tag);
             }
             _tagCB.SelectedIndexChanged += new EventHandler(FilterInputChanged);
+
+            // reset
         }
 
         public void FilterInputChanged(object sender, EventArgs e)
@@ -79,6 +84,11 @@ namespace TinyTicketSystem
             {
                 FilterUpdated?.Invoke(this, EventArgs.Empty);
             }
+        }
+
+        private void ResetClicked(object sender, EventArgs e)
+        {
+
         }
 
         private Filter.TicketState ToTicketState(string text)

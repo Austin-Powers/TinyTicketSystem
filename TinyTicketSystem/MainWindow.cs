@@ -130,7 +130,13 @@ namespace TinyTicketSystem
 			try
 			{
                 _model = new Model(Properties.Settings.Default.TicketDirectory);
-				_filterController = new FilterController(_model, _localisation, statusFilterTSCB, titleFilterTSTB, tagFilterTSCB);
+				_filterController = new FilterController(
+					_model,
+					_localisation,
+					statusFilterTSCB,
+					titleFilterTSTB,
+					tagFilterTSCB,
+					resetFilterTSMI);
 				_filterController.FilterUpdated += new EventHandler(FilterUpdated);
                 UpdateTable();
                 newTicketToolStripMenuItem.Enabled = true;

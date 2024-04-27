@@ -27,7 +27,13 @@ namespace TinyTicketSystem
         {
 			InitializeComponent();
             _alreadyBlockingTickets = alreadyBlockingTickets;
-            _filterController = new FilterController(model, localisation, statusFilterTSCB, titleFilterTSTB, tagFilterTSCB);
+            _filterController = new FilterController(
+                model,
+                localisation,
+                statusFilterTSCB,
+                titleFilterTSTB,
+                tagFilterTSCB,
+                resetFilterTSMI);
             _filterController.FilterUpdated += new EventHandler(FilterUpdated);
             Text = localisation.Selector.Title;
 			addButton.Text = localisation.Selector.Add;
