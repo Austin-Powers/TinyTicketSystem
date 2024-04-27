@@ -9,11 +9,13 @@ namespace TinyTicketSystem
 	public partial class TicketWindow : Form
 	{
 		private readonly Model _model;
-
 		private readonly Ticket _ticket;
 
         private readonly Localisation _localisation;
         private readonly Localisation.TicketLocalisation _myLocalisation;
+
+		private readonly TextBoxHelper _titleText;
+		private readonly TextBoxHelper _detailsText;
 
         public TicketWindow(Model model, uint ticketID, Localisation localisation)
 		{
@@ -36,9 +38,10 @@ namespace TinyTicketSystem
 			// Load Ticket
 			_model = model;
 			_ticket = _model.GetTicket(ticketID);
-
-			TitleText = _ticket.Title;
-			DetailsText = _ticket.Details;
+			_titleText = new TextBoxHelper(titleTextBox, _myLocalisation.TitleEmpty, _ticket.Title);
+			_titleText.TextChanged += new EventHandler(TitleUpdated);
+			TitleUpdated(this, EventArgs.Empty);
+			_detailsText = new TextBoxHelper(detailsTextBox, _myLocalisation.DetailsEmpty, _ticket.Details);
 			BlockingTicketIDs = _ticket.BlockingTicketsIDs;
 			TicketTags = _ticket.Tags;
 			UpdateStatus();
@@ -46,8 +49,8 @@ namespace TinyTicketSystem
 
 		private void TicketWindow_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			_ticket.Title = TitleText;
-			_ticket.Details = DetailsText;
+			_ticket.Title = _titleText.Text;
+			_ticket.Details = _detailsText.Text;
 			_ticket.BlockingTicketsIDs = BlockingTicketIDs;
 			_ticket.Tags = TicketTags;
 			_ticket.CommitChanges();
@@ -84,80 +87,10 @@ namespace TinyTicketSystem
 		#endregion
 
 		#region Title
-		private string TitleText
+		private void TitleUpdated(object sender, EventArgs e)
 		{
-			get
-			{
-				return titleTextBox.ForeColor == SystemColors.InactiveCaption ? "" : titleTextBox.Text;
-			}
-
-			set
-			{
-				if (value == "")
-				{
-					titleTextBox.ForeColor = SystemColors.InactiveCaption;
-					titleTextBox.Text = _myLocalisation.TitleEmpty;
-					Text = _myLocalisation.NewTicket;
-				}
-				else
-				{
-					titleTextBox.ForeColor = SystemColors.ControlText;
-					titleTextBox.Text = value;
-					Text = value;
-				}
-			}
-		}
-
-		private void TitleTextBox_Enter(object sender, EventArgs e)
-		{
-			if (titleTextBox.ForeColor == SystemColors.InactiveCaption)
-			{
-				titleTextBox.ForeColor = SystemColors.ControlText;
-				titleTextBox.Text = "";
-			}
-		}
-
-		private void TitleTextBox_Leave(object sender, EventArgs e)
-		{
-			TitleText = titleTextBox.Text;
-		}
-		#endregion
-
-		#region Details
-		private string DetailsText
-		{
-			get
-			{
-				return detailsTextBox.ForeColor == SystemColors.InactiveCaption ? "" : detailsTextBox.Text;
-			}
-
-			set
-			{
-				if (value == "")
-				{
-					detailsTextBox.ForeColor = SystemColors.InactiveCaption;
-					detailsTextBox.Text = _myLocalisation.DetailsEmpty;
-				}
-				else
-				{
-					detailsTextBox.ForeColor = SystemColors.ControlText;
-					detailsTextBox.Text = value;
-				}
-			}
-		}
-
-		private void DetailsTextBox_Enter(object sender, EventArgs e)
-		{
-			if (detailsTextBox.ForeColor == SystemColors.InactiveCaption)
-			{
-				detailsTextBox.ForeColor = SystemColors.ControlText;
-				detailsTextBox.Text = "";
-			}
-		}
-
-		private void DetailsTextBox_Leave(object sender, EventArgs e)
-		{
-			DetailsText = detailsTextBox.Text;
+			var title = _titleText.Text;
+			Text = (title.Length == 0) ? _myLocalisation.NewTicket : title;
 		}
 		#endregion
 

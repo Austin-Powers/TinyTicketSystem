@@ -153,8 +153,6 @@
             this.detailsTextBox.Size = new System.Drawing.Size(519, 541);
             this.detailsTextBox.TabIndex = 1;
             this.detailsTextBox.Text = "Details";
-            this.detailsTextBox.Enter += new System.EventHandler(this.DetailsTextBox_Enter);
-            this.detailsTextBox.Leave += new System.EventHandler(this.DetailsTextBox_Leave);
             // 
             // titleTextBox
             // 
@@ -165,8 +163,6 @@
             this.titleTextBox.Size = new System.Drawing.Size(519, 20);
             this.titleTextBox.TabIndex = 0;
             this.titleTextBox.Text = "Title";
-            this.titleTextBox.Enter += new System.EventHandler(this.TitleTextBox_Enter);
-            this.titleTextBox.Leave += new System.EventHandler(this.TitleTextBox_Leave);
             // 
             // blockingIdsCMS
             // 
