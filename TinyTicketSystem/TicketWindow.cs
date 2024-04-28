@@ -142,7 +142,7 @@ namespace TinyTicketSystem
 
 		private void AddTicketToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			var selector = new TicketSelectorWindow(_model, BlockingTicketIDs, _localisation);
+			var selector = new TicketSelectorWindow(_model, _ticket.ID, BlockingTicketIDs, _localisation);
 			selector.ShowDialog(this);
 			foreach (var ticket in selector.SelectedTickets)
 			{

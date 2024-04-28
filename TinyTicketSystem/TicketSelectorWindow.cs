@@ -19,13 +19,16 @@ namespace TinyTicketSystem
         
 		private readonly List<string> selectedTickets = new List<string>();
 
+        private readonly uint _ownerID;
+
         private HashSet<uint> _alreadyBlockingTickets = null;
 
         private FilterController _filterController = null;
 
-        public TicketSelectorWindow(Model model, HashSet<uint> alreadyBlockingTickets, Localisation localisation)
+        public TicketSelectorWindow(Model model, uint ownerID, HashSet<uint> alreadyBlockingTickets, Localisation localisation)
         {
 			InitializeComponent();
+            _ownerID = ownerID;
             _alreadyBlockingTickets = alreadyBlockingTickets;
             _filterController = new FilterController(
                 model,
@@ -50,10 +53,15 @@ namespace TinyTicketSystem
             checkedListBox.Items.Clear();
             foreach (var ticket in _filterController.Apply())
             {
-                if (!_alreadyBlockingTickets.Contains(ticket.ID))
+                if (ticket.ID == _ownerID)
                 {
-                    checkedListBox.Items.Add(ticket.ToString());
+                    continue;
                 }
+                if (_alreadyBlockingTickets.Contains(ticket.ID))
+                {
+                    continue;
+                }
+                checkedListBox.Items.Add(ticket.ToString());
             }
         }
 
