@@ -175,8 +175,9 @@ namespace TinyTicketSystem
         #endregion
 
         #region Tags
+		private int _downButtons = 0;
         private HashSet<string> TicketTags
-		{
+        {
 			get
 			{
 				var list = new HashSet<string>();
@@ -203,9 +204,11 @@ namespace TinyTicketSystem
 				newTagTextBox.ForeColor = SystemColors.ControlText;
 				newTagTextBox.Text = "";
 			}
-		}
+			_downButtons = 0;
 
-		private void NewTagTextBox_Leave(object sender, EventArgs e)
+        }
+
+        private void NewTagTextBox_Leave(object sender, EventArgs e)
 		{
 			if (newTagTextBox.Text == "")
 			{
@@ -222,8 +225,6 @@ namespace TinyTicketSystem
 				tagsListBox.Items.Remove(toRemove);
 			}
         }
-
-		private int _downButtons = 0;
 
         private void NewTagTextBox_KeyDown(object sender, KeyEventArgs e)
         {
