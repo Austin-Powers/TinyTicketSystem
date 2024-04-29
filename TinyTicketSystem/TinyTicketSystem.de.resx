@@ -238,7 +238,7 @@
     <value>Wieder öffnen</value>
   </data>
   <data name="ticket_tag_empty" xml:space="preserve">
-    <value>Hier Tag eingeben, Enter zum bestätigen, Tab zum vervollständigen</value>
+    <value>Hier Tag eingeben, Enter zum bestätigen</value>
   </data>
   <data name="ticket_title_empty" xml:space="preserve">
     <value>Titel hier eingeben</value>

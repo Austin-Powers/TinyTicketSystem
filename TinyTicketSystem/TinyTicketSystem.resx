@@ -238,7 +238,7 @@
     <value>Reopen</value>
   </data>
   <data name="ticket_tag_empty" xml:space="preserve">
-    <value>Enter new tag here, Press Enter to submit, Tab for completion</value>
+    <value>Enter new tag here, Press Enter to submit</value>
   </data>
   <data name="ticket_title_empty" xml:space="preserve">
     <value>Enter the ticket title here</value>

@@ -25,8 +25,12 @@ namespace TinyTicketSystem
 			_myLocalisation = _localisation.TicketLoc;
             blockingTicketsListBox.ContextMenuStrip = blockingIdsCMS;
             tagsListBox.ContextMenuStrip = tagsCMS;
-			newTagTextBox.Text = _myLocalisation.TagEmpty;
-			newTagTextBox.ForeColor = SystemColors.InactiveCaption;
+			newTagComboBox.Text = _myLocalisation.TagEmpty;
+			newTagComboBox.ForeColor = SystemColors.InactiveCaption;
+			foreach (var tag in model.Tags)
+			{
+				newTagComboBox.Items.Add(tag);
+			}
 			newTicketToolStripMenuItem.Text = _myLocalisation.NewTicket;
 			addTicketToolStripMenuItem.Text = _myLocalisation.AddTicket;
 			removeTagTSMI.Text = _myLocalisation.Remove;
@@ -175,7 +179,6 @@ namespace TinyTicketSystem
         #endregion
 
         #region Tags
-		private int _downButtons = 0;
         private HashSet<string> TicketTags
         {
 			get
@@ -197,26 +200,6 @@ namespace TinyTicketSystem
 				}
 			}
 		}
-		private void NewTagTextBox_Enter(object sender, EventArgs e)
-		{
-			if (newTagTextBox.ForeColor == SystemColors.InactiveCaption)
-			{
-				newTagTextBox.ForeColor = SystemColors.ControlText;
-				newTagTextBox.Text = "";
-			}
-			_downButtons = 0;
-
-        }
-
-        private void NewTagTextBox_Leave(object sender, EventArgs e)
-		{
-			if (newTagTextBox.Text == "")
-			{
-				newTagTextBox.ForeColor = SystemColors.InactiveCaption;
-				newTagTextBox.Text = _localisation.Get("ticket_tag_empty");
-			}
-		}
-
         private void RemoveTagTSMI_Click(object sender, EventArgs e)
 		{
 			var toRemove = tagsListBox.SelectedItem;
@@ -226,70 +209,36 @@ namespace TinyTicketSystem
 			}
         }
 
-        private void NewTagTextBox_KeyDown(object sender, KeyEventArgs e)
+        private void newTagComboBox_Enter(object sender, EventArgs e)
         {
-			_downButtons++;
+            newTagComboBox.Text = "";
+            newTagComboBox.ForeColor = SystemColors.ControlText;
         }
 
-        private void NewTagTextBox_KeyUp(object sender, KeyEventArgs e)
+        private void newTagComboBox_Leave(object sender, EventArgs e)
         {
-			_downButtons--;
-			if (_downButtons == 0)
+            newTagComboBox.Text = _myLocalisation.TagEmpty;
+            newTagComboBox.ForeColor = SystemColors.InactiveCaption;
+        }
+        private void newTagComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+			AddTagToList(newTagComboBox.Text);
+        }
+
+        private void newTagComboBox_KeyUp(object sender, KeyEventArgs e)
+        {
+			if (e.KeyCode == Keys.Return)
 			{
-				var text = newTagTextBox.Text;
-				switch (e.KeyCode)
-				{
-					case Keys.Return:
-				        AddTagToList(text.Trim().Replace("\r", "").Replace("\n", ""));
-				        newTagTextBox.Text = "";
-				        break;
-					case Keys.Tab:
-						newTagTextBox.Text = TagAutoComplete(text.Trim());
-						newTagTextBox.SelectionStart = newTagTextBox.Text.Length;
-				        break;
-					case Keys.Delete:
-					case Keys.Back:
-					case Keys.Up: 
-					case Keys.Down:
-					case Keys.Left:
-					case Keys.Right:
-				        break;
-				    default:
-						var fill = TagAutoComplete(text);
-				        newTagTextBox.Text = fill;
-				        newTagTextBox.SelectionStart = text.Length;
-				        newTagTextBox.SelectionLength = fill.Length - text.Length;
-				        break;
-				}
-			}
-        }
-
-        private string TagAutoComplete(string text)
-		{
-            // auto completion, as the built in one does not work as expected
-            if (text.Length > 0)
-            {
-                foreach (var tag in _model.Tags)
-                {
-                    if (tag.StartsWith(text))
-                    {
-                        // skip already included ones
-                        if (tagsListBox.Items.Contains(tag))
-                        {
-                            continue;
-                        }
-						return tag;
-                    }
-                }
+                AddTagToList(newTagComboBox.Text.Trim());
+				newTagComboBox.Text = "";
             }
-			return text;
         }
 
-		/// <summary>
-		/// Adds the given tag to the list, if it is not already included.
-		/// </summary>
-		/// <param name="tag">The tag to add.</param>
-		private void AddTagToList(string tag)
+        /// <summary>
+        /// Adds the given tag to the list, if it is not already included.
+        /// </summary>
+        /// <param name="tag">The tag to add.</param>
+        private void AddTagToList(string tag)
 		{
 			if (!tagsListBox.Items.Contains(tag))
 			{

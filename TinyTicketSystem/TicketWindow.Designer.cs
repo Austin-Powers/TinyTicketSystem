@@ -32,8 +32,8 @@
             this.mainSplit = new System.Windows.Forms.SplitContainer();
             this.additionalInfoSplitContainer = new System.Windows.Forms.SplitContainer();
             this.blockingTicketsListBox = new System.Windows.Forms.ListBox();
+            this.newTagComboBox = new System.Windows.Forms.ComboBox();
             this.tagsListBox = new System.Windows.Forms.ListBox();
-            this.newTagTextBox = new System.Windows.Forms.TextBox();
             this.closeReopenButton = new System.Windows.Forms.Button();
             this.detailsTextBox = new System.Windows.Forms.TextBox();
             this.titleTextBox = new System.Windows.Forms.TextBox();
@@ -87,8 +87,8 @@
             // 
             // additionalInfoSplitContainer.Panel2
             // 
+            this.additionalInfoSplitContainer.Panel2.Controls.Add(this.newTagComboBox);
             this.additionalInfoSplitContainer.Panel2.Controls.Add(this.tagsListBox);
-            this.additionalInfoSplitContainer.Panel2.Controls.Add(this.newTagTextBox);
             this.additionalInfoSplitContainer.Size = new System.Drawing.Size(261, 535);
             this.additionalInfoSplitContainer.SplitterDistance = 246;
             this.additionalInfoSplitContainer.TabIndex = 1;
@@ -103,31 +103,28 @@
             this.blockingTicketsListBox.TabIndex = 0;
             this.blockingTicketsListBox.DoubleClick += new System.EventHandler(this.BlockingTicketsListBox_DoubleClick);
             // 
+            // newTagComboBox
+            // 
+            this.newTagComboBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.newTagComboBox.FormattingEnabled = true;
+            this.newTagComboBox.Location = new System.Drawing.Point(0, 264);
+            this.newTagComboBox.MaxDropDownItems = 16;
+            this.newTagComboBox.Name = "newTagComboBox";
+            this.newTagComboBox.Size = new System.Drawing.Size(261, 21);
+            this.newTagComboBox.TabIndex = 2;
+            this.newTagComboBox.SelectedIndexChanged += new System.EventHandler(this.newTagComboBox_SelectedIndexChanged);
+            this.newTagComboBox.Enter += new System.EventHandler(this.newTagComboBox_Enter);
+            this.newTagComboBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.newTagComboBox_KeyUp);
+            this.newTagComboBox.Leave += new System.EventHandler(this.newTagComboBox_Leave);
+            // 
             // tagsListBox
             // 
             this.tagsListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tagsListBox.FormattingEnabled = true;
             this.tagsListBox.Location = new System.Drawing.Point(0, 0);
             this.tagsListBox.Name = "tagsListBox";
-            this.tagsListBox.Size = new System.Drawing.Size(261, 265);
+            this.tagsListBox.Size = new System.Drawing.Size(261, 285);
             this.tagsListBox.TabIndex = 1;
-            // 
-            // newTagTextBox
-            // 
-            this.newTagTextBox.AcceptsReturn = true;
-            this.newTagTextBox.AcceptsTab = true;
-            this.newTagTextBox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.newTagTextBox.ForeColor = System.Drawing.SystemColors.InactiveCaption;
-            this.newTagTextBox.Location = new System.Drawing.Point(0, 265);
-            this.newTagTextBox.Multiline = true;
-            this.newTagTextBox.Name = "newTagTextBox";
-            this.newTagTextBox.Size = new System.Drawing.Size(261, 20);
-            this.newTagTextBox.TabIndex = 0;
-            this.newTagTextBox.Text = "New Tag";
-            this.newTagTextBox.Enter += new System.EventHandler(this.NewTagTextBox_Enter);
-            this.newTagTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NewTagTextBox_KeyDown);
-            this.newTagTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.NewTagTextBox_KeyUp);
-            this.newTagTextBox.Leave += new System.EventHandler(this.NewTagTextBox_Leave);
             // 
             // closeReopenButton
             // 
@@ -224,7 +221,6 @@
             this.mainSplit.ResumeLayout(false);
             this.additionalInfoSplitContainer.Panel1.ResumeLayout(false);
             this.additionalInfoSplitContainer.Panel2.ResumeLayout(false);
-            this.additionalInfoSplitContainer.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.additionalInfoSplitContainer)).EndInit();
             this.additionalInfoSplitContainer.ResumeLayout(false);
             this.blockingIdsCMS.ResumeLayout(false);
@@ -245,9 +241,9 @@
         private System.Windows.Forms.ToolStripMenuItem removeTicketTSMI;
         private System.Windows.Forms.ContextMenuStrip tagsCMS;
         private System.Windows.Forms.ToolStripMenuItem removeTagTSMI;
-        private System.Windows.Forms.TextBox newTagTextBox;
         private System.Windows.Forms.ListBox tagsListBox;
 		private System.Windows.Forms.ToolStripMenuItem newTicketToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem addTicketToolStripMenuItem;
-	}
+        private System.Windows.Forms.ComboBox newTagComboBox;
+    }
 }
