@@ -8,9 +8,10 @@ namespace TinyTicketSystem
 {
 	public partial class MainWindow : Form
 	{
-		private Model _model = null;
-
 		private readonly Localisation _localisation = new Localisation();
+		private readonly DataGridViewUpdater _dataGridUpdater;
+        
+		private Model _model = null;
 
 		private FilterController _filterController = null;
 
@@ -27,6 +28,7 @@ namespace TinyTicketSystem
 			dataGridView.Columns[2].HeaderCell.Value = _localisation.Main.TableLastChanged;
 			dataGridView.Columns[3].HeaderCell.Value = _localisation.Main.TableStatus;
 			dataGridView.Columns[4].HeaderCell.Value = _localisation.Main.TableTags;
+			_dataGridUpdater = new DataGridViewUpdater(dataGridView, _localisation);
 
             newTicketToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.N;
 			deleteTicketToolStripMenuItem.ShortcutKeys = Keys.Delete;
