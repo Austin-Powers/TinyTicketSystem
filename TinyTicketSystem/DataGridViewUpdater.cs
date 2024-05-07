@@ -58,10 +58,7 @@ namespace TinyTicketSystem
                 }
                 else
                 {
-                    row = CreateNewRow();
-                    _rows.Add(ticket.ID, row);
-                    _dataGridView.Rows.Add(row);
-                    row.Cells[0].Value = ticket.ID;
+                    row = CreateNewRow(ticket);
                 }
                 row.Cells[1].Value = ticket.Title;
                 row.Cells[2].Value = ticket.LastChanged.ToString();
@@ -89,13 +86,17 @@ namespace TinyTicketSystem
             }
         }
 
-        private DataGridViewRow CreateNewRow()
+        private DataGridViewRow CreateNewRow(Ticket ticket)
         {
             var row = new DataGridViewRow();
             for (var i = 0; i < 5; ++i)
             {
                 row.Cells.Add(new DataGridViewTextBoxCell());
             }
+            _dataGridView.Rows.Add(row);
+            row = _dataGridView.Rows[_dataGridView.Rows.Count - 1];
+            row.Cells[0].Value = ticket.ID;
+            _rows.Add(ticket.ID, row);
             return row;
         }
     }

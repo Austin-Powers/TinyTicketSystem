@@ -159,55 +159,10 @@ namespace TinyTicketSystem
 
 		private void UpdateTable()
 		{
-			dataGridView.Rows.Clear();
-			foreach(var ticket in _filterController.Apply())
+			if (_model != null)
 			{
-				var row = new DataGridViewRow();
-				row.Cells.Add(new DataGridViewTextBoxCell
-                {
-                    Value = ticket.ID
-                });
-				row.Cells.Add(new DataGridViewTextBoxCell
-                {
-                    Value = ticket.Title
-                });
-				row.Cells.Add(new DataGridViewTextBoxCell
-				{
-					Value = ticket.LastChanged.ToString()
-				});
-                row.Cells.Add(CreateStatusCellFor(ticket));
-				var tagsString = "";
-				foreach(var tag in ticket.Tags)
-				{
-					tagsString += (tag + " ");
-				}
-				row.Cells.Add(new DataGridViewTextBoxCell
-				{
-					Value = tagsString
-				});
-				dataGridView.Rows.Add(row);
-			}
-		}
-
-		private DataGridViewTextBoxCell CreateStatusCellFor(Ticket ticket)
-		{
-			var statusCell = new DataGridViewTextBoxCell();
-            if (_model.IsBlocked(ticket))
-			{
-                statusCell.Style.ForeColor = Color.Red;
-                statusCell.Value = _localisation.Main.TableBlocked;
+                _dataGridUpdater.Update(_model, _filterController.Apply());
             }
-            else if (ticket.Closed)
-			{
-                statusCell.Style.ForeColor = Color.Green;
-                statusCell.Value = _localisation.Main.TableClosed;
-            }
-			else
-			{
-                statusCell.Style.ForeColor = Color.Blue;
-                statusCell.Value = _localisation.Main.TableOpen;
-            }
-			return statusCell;
         }
 
 		private void DisplayInfo(string info)
