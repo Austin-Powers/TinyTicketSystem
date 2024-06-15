@@ -43,12 +43,14 @@
             this.statusFilterTSCB = new System.Windows.Forms.ToolStripComboBox();
             this.titleFilterTSTB = new System.Windows.Forms.ToolStripTextBox();
             this.tagFilterTSCB = new System.Windows.Forms.ToolStripComboBox();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.resetFilterTSMI = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.panel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.menuStrip.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
+            this.statusStrip.SuspendLayout();
+            this.panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView
@@ -64,10 +66,10 @@
             this.statusColumn,
             this.tagsColumn});
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(0, 27);
+            this.dataGridView.Location = new System.Drawing.Point(0, 0);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
-            this.dataGridView.Size = new System.Drawing.Size(800, 423);
+            this.dataGridView.Size = new System.Drawing.Size(800, 401);
             this.dataGridView.TabIndex = 0;
             this.dataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellDoubleClick);
             // 
@@ -179,15 +181,21 @@
             this.tagFilterTSCB.Name = "tagFilterTSCB";
             this.tagFilterTSCB.Size = new System.Drawing.Size(121, 23);
             // 
-            // statusStrip1
+            // resetFilterTSMI
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.resetFilterTSMI.Name = "resetFilterTSMI";
+            this.resetFilterTSMI.Size = new System.Drawing.Size(76, 23);
+            this.resetFilterTSMI.Text = "Reset Filter";
+            // 
+            // statusStrip
+            // 
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 428);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
-            this.statusStrip1.TabIndex = 2;
-            this.statusStrip1.Text = "statusStrip1";
+            this.statusStrip.Location = new System.Drawing.Point(0, 428);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip.TabIndex = 2;
+            this.statusStrip.Text = "statusStrip1";
             // 
             // toolStripStatusLabel
             // 
@@ -195,19 +203,22 @@
             this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabel.Text = "Ready";
             // 
-            // resetFilterTSMI
+            // panel
             // 
-            this.resetFilterTSMI.Name = "resetFilterTSMI";
-            this.resetFilterTSMI.Size = new System.Drawing.Size(76, 23);
-            this.resetFilterTSMI.Text = "Reset Filter";
+            this.panel.Controls.Add(this.dataGridView);
+            this.panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel.Location = new System.Drawing.Point(0, 27);
+            this.panel.Name = "panel";
+            this.panel.Size = new System.Drawing.Size(800, 401);
+            this.panel.TabIndex = 3;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.dataGridView);
+            this.Controls.Add(this.panel);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
             this.Name = "MainWindow";
@@ -216,8 +227,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
+            this.panel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -235,7 +247,7 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn statusColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn tagsColumn;
         private System.Windows.Forms.ToolStripMenuItem setTicketDirectoryToolStripMenuItem;
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
 		private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem deleteTicketToolStripMenuItem;
@@ -243,6 +255,7 @@
         private System.Windows.Forms.ToolStripTextBox titleFilterTSTB;
         private System.Windows.Forms.ToolStripComboBox tagFilterTSCB;
         private System.Windows.Forms.ToolStripMenuItem resetFilterTSMI;
+        private System.Windows.Forms.Panel panel;
     }
 }
 
